@@ -13,6 +13,7 @@
 		4DB3F67F2453F7AC004C8BF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */; };
 		4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */; };
 		4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */; };
+		4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,8 @@
 		4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4DB3F6832453F7B0004C8BF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4DB3F6852453F7B0004C8BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hadge.entitlements; sourceTree = "<group>"; };
+		4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +46,7 @@
 			children = (
 				4DB3F6762453F7AC004C8BF3 /* Hadge */,
 				4DB3F6752453F7AC004C8BF3 /* Products */,
+				4DB3F68C2453F7CF004C8BF3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +62,23 @@
 			isa = PBXGroup;
 			children = (
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
+				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
+				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
+				4DB3F6852453F7B0004C8BF3 /* Info.plist */,
+				4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */,
+				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
 				4DB3F6792453F7AC004C8BF3 /* SceneDelegate.swift */,
 				4DB3F67B2453F7AC004C8BF3 /* ViewController.swift */,
-				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
-				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
-				4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */,
-				4DB3F6852453F7B0004C8BF3 /* Info.plist */,
 			);
 			path = Hadge;
+			sourceTree = "<group>";
+		};
+		4DB3F68C2453F7CF004C8BF3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -284,6 +298,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hadge/Hadge.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q25LVLEHFB;
 				INFOPLIST_FILE = Hadge/Info.plist;
@@ -302,6 +317,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hadge/Hadge.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q25LVLEHFB;
 				INFOPLIST_FILE = Hadge/Info.plist;

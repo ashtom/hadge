@@ -7,14 +7,34 @@
 //
 
 import UIKit
+import HealthKit
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
 
+        let healthStore = HKHealthStore()
+        let objectTypes: Set<HKObjectType> = [
+            HKObjectType.activitySummaryType()
+        ]
+
+        healthStore.requestAuthorization(toShare: nil, read: objectTypes) { (success, error) in
+            // Do something if the user didn't allow access
+        }
+
+        let calendar = Calendar.autoupdatingCurrent
+        var dateComponents = calendar.dateComponents([ .year, .month, .day ], from: Date())
+        dateComponents.calendar = calendar
+
+        let predicate = HKQuery.predicateForActivitySummary(with: dateComponents)
+        let query = HKActivitySummaryQuery(predicate: predicate) { (query, summaries, error) in
+            guard let summaries = summaries, summaries.count > 0 else { return }
+            print(summaries.first?.description ?? "")
+        }
+
+        healthStore.execute(query)
+    }
 
 }
 
