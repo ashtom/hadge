@@ -36,4 +36,10 @@ class ViewController: UIViewController {
 //        healthStore.execute(query)
     }
 
+    @IBAction func signOut(_ sender: Any) {
+        _ = GitHub.shared().signOut()
+
+        let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
+        sceneDelegate?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController")
+    }
 }

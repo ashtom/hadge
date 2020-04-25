@@ -21,11 +21,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCi-rJ-bLz">
+                                <rect key="frame" x="178.5" y="832" width="57" height="30"/>
+                                <state key="normal" title="Sign out">
+                                    <color key="titleColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="enterToken:" destination="DbV-BA-6xV" eventType="touchUpInside" id="cRC-7B-pqh"/>
+                                    <action selector="signOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="viP-4f-s4H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="knt-V6-4fm" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Hew-qF-2PF"/>
                             <constraint firstItem="knt-V6-4fm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OnE-aa-Jef"/>
+                            <constraint firstItem="KCi-rJ-bLz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PtZ-DP-Qzh"/>
+                            <constraint firstItem="KCi-rJ-bLz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kdL-vg-eE3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
