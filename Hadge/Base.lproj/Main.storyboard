@@ -34,5 +34,55 @@
             </objects>
             <point key="canvasLocation" x="139" y="136"/>
         </scene>
+        <!--Login View Controller-->
+        <scene sceneID="7Gq-ay-wzI">
+            <objects>
+                <viewController storyboardIdentifier="LoginViewController" id="DbV-BA-6xV" customClass="LoginViewController" customModule="Events" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0FT-eh-dPC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeV-Fd-vWJ">
+                                <rect key="frame" x="57" y="420" width="300" height="56"/>
+                                <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="7wy-kz-hyi"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="E2G-IZ-neh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Continue with GitHub">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="signIn:" destination="DbV-BA-6xV" eventType="touchUpInside" id="O81-rW-TSH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mi-Cp-UPS">
+                                <rect key="frame" x="105" y="484" width="204" height="30"/>
+                                <state key="normal" title="Use a Personal Access Token ">
+                                    <color key="titleColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="enterToken:" destination="DbV-BA-6xV" eventType="touchUpInside" id="Ihb-Ao-5Vq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="HeV-Fd-vWJ" firstAttribute="centerY" secondItem="0FT-eh-dPC" secondAttribute="centerY" id="Bjn-9G-gYX"/>
+                            <constraint firstItem="0mi-Cp-UPS" firstAttribute="centerX" secondItem="HeV-Fd-vWJ" secondAttribute="centerX" id="fW5-jh-THY"/>
+                            <constraint firstItem="HeV-Fd-vWJ" firstAttribute="centerX" secondItem="0FT-eh-dPC" secondAttribute="centerX" id="gUY-0a-cBc"/>
+                            <constraint firstItem="0mi-Cp-UPS" firstAttribute="top" secondItem="HeV-Fd-vWJ" secondAttribute="bottom" constant="8" id="iC3-DS-5s5"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oCj-n4-pLU"/>
+                    </view>
+                    <connections>
+                        <outlet property="signInButton" destination="HeV-Fd-vWJ" id="cYO-hp-0Dl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Czx-0d-L0M" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-954" y="136"/>
+        </scene>
     </scenes>
 </document>

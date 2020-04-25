@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "KeychainAccess",
+        "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
+        "state": {
+          "branch": null,
+          "revision": "b920ad7df3c73189dcdd4aa05c540849b2010dbf",
+          "version": "4.1.0"
+        }
+      },
+      {
+        "package": "OctoKit",
+        "repositoryURL": "https://github.com/nerdishbynature/octokit.swift",
+        "state": {
+          "branch": null,
+          "revision": "c391cfba4d33f3f4c7d7d8fa6708970f7d30af82",
+          "version": "0.10.1"
+        }
+      },
+      {
+        "package": "RequestKit",
+        "repositoryURL": "https://github.com/nerdishbynature/RequestKit.git",
+        "state": {
+          "branch": null,
+          "revision": "fd5e9e99aada7432170366c9e95967011ce13bad",
+          "version": "2.4.0"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "2b6054efa051565954e1d2b9da831680026cd768",
+          "version": "5.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

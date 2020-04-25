@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,11 @@
 		4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */; };
 		4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */; };
 		4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */; };
+		4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77EF2454842A00554793 /* LoginViewController.swift */; };
+		4DEA77F22454843400554793 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77F12454843400554793 /* GitHub.swift */; };
+		4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F4245484A800554793 /* SwiftyJSON */; };
+		4DEA77F8245484B500554793 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F7245484B500554793 /* KeychainAccess */; };
+		4DEA77FB245484FF00554793 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77FA245484FF00554793 /* OctoKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +32,8 @@
 		4DB3F6852453F7B0004C8BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hadge.entitlements; sourceTree = "<group>"; };
 		4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		4DEA77EF2454842A00554793 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4DEA77F12454843400554793 /* GitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +41,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEA77FB245484FF00554793 /* OctoKit in Frameworks */,
+				4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */,
 				4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */,
+				4DEA77F8245484B500554793 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,8 +74,10 @@
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
 				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
 				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
+				4DEA77F12454843400554793 /* GitHub.swift */,
 				4DB3F6852453F7B0004C8BF3 /* Info.plist */,
 				4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */,
+				4DEA77EF2454842A00554793 /* LoginViewController.swift */,
 				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
 				4DB3F6792453F7AC004C8BF3 /* SceneDelegate.swift */,
 				4DB3F67B2453F7AC004C8BF3 /* ViewController.swift */,
@@ -98,6 +110,11 @@
 			dependencies = (
 			);
 			name = Hadge;
+			packageProductDependencies = (
+				4DEA77F4245484A800554793 /* SwiftyJSON */,
+				4DEA77F7245484B500554793 /* KeychainAccess */,
+				4DEA77FA245484FF00554793 /* OctoKit */,
+			);
 			productName = Hadge;
 			productReference = 4DB3F6742453F7AC004C8BF3 /* Hadge.app */;
 			productType = "com.apple.product-type.application";
@@ -126,6 +143,11 @@
 				Base,
 			);
 			mainGroup = 4DB3F66B2453F7AC004C8BF3;
+			packageReferences = (
+				4DEA77F3245484A800554793 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				4DEA77F6245484B500554793 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				4DEA77F9245484FF00554793 /* XCRemoteSwiftPackageReference "octokit" */,
+			);
 			productRefGroup = 4DB3F6752453F7AC004C8BF3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -173,6 +195,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEA77F22454843400554793 /* GitHub.swift in Sources */,
+				4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */,
 				4DB3F67C2453F7AC004C8BF3 /* ViewController.swift in Sources */,
 				4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */,
 				4DB3F67A2453F7AC004C8BF3 /* SceneDelegate.swift in Sources */,
@@ -375,6 +399,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4DEA77F3245484A800554793 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		4DEA77F6245484B500554793 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+		4DEA77F9245484FF00554793 /* XCRemoteSwiftPackageReference "octokit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4DEA77F4245484A800554793 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DEA77F3245484A800554793 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		4DEA77F7245484B500554793 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DEA77F6245484B500554793 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		4DEA77FA245484FF00554793 /* OctoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DEA77F9245484FF00554793 /* XCRemoteSwiftPackageReference "octokit" */;
+			productName = OctoKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4DB3F66C2453F7AC004C8BF3 /* Project object */;
 }
