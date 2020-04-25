@@ -19,7 +19,7 @@ class ViewController: UIViewController {
             HKObjectType.activitySummaryType()
         ]
 
-        healthStore.requestAuthorization(toShare: nil, read: objectTypes) { (success, error) in
+        healthStore.requestAuthorization(toShare: nil, read: objectTypes) { (_, _) in
             // Do something if the user didn't allow access
         }
 
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         dateComponents.calendar = calendar
 
         let predicate = HKQuery.predicateForActivitySummary(with: dateComponents)
-        let query = HKActivitySummaryQuery(predicate: predicate) { (query, summaries, error) in
+        let query = HKActivitySummaryQuery(predicate: predicate) { (_, summaries, _) in
             guard let summaries = summaries, summaries.count > 0 else { return }
             print(summaries.first?.description ?? "")
         }
@@ -37,4 +37,3 @@ class ViewController: UIViewController {
     }
 
 }
-

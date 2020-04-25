@@ -91,6 +91,7 @@
 				4DB3F6702453F7AC004C8BF3 /* Sources */,
 				4DB3F6712453F7AC004C8BF3 /* Frameworks */,
 				4DB3F6722453F7AC004C8BF3 /* Resources */,
+				4DB3F68F2453FB3C004C8BF3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -146,6 +147,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4DB3F68F2453FB3C004C8BF3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nswiftlint\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4DB3F6702453F7AC004C8BF3 /* Sources */ = {
