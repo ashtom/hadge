@@ -29,6 +29,8 @@ class ViewController: UIViewController {
                 self.loadData()
             }
         }
+
+        GitHub.shared().getRepository()
     }
 
     @IBAction func signOut(_ sender: Any) {

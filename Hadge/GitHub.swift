@@ -19,6 +19,12 @@ extension Notification.Name {
 class GitHub {
     static let sharedInstance = GitHub()
 
+    #if targetEnvironment(simulator)
+        static let defaultRepository = "health.debug"
+    #else
+        static let defaultRepository = "health"
+    #endif
+
     var configURL: URL?
     var config: TokenConfiguration?
     var oauth: OAuthConfiguration?
@@ -100,5 +106,70 @@ class GitHub {
                 os_log("Error while loading user: %@", type: .debug, error.localizedDescription)
             }
         }
+    }
+
+    func getRepository() {
+        Octokit(self.config!).repository(owner: username()!, name: "health") { response in
+            switch response {
+            case .success(let repository):
+                os_log("Repository ID: %d", type: .debug, repository.id)
+            case .failure:
+                self.createRepository()
+            }
+        }
+    }
+
+    func createRepository() {
+        let url = URL(string: "https://api.github.com/user/repos")!
+        var request = self.createRequest(url: url, httpMethod: "POST")
+        let parameters: [String: Any] = [
+            "name": GitHub.defaultRepository,
+            "private": true,
+            "auto_init": true
+        ]
+        do {
+            request.httpBody = try JSON(parameters).rawData()
+
+            self.handleRequest(request, completionHandler: { json, _, _ in
+                let responseString = json?.description
+                os_log("Repository created: %@", type: .debug, responseString!)
+            })
+        } catch {
+        }
+    }
+
+    func createRequest(url: URL, httpMethod: String) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = httpMethod
+        request.setValue("no-cache", forHTTPHeaderField: "Cache-Control")
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+
+        let loginData = String(format: "%@:%@", username()!, accessToken()!).data(using: String.Encoding.utf8)!
+        let base64LoginData = loginData.base64EncodedString()
+        request.setValue("Basic \(base64LoginData)", forHTTPHeaderField: "Authorization")
+
+        return request
+    }
+
+    func handleRequest(_ request: URLRequest, completionHandler: @escaping (JSON?, Int, Error?) -> Swift.Void) {
+        let configuration = URLSessionConfiguration.ephemeral
+        let session = URLSession(configuration: configuration)
+        let task: URLSessionDataTask = session.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                completionHandler(nil, 0, error)
+                return
+            }
+
+            if let httpStatus = response as? HTTPURLResponse {
+                do {
+                    let json = try JSON(data: data)
+                    completionHandler(json, httpStatus.statusCode, error)
+                } catch {
+                    completionHandler(nil, 0, error)
+                    return
+                }
+            }
+        }
+        task.resume()
     }
 }
