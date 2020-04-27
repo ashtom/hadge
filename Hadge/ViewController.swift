@@ -72,11 +72,23 @@ class ViewController: UIViewController {
             sampleType: .workoutType(),
             predicate: predicate,
             limit: 0,
-            sortDescriptors: [sortDescriptor]) { (_, samples, _) in
-            guard let samples = samples, samples.count > 0 else { return }
-            print(samples.count)
-            print(samples.first?.description ?? "")
+            sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
+                guard let workouts = workouts, workouts.count > 0 else { return }
+                let content = self.generateContentForWorkouts(workouts: workouts)
+                GitHub.shared().updateFile(path: "workouts/2019.csv", content: content, message: "Update workouts from Hadge.app")
         }
         healthStore?.execute(sampleQuery)
+    }
+
+    func generateContentForWorkouts(workouts: [HKSample]) -> String {
+        let header = "start_date,end_date,type,duration,distance,energy\n"
+        let content: NSMutableString = NSMutableString.init(string: header)
+        workouts.reversed().forEach { workout in
+            guard let workout = workout as? HKWorkout else { return }
+            let line = "\(workout.startDate),\(workout.endDate),\(workout.workoutActivityType.rawValue),\(workout.duration),\(workout.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0),\(workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)\n"
+            content.append(line)
+        }
+        print(content)
+        return String.init(content)
     }
 }
