@@ -32,7 +32,7 @@ class ViewController: UIViewController {
 
         // Debug stuff, will remove later
         //GitHub.shared().getRepository()
-        GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.app", message: "Update from Hadge.app")
+        //GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.app", message: "Update from Hadge.app")
     }
 
     @IBAction func signOut(_ sender: Any) {
@@ -43,6 +43,11 @@ class ViewController: UIViewController {
     }
 
     func loadData() {
+        loadActivityData()
+        loadWorkouts()
+    }
+
+    func loadActivityData() {
         let calendar = Calendar.autoupdatingCurrent
         var dateComponents = calendar.dateComponents([ .year, .month, .day ], from: Date())
         dateComponents.calendar = calendar
@@ -53,14 +58,23 @@ class ViewController: UIViewController {
             print(summaries.first?.description ?? "")
         }
         healthStore?.execute(activityQuery)
+    }
 
+    func loadWorkouts() {
+        let year = Calendar.current.component(.year, from: Date())
+        let firstOfYear = Calendar.current.date(from: DateComponents(year: year, month: 1, day: 1))
+        let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
+        let lastOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfNextYear!)
+
+        let predicate = HKQuery.predicateForSamples(withStart: firstOfYear, end: lastOfYear, options: [])
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
         let sampleQuery = HKSampleQuery(
             sampleType: .workoutType(),
-            predicate: nil,
+            predicate: predicate,
             limit: 0,
             sortDescriptors: [sortDescriptor]) { (_, samples, _) in
             guard let samples = samples, samples.count > 0 else { return }
+            print(samples.count)
             print(samples.first?.description ?? "")
         }
         healthStore?.execute(sampleQuery)
