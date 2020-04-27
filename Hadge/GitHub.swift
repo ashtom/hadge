@@ -138,6 +138,41 @@ class GitHub {
         }
     }
 
+    func getFile(path: String, completionHandler: @escaping (String) -> Swift.Void) {
+        let url = URL(string: "https://api.github.com/repos/\(username()!)/\(GitHub.defaultRepository)/contents/\(path)")!
+        let request = self.createRequest(url: url, httpMethod: "GET")
+
+        self.handleRequest(request, completionHandler: { json, _, _ in
+            let sha = json?["sha"].stringValue
+            os_log("File sha: %@", type: .debug, sha!)
+
+            if sha != nil {
+                completionHandler(sha!)
+            }
+        })
+    }
+
+    func updateFile(path: String, content: String, message: String) {
+        getFile(path: path) { sha in
+            let url = URL(string: "https://api.github.com/repos/\(self.username()!)/\(GitHub.defaultRepository)/contents/\(path)")!
+            var request = self.createRequest(url: url, httpMethod: "PUT")
+            let parameters: [String: Any] = [
+                "message": message,
+                "sha": sha,
+                "content": content.data(using: String.Encoding.utf8)!.base64EncodedString()
+            ]
+            do {
+                request.httpBody = try JSON(parameters).rawData()
+
+                self.handleRequest(request, completionHandler: { json, _, _ in
+                    let responseString = json?.description
+                    os_log("File updated: %@", type: .debug, responseString!)
+                })
+            } catch {
+            }
+        }
+    }
+
     func createRequest(url: URL, httpMethod: String) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod

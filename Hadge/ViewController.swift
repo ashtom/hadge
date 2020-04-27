@@ -30,7 +30,9 @@ class ViewController: UIViewController {
             }
         }
 
-        GitHub.shared().getRepository()
+        // Debug stuff, will remove later
+        //GitHub.shared().getRepository()
+        GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.app", message: "Update from Hadge.app")
     }
 
     @IBAction func signOut(_ sender: Any) {
