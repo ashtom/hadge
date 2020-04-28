@@ -14,6 +14,7 @@
 		4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */; };
 		4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */; };
 		4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */; };
+		4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */; };
 		4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77EF2454842A00554793 /* LoginViewController.swift */; };
 		4DEA77F22454843400554793 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77F12454843400554793 /* GitHub.swift */; };
 		4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F4245484A800554793 /* SwiftyJSON */; };
@@ -32,6 +33,7 @@
 		4DB3F6852453F7B0004C8BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hadge.entitlements; sourceTree = "<group>"; };
 		4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+Name.swift"; sourceTree = "<group>"; };
 		4DEA77EF2454842A00554793 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DEA77F12454843400554793 /* GitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,8 +75,9 @@
 			children = (
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
 				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
-				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
 				4DEA77F12454843400554793 /* GitHub.swift */,
+				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
+				4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */,
 				4DB3F6852453F7B0004C8BF3 /* Info.plist */,
 				4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */,
 				4DEA77EF2454842A00554793 /* LoginViewController.swift */,
@@ -199,6 +202,7 @@
 				4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */,
 				4DB3F67C2453F7AC004C8BF3 /* ViewController.swift in Sources */,
 				4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */,
+				4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */,
 				4DB3F67A2453F7AC004C8BF3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
