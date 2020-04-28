@@ -50,8 +50,10 @@ class ViewController: UIViewController {
     }
 
     func loadData() {
-        self.reloadButton.isHidden = true
-        self.activityIndicator.startAnimating()
+        DispatchQueue.main.async {
+            self.reloadButton.isHidden = true
+            self.activityIndicator.startAnimating()
+        }
 
         loadActivityData()
         loadWorkouts()
@@ -96,7 +98,7 @@ class ViewController: UIViewController {
     }
 
     func generateContentForWorkouts(workouts: [HKSample]) -> String {
-        let header = "start_date,end_date,type,duration,distance,energy\n"
+        let header = "uuid,start_date,end_date,type,name,duration,distance,energy\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         workouts.reversed().forEach { workout in
             guard let workout = workout as? HKWorkout else { return }
