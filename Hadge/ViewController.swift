@@ -87,7 +87,7 @@ class ViewController: UIViewController {
             sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
                 guard let workouts = workouts, workouts.count > 0 else { return }
                 let content = self.generateContentForWorkouts(workouts: workouts)
-                GitHub.shared().updateFile(path: "workouts/2019.csv", content: content, message: "Update workouts from Hadge.app")
+                GitHub.shared().updateFile(path: "workouts/2020.csv", content: content, message: "Update workouts from Hadge.app")
 
                 DispatchQueue.main.async {
                     self.reloadButton.isHidden = false
