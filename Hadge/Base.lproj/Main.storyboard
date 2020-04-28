@@ -21,6 +21,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soh-zc-Y6o">
+                                <rect key="frame" x="183.5" y="483.5" width="47" height="30"/>
+                                <state key="normal" title="Reload">
+                                    <color key="titleColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="enterToken:" destination="DbV-BA-6xV" eventType="touchUpInside" id="y6m-R6-5l2"/>
+                                    <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lu6-Rs-93o"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCi-rJ-bLz">
                                 <rect key="frame" x="178.5" y="832" width="57" height="30"/>
                                 <state key="normal" title="Sign out">
@@ -31,16 +41,27 @@
                                     <action selector="signOut:" destination="BYZ-38-t0r" eventType="touchUpInside" id="viP-4f-s4H"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lzO-eD-COA">
+                                <rect key="frame" x="197" y="488.5" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="knt-V6-4fm" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Hew-qF-2PF"/>
                             <constraint firstItem="knt-V6-4fm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OnE-aa-Jef"/>
+                            <constraint firstItem="lzO-eD-COA" firstAttribute="top" secondItem="knt-V6-4fm" secondAttribute="bottom" constant="30" id="Op1-Kv-sR8"/>
                             <constraint firstItem="KCi-rJ-bLz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PtZ-DP-Qzh"/>
+                            <constraint firstItem="soh-zc-Y6o" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XOh-G6-5El"/>
+                            <constraint firstItem="soh-zc-Y6o" firstAttribute="top" secondItem="knt-V6-4fm" secondAttribute="bottom" constant="25" id="adY-Ew-IFh"/>
+                            <constraint firstItem="lzO-eD-COA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eb5-7O-y1e"/>
                             <constraint firstItem="KCi-rJ-bLz" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="kdL-vg-eE3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="lzO-eD-COA" id="p7L-Nd-7YM"/>
+                        <outlet property="reloadButton" destination="soh-zc-Y6o" id="Rrk-1W-JTw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -49,7 +70,7 @@
         <!--Login View Controller-->
         <scene sceneID="7Gq-ay-wzI">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="DbV-BA-6xV" customClass="LoginViewController" customModule="Events" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="DbV-BA-6xV" customClass="LoginViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0FT-eh-dPC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

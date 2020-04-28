@@ -12,6 +12,9 @@ import HealthKit
 class ViewController: UIViewController {
     var healthStore: HKHealthStore?
 
+    @IBOutlet weak var reloadButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,7 +45,14 @@ class ViewController: UIViewController {
         sceneDelegate?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController")
     }
 
+    @IBAction func reload(_ sender: Any) {
+        loadData()
+    }
+
     func loadData() {
+        self.reloadButton.isHidden = true
+        self.activityIndicator.startAnimating()
+
         loadActivityData()
         loadWorkouts()
     }
@@ -76,6 +86,11 @@ class ViewController: UIViewController {
                 guard let workouts = workouts, workouts.count > 0 else { return }
                 let content = self.generateContentForWorkouts(workouts: workouts)
                 GitHub.shared().updateFile(path: "workouts/2019.csv", content: content, message: "Update workouts from Hadge.app")
+
+                DispatchQueue.main.async {
+                    self.reloadButton.isHidden = false
+                    self.activityIndicator.stopAnimating()
+                }
         }
         healthStore?.execute(sampleQuery)
     }
