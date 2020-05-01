@@ -151,7 +151,7 @@ extension HKWorkoutActivityType {
         case .fitnessGaming:                return "🎮"
 
         // Catch-all
-        default:                            return " ⊚ "
+        default:                            return "🧍"
         }
     }
 
