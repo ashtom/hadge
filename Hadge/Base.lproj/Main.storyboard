@@ -15,6 +15,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9p9-BL-FDC">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="I3C-41-iJX"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="0hN-LI-Mh1"/>
+                                </connections>
+                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fF-zJ-ckD">
                                 <rect key="frame" x="154" y="815" width="240" height="47"/>
                                 <subviews>
@@ -61,7 +69,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="2fF-zJ-ckD" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="3Sk-ru-xDV"/>
+                            <constraint firstItem="9p9-BL-FDC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-88" id="8eZ-rk-yiy"/>
+                            <constraint firstItem="9p9-BL-FDC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="9c5-pR-BYs"/>
                             <constraint firstItem="2fF-zJ-ckD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Am1-NJ-yvU"/>
+                            <constraint firstItem="9p9-BL-FDC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SBY-G1-YjU"/>
+                            <constraint firstItem="9p9-BL-FDC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hAw-Fd-fsh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -70,6 +82,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="lzO-eD-COA" id="p7L-Nd-7YM"/>
                         <outlet property="reloadButton" destination="soh-zc-Y6o" id="Rrk-1W-JTw"/>
+                        <outlet property="tableView" destination="9p9-BL-FDC" id="Nt5-1D-743"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

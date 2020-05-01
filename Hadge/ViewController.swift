@@ -9,11 +9,13 @@
 import UIKit
 import HealthKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var healthStore: HKHealthStore?
+    var data: [[String: Any]] = []
 
     @IBOutlet weak var reloadButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +40,21 @@ class ViewController: UIViewController {
         //GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.app", message: "Update from Hadge.app")
     }
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = "DataCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
+
+        if let title = data[indexPath.row]["title"] as? String? {
+            cell.textLabel?.text = title
+        }
+
+        return cell
+    }
+
     @IBAction func signOut(_ sender: Any) {
         _ = GitHub.shared().signOut()
 
@@ -49,12 +66,22 @@ class ViewController: UIViewController {
         loadData()
     }
 
-    func loadData() {
+    func startRefreshing() {
         DispatchQueue.main.async {
             self.reloadButton.isHidden = true
             self.activityIndicator.startAnimating()
         }
+    }
 
+    func stopRefreshing() {
+        DispatchQueue.main.async {
+            self.reloadButton.isHidden = false
+            self.activityIndicator.stopAnimating()
+        }
+    }
+
+    func loadData() {
+        startRefreshing()
         loadActivityData()
         loadWorkouts()
     }
@@ -73,6 +100,8 @@ class ViewController: UIViewController {
     }
 
     func loadWorkouts() {
+        self.data = []
+
         let year = Calendar.current.component(.year, from: Date())
         let firstOfYear = Calendar.current.date(from: DateComponents(year: year, month: 1, day: 1))
         let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
@@ -85,16 +114,29 @@ class ViewController: UIViewController {
             predicate: predicate,
             limit: 0,
             sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
-                guard let workouts = workouts, workouts.count > 0 else { return }
+                guard let workouts = workouts, workouts.count > 0 else {
+                    self.stopRefreshing()
+                    return
+                }
+
+                self.createDataFromWorkouts(workouts: workouts)
+
                 let content = self.generateContentForWorkouts(workouts: workouts)
                 GitHub.shared().updateFile(path: "workouts/2020.csv", content: content, message: "Update workouts from Hadge.app")
-
-                DispatchQueue.main.async {
-                    self.reloadButton.isHidden = false
-                    self.activityIndicator.stopAnimating()
-                }
+                self.stopRefreshing()
         }
         healthStore?.execute(sampleQuery)
+    }
+
+    func createDataFromWorkouts(workouts: [HKSample]) {
+        workouts.forEach { workout in
+            guard let workout = workout as? HKWorkout else { return }
+            data.append([ "title": workout.workoutActivityType.name ])
+        }
+
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 
     func generateContentForWorkouts(workouts: [HKSample]) -> String {
