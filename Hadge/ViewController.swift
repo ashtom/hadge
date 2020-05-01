@@ -131,7 +131,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func createDataFromWorkouts(workouts: [HKSample]) {
         workouts.forEach { workout in
             guard let workout = workout as? HKWorkout else { return }
-            data.append([ "title": workout.workoutActivityType.name ])
+            data.append([ "title": workout.workoutActivityType.associatedEmojiMale! + " " + workout.workoutActivityType.name ])
         }
 
         DispatchQueue.main.async {

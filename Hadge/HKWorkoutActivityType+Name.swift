@@ -9,7 +9,8 @@
 import UIKit
 import HealthKit
 
-// Source: https://stackoverflow.com/a/61140433
+// Source: https://stackoverflow.com/a/61140433 and
+// https://github.com/georgegreenoflondon/HKWorkoutActivityType-Descriptions/blob/master/HKWorkoutActivityType%2BDescriptions.swift
 extension HKWorkoutActivityType {
     var name: String {
         switch self {
@@ -97,6 +98,112 @@ extension HKWorkoutActivityType {
 
         // Catch-all
         default:                            return "Other"
+        }
+    }
+
+    var associatedEmoji: String? {
+        switch self {
+        case .americanFootball:             return "🏈"
+        case .archery:                      return "🏹"
+        case .badminton:                    return "🏸"
+        case .baseball:                     return "⚾️"
+        case .basketball:                   return "🏀"
+        case .bowling:                      return "🎳"
+        case .boxing:                       return "🥊"
+        case .curling:                      return "🥌"
+        case .cycling:                      return "🚲"
+        case .equestrianSports:             return "🏇"
+        case .fencing:                      return "🤺"
+        case .fishing:                      return "🎣"
+        case .functionalStrengthTraining:   return "💪"
+        case .golf:                         return "⛳️"
+        case .hiking:                       return "🥾"
+        case .hockey:                       return "🏒"
+        case .lacrosse:                     return "🥍"
+        case .martialArts:                  return "🥋"
+        case .mixedMetabolicCardioTraining: return "❤️"
+        case .paddleSports:                 return "🛶"
+        case .rowing:                       return "🛶"
+        case .rugby:                        return "🏉"
+        case .sailing:                      return "⛵️"
+        case .skatingSports:                return "⛸"
+        case .snowSports:                   return "🛷"
+        case .soccer:                       return "⚽️"
+        case .softball:                     return "🥎"
+        case .tableTennis:                  return "🏓"
+        case .tennis:                       return "🎾"
+        case .traditionalStrengthTraining:  return "🏋️‍♂️"
+        case .volleyball:                   return "🏐"
+        case .waterFitness, .waterSports:   return "💧"
+
+        // iOS 10
+        case .barre:                        return "🥿"
+        case .crossCountrySkiing:           return "⛷"
+        case .downhillSkiing:               return "⛷"
+        case .kickboxing:                   return "🥋"
+        case .snowboarding:                 return "🏂"
+
+        // iOS 11
+        case .mixedCardio:                  return "❤️"
+
+        // iOS 13
+        case .discSports:                   return "🥏"
+        case .fitnessGaming:                return "🎮"
+
+        // Catch-all
+        default:                            return " ⊚ "
+        }
+    }
+
+    enum EmojiGender {
+        case male
+        case female
+    }
+
+    var associatedEmojiFemale: String? {
+        switch self {
+        case .climbing: return "🧗‍♀️"
+        case .dance, .danceInspiredTraining: return "💃"
+        case .gymnastics, .highIntensityIntervalTraining: return "🤸‍♀️"
+        case .handball: return "🤾‍♀️"
+        case .mindAndBody, .yoga, .flexibility: return "🧘‍♀️"
+        case .preparationAndRecovery: return "🙆‍♀️"
+        case .running: return "🏃‍♀️"
+        case .surfingSports: return "🏄‍♀️"
+        case .swimming: return "🏊‍♀️"
+        case .walking: return "🚶‍♀️"
+        case .waterPolo: return "🤽‍♀️"
+        case .wrestling: return "🤼‍♀️"
+
+        // Catch-all
+        default:                            return associatedEmoji
+        }
+    }
+
+    var associatedEmojiMale: String? {
+        switch self {
+        case .climbing: return "🧗🏻‍♂️"
+        case .dance, .danceInspiredTraining: return "🕺🏿"
+        case .gymnastics, .highIntensityIntervalTraining: return "🤸‍♂️"
+        case .handball: return "🤾‍♂️"
+        case .mindAndBody, .yoga, .flexibility: return "🧘‍♂️"
+        case .preparationAndRecovery: return "🙆‍♂️"
+        case .running: return "🏃‍♂️"
+        case .surfingSports: return "🏄‍♂️"
+        case .swimming: return "🏊‍♂️"
+        case .walking: return "🚶‍♂️"
+        case .waterPolo: return "🤽‍♂️"
+        case .wrestling: return "🤼‍♂️"
+
+        // Catch-all
+        default:                            return associatedEmoji
+        }
+    }
+
+    func associatedEmoji(for gender: EmojiGender) -> String? {
+        switch gender {
+        case .female: return associatedEmojiFemale
+        case .male: return associatedEmojiMale
         }
     }
 }
