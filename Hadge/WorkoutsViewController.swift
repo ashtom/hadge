@@ -13,7 +13,6 @@ import SDWebImage
 class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let userDefaultsLastWorkoutKey = "lastWorkout"
 
-    var healthStore: HKHealthStore?
     var data: [[String: Any]] = []
 
     @IBOutlet weak var reloadButton: UIButton!
@@ -23,7 +22,6 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        healthStore = HKHealthStore()
         loadAvatar()
         setUpRefreshControl()
     }
@@ -34,7 +32,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             HKObjectType.workoutType()
         ]
 
-        healthStore?.requestAuthorization(toShare: nil, read: objectTypes) { (success, _) in
+        Health.shared().healthStore?.requestAuthorization(toShare: nil, read: objectTypes) { (success, _) in
             if success {
                 self.loadData()
             }
@@ -127,60 +125,26 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func loadData() {
         startRefreshing()
-        loadActivityData()
-        loadWorkouts()
-    }
 
-    func loadActivityData() {
-        let calendar = Calendar.current
-        let year = calendar.component(.year, from: Date())
-        var firstOfYear = calendar.dateComponents([ .day, .month, .year], from: calendar.date(from: DateComponents(year: year, month: 1, day: 1))!)
-        let firstOfNextYear = calendar.date(from: DateComponents(year: year + 1, month: 1, day: 1))
-        var lastOfYear = calendar.dateComponents([ .day, .month, .year], from: calendar.date(byAdding: .day, value: -1, to: firstOfNextYear!)!)
+        Health.shared().loadActivityData()
+        Health.shared().loadWorkouts { workouts in
+            self.data = []
 
-        // Calendar needs to be non-nil, but isn't auto-populated in dateComponents call
-        firstOfYear.calendar = calendar
-        lastOfYear.calendar = calendar
-
-        let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: firstOfYear, end: lastOfYear)
-        let activityQuery = HKActivitySummaryQuery(predicate: predicate) { (_, summaries, _) in
-            guard let summaries = summaries, summaries.count > 0 else { return }
-            summaries.reversed().forEach { summary in
-                print(summary.description)
-            }
-        }
-        healthStore?.execute(activityQuery)
-    }
-
-    func loadWorkouts() {
-        let year = Calendar.current.component(.year, from: Date())
-        let firstOfYear = Calendar.current.date(from: DateComponents(year: year, month: 1, day: 1))
-        let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
-        let lastOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfNextYear!)
-
-        let predicate = HKQuery.predicateForSamples(withStart: firstOfYear, end: lastOfYear, options: [])
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        let sampleQuery = HKSampleQuery(
-            sampleType: .workoutType(),
-            predicate: predicate,
-            limit: 0,
-            sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
-                self.data = []
-
-                guard let workouts = workouts, workouts.count > 0 else {
-                    self.stopRefreshing()
-                    return
-                }
-
-                self.createDataFromWorkouts(workouts: workouts)
-                if self.freshWorkoutsAvailable(workouts: workouts) {
-                    let content = self.generateContentForWorkouts(workouts: workouts)
-                    GitHub.shared().updateFile(path: "workouts/2020.csv", content: content, message: "Update workouts from Hadge.app")
-                    self.markLastWorkout(workouts: workouts)
-                }
+            guard let workouts = workouts, workouts.count > 0 else {
                 self.stopRefreshing()
+                return
+            }
+
+            self.createDataFromWorkouts(workouts: workouts)
+            if self.freshWorkoutsAvailable(workouts: workouts) {
+                let content = Health.shared().generateContentForWorkouts(workouts: workouts)
+                let filename = "workouts/\(Health.shared().year).csv"
+                GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts from Hadge.app")
+
+                self.markLastWorkout(workouts: workouts)
+            }
+            self.stopRefreshing()
         }
-        healthStore?.execute(sampleQuery)
     }
 
     func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {
@@ -209,17 +173,5 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-    }
-
-    func generateContentForWorkouts(workouts: [HKSample]) -> String {
-        let header = "uuid,start_date,end_date,type,name,duration,distance,energy\n"
-        let content: NSMutableString = NSMutableString.init(string: header)
-        workouts.reversed().forEach { workout in
-            guard let workout = workout as? HKWorkout else { return }
-            let line = "\(workout.uuid),\(workout.startDate),\(workout.endDate),\(workout.workoutActivityType.rawValue),\"\(workout.workoutActivityType.name)\",\(workout.duration),\(workout.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0),\(workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)\n"
-            content.append(line)
-        }
-        print(content)
-        return String.init(content)
     }
 }
