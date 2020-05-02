@@ -16,56 +16,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9p9-BL-FDC">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="I3C-41-iJX"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="0hN-LI-Mh1"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2fF-zJ-ckD">
-                                <rect key="frame" x="154" y="815" width="240" height="47"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soh-zc-Y6o">
-                                        <rect key="frame" x="96.5" y="8.5" width="47" height="30"/>
-                                        <state key="normal" title="Reload">
-                                            <color key="titleColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="enterToken:" destination="DbV-BA-6xV" eventType="touchUpInside" id="y6m-R6-5l2"/>
-                                            <action selector="reload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lu6-Rs-93o"/>
-                                        </connections>
-                                    </button>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lzO-eD-COA">
-                                        <rect key="frame" x="8" y="13" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="47" id="14Z-Gn-I1a"/>
-                                    <constraint firstItem="soh-zc-Y6o" firstAttribute="centerX" secondItem="2fF-zJ-ckD" secondAttribute="centerX" id="o7b-KQ-ndG"/>
-                                    <constraint firstItem="soh-zc-Y6o" firstAttribute="centerY" secondItem="2fF-zJ-ckD" secondAttribute="centerY" id="p1e-w0-ALU"/>
-                                    <constraint firstAttribute="width" constant="240" id="ytO-DF-fN9"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="2fF-zJ-ckD" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="3Sk-ru-xDV"/>
-                            <constraint firstItem="9p9-BL-FDC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="-88" id="8eZ-rk-yiy"/>
-                            <constraint firstItem="9p9-BL-FDC" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="9c5-pR-BYs"/>
-                            <constraint firstItem="2fF-zJ-ckD" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Am1-NJ-yvU"/>
-                            <constraint firstItem="9p9-BL-FDC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SBY-G1-YjU"/>
+                            <constraint firstItem="9p9-BL-FDC" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="HEE-gf-wQ9"/>
                             <constraint firstItem="9p9-BL-FDC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hAw-Fd-fsh"/>
+                            <constraint firstItem="9p9-BL-FDC" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="88" id="hBJ-ac-hzU"/>
+                            <constraint firstAttribute="bottom" secondItem="9p9-BL-FDC" secondAttribute="bottom" id="sbK-Fk-zYe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Workouts" id="viC-5j-uVq"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="lzO-eD-COA" id="p7L-Nd-7YM"/>
-                        <outlet property="reloadButton" destination="soh-zc-Y6o" id="Rrk-1W-JTw"/>
                         <outlet property="tableView" destination="9p9-BL-FDC" id="Nt5-1D-743"/>
                         <segue destination="8dg-RA-Xw4" kind="presentation" identifier="SettingsSegue" id="SpB-AE-pLC"/>
                     </connections>
@@ -77,7 +47,7 @@
         <!--Settings Controller-->
         <scene sceneID="Y9e-5R-yNy">
             <objects>
-                <tableViewController title="Settings Controller" id="Zm0-Rr-KoY" userLabel="Settings Controller" customClass="SettingsViewController" customModule="Tasks" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Settings Controller" id="Zm0-Rr-KoY" userLabel="Settings Controller" customClass="SettingsViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="zbh-fS-iU2">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

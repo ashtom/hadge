@@ -23,6 +23,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         healthStore = HKHealthStore()
         loadAvatar()
+        setUpRefreshControl()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -57,25 +58,35 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
 
-    @IBAction func reload(_ sender: Any) {
-        loadData()
-    }
-
     @objc func showSettings(sender: Any) {
         performSegue(withIdentifier: "SettingsSegue", sender: self)
     }
 
+    @objc func refreshWasRequested(_ refreshControl: UIRefreshControl) {
+        startRefreshing()
+        loadData()
+    }
+
     func startRefreshing() {
         DispatchQueue.main.async {
-            self.reloadButton.isHidden = true
-            self.activityIndicator.startAnimating()
+            if self.tableView.refreshControl != nil {
+                self.tableView.refreshControl?.beginRefreshing()
+
+//                let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
+//                self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+            }
         }
     }
 
     func stopRefreshing() {
         DispatchQueue.main.async {
-            self.reloadButton.isHidden = false
-            self.activityIndicator.stopAnimating()
+            if self.tableView.refreshControl != nil {
+//                let top = self.tableView.adjustedContentInset.top
+//                let offset = (self.tableView.refreshControl?.frame.maxY)! + top
+//                self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
+
+                self.tableView.refreshControl?.endRefreshing()
+            }
         }
     }
 
@@ -107,6 +118,11 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         self.navigationItem.leftBarButtonItem = barButtonItem
     }
 
+    func setUpRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(WorkoutsViewController.refreshWasRequested(_:)), for: UIControl.Event.valueChanged)
+    }
+
     func loadData() {
         startRefreshing()
         loadActivityData()
@@ -127,8 +143,6 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func loadWorkouts() {
-        self.data = []
-
         let year = Calendar.current.component(.year, from: Date())
         let firstOfYear = Calendar.current.date(from: DateComponents(year: year, month: 1, day: 1))
         let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
@@ -141,6 +155,8 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             predicate: predicate,
             limit: 0,
             sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
+                self.data = []
+
                 guard let workouts = workouts, workouts.count > 0 else {
                     self.stopRefreshing()
                     return
