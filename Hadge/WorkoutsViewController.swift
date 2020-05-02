@@ -8,6 +8,7 @@
 
 import UIKit
 import HealthKit
+import SDWebImage
 
 class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     var healthStore: HKHealthStore?
@@ -21,6 +22,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
 
         healthStore = HKHealthStore()
+        loadAvatar()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -55,15 +57,12 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell
     }
 
-    @IBAction func signOut(_ sender: Any) {
-        _ = GitHub.shared().signOut()
-
-        let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
-        sceneDelegate?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController")
-    }
-
     @IBAction func reload(_ sender: Any) {
         loadData()
+    }
+
+    @objc func showSettings(sender: Any) {
+        performSegue(withIdentifier: "SettingsSegue", sender: self)
     }
 
     func startRefreshing() {
@@ -78,6 +77,34 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             self.reloadButton.isHidden = false
             self.activityIndicator.stopAnimating()
         }
+    }
+
+    func loadAvatar() {
+        self.navigationItem.leftBarButtonItem = nil
+
+        let avatarButton = UIButton(type: .custom)
+        avatarButton.frame = CGRect(x: 0.0, y: 0.0, width: 34.0, height: 34.0)
+        avatarButton.layer.cornerRadius = 17
+        avatarButton.clipsToBounds = true
+        avatarButton.backgroundColor = UIColor.init(red: 27/255, green: 27/255, blue: 27/255, alpha: 1)
+        avatarButton.addTarget(self, action: #selector(showSettings(sender:)), for: .touchUpInside)
+        let barButtonItem = UIBarButtonItem(customView: avatarButton)
+
+        let username = GitHub.shared().returnAuthenticatedUsername()
+        let avatarURL = "https://github.com/\(username).png?size=102"
+        let imageManager = SDWebImageManager.shared
+        imageManager.loadImage(with: URL(string: avatarURL),
+                               options: [],
+                               progress: nil,
+                               completed: { image, _, _, _, _, _ in
+            avatarButton.setBackgroundImage(image, for: .normal)
+        })
+
+        // Setting the constraints is required to prevent the button size from resetting after segue back from details
+        barButtonItem.customView?.widthAnchor.constraint(equalToConstant: 34).isActive = true
+        barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 34).isActive = true
+
+        self.navigationItem.leftBarButtonItem = barButtonItem
     }
 
     func loadData() {
