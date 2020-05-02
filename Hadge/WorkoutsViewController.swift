@@ -132,14 +132,22 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func loadActivityData() {
-        let calendar = Calendar.autoupdatingCurrent
-        var dateComponents = calendar.dateComponents([ .year, .month, .day ], from: Date())
-        dateComponents.calendar = calendar
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: Date())
+        var firstOfYear = calendar.dateComponents([ .day, .month, .year], from: calendar.date(from: DateComponents(year: year, month: 1, day: 1))!)
+        let firstOfNextYear = calendar.date(from: DateComponents(year: year + 1, month: 1, day: 1))
+        var lastOfYear = calendar.dateComponents([ .day, .month, .year], from: calendar.date(byAdding: .day, value: -1, to: firstOfNextYear!)!)
 
-        let predicate = HKQuery.predicateForActivitySummary(with: dateComponents)
+        // Calendar needs to be non-nil, but isn't auto-populated in dateComponents call
+        firstOfYear.calendar = calendar
+        lastOfYear.calendar = calendar
+
+        let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: firstOfYear, end: lastOfYear)
         let activityQuery = HKActivitySummaryQuery(predicate: predicate) { (_, summaries, _) in
             guard let summaries = summaries, summaries.count > 0 else { return }
-            print(summaries.first?.description ?? "")
+            summaries.reversed().forEach { summary in
+                print(summary.description)
+            }
         }
         healthStore?.execute(activityQuery)
     }
