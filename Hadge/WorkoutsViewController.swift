@@ -11,6 +11,8 @@ import HealthKit
 import SDWebImage
 
 class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    let userDefaultsLastWorkoutKey = "lastWorkout"
+
     var healthStore: HKHealthStore?
     var data: [[String: Any]] = []
 
@@ -72,8 +74,8 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             if self.tableView.refreshControl != nil {
                 self.tableView.refreshControl?.beginRefreshing()
 
-//                let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
-//                self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+                let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
+                self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
             }
         }
     }
@@ -81,9 +83,9 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     func stopRefreshing() {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
-//                let top = self.tableView.adjustedContentInset.top
-//                let offset = (self.tableView.refreshControl?.frame.maxY)! + top
-//                self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
+                let top = self.tableView.adjustedContentInset.top
+                let offset = (self.tableView.refreshControl?.frame.maxY)! + top
+                self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
 
                 self.tableView.refreshControl?.endRefreshing()
             }
@@ -163,12 +165,31 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
                 }
 
                 self.createDataFromWorkouts(workouts: workouts)
-
-                let content = self.generateContentForWorkouts(workouts: workouts)
-                GitHub.shared().updateFile(path: "workouts/2020.csv", content: content, message: "Update workouts from Hadge.app")
+                if self.freshWorkoutsAvailable(workouts: workouts) {
+                    let content = self.generateContentForWorkouts(workouts: workouts)
+                    GitHub.shared().updateFile(path: "workouts/2020.csv", content: content, message: "Update workouts from Hadge.app")
+                    self.markLastWorkout(workouts: workouts)
+                }
                 self.stopRefreshing()
         }
         healthStore?.execute(sampleQuery)
+    }
+
+    func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {
+        guard let workout = workouts.first as? HKWorkout else { return false }
+
+        let lastWorkout = UserDefaults.standard.string(forKey: userDefaultsLastWorkoutKey)
+        if lastWorkout == nil || lastWorkout != workout.uuid.uuidString {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func markLastWorkout(workouts: [HKSample]) {
+        guard let workout = workouts.first as? HKWorkout else { return }
+
+        UserDefaults.standard.set(workout.uuid.uuidString, forKey: userDefaultsLastWorkoutKey)
     }
 
     func createDataFromWorkouts(workouts: [HKSample]) {
