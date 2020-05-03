@@ -2,20 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLName</key>
-            <string>io.entire.hadge.github-auth</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>hadge</string>
-            </array>
-        </dict>
-    </array>
-    <key>CFBundleDevelopmentRegion</key>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>io.entire.hadge.github-auth</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>hadge</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
@@ -35,6 +35,8 @@
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Hadge needs access to your Health data to be able to export it to your GitHub account.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Hadge only writes Health data on the iOS simulator.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

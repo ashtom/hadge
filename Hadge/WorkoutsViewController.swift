@@ -32,7 +32,15 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             HKObjectType.workoutType()
         ]
 
-        Health.shared().healthStore?.requestAuthorization(toShare: nil, read: objectTypes) { (success, _) in
+        #if targetEnvironment(simulator)
+        let samplesTypes: Set<HKSampleType> = [
+            HKObjectType.workoutType()
+        ]
+        #else
+        let samplesTypes: Set<HKSampleType> = []
+        #endif
+
+        Health.shared().healthStore?.requestAuthorization(toShare: samplesTypes, read: objectTypes) { (success, _) in
             if success {
                 self.loadData()
             }
@@ -132,6 +140,11 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
             guard let workouts = workouts, workouts.count > 0 else {
                 self.stopRefreshing()
+
+                #if targetEnvironment(simulator)
+                Health.shared().seedSampleData()
+                #endif
+
                 return
             }
 

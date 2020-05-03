@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "SwiftCSV",
+        "repositoryURL": "https://github.com/swiftcsv/SwiftCSV",
+        "state": {
+          "branch": null,
+          "revision": "8ae14758a2019fd55dc6f9b6ecbbe246bcef179f",
+          "version": "0.5.6"
+        }
+      },
+      {
         "package": "SwiftyJSON",
         "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
         "state": {

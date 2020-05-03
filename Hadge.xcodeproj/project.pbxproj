@@ -17,6 +17,9 @@
 		4DD70CBE245DBD98007C8D58 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD70CBD245DBD98007C8D58 /* SDWebImage */; };
 		4DD70CC0245DBF44007C8D58 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */; };
 		4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CC1245DE64B007C8D58 /* Health.swift */; };
+		4DD70CC4245E5AFA007C8D58 /* 2020.csv in Resources */ = {isa = PBXBuildFile; fileRef = 4DD70CC3245E5AF9007C8D58 /* 2020.csv */; };
+		4DD70CC7245E5BC4007C8D58 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD70CC6245E5BC4007C8D58 /* SwiftCSV */; };
+		4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CC8245E8414007C8D58 /* String+Date.swift */; };
 		4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */; };
 		4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77EF2454842A00554793 /* LoginViewController.swift */; };
 		4DEA77F22454843400554793 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77F12454843400554793 /* GitHub.swift */; };
@@ -38,6 +41,8 @@
 		4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DD70CC1245DE64B007C8D58 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
+		4DD70CC3245E5AF9007C8D58 /* 2020.csv */ = {isa = PBXFileReference; lastKnownFileType = file; name = 2020.csv; path = .assets/2020.csv; sourceTree = SOURCE_ROOT; };
+		4DD70CC8245E8414007C8D58 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
 		4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+Name.swift"; sourceTree = "<group>"; };
 		4DEA77EF2454842A00554793 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DEA77F12454843400554793 /* GitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
@@ -51,6 +56,7 @@
 				4DEA77FB245484FF00554793 /* OctoKit in Frameworks */,
 				4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */,
 				4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */,
+				4DD70CC7245E5BC4007C8D58 /* SwiftCSV in Frameworks */,
 				4DEA77F8245484B500554793 /* KeychainAccess in Frameworks */,
 				4DD70CBE245DBD98007C8D58 /* SDWebImage in Frameworks */,
 			);
@@ -79,6 +85,7 @@
 		4DB3F6762453F7AC004C8BF3 /* Hadge */ = {
 			isa = PBXGroup;
 			children = (
+				4DD70CC3245E5AF9007C8D58 /* 2020.csv */,
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
 				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
 				4DEA77F12454843400554793 /* GitHub.swift */,
@@ -91,6 +98,7 @@
 				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
 				4DB3F6792453F7AC004C8BF3 /* SceneDelegate.swift */,
 				4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */,
+				4DD70CC8245E8414007C8D58 /* String+Date.swift */,
 				4DB3F67B2453F7AC004C8BF3 /* WorkoutsViewController.swift */,
 			);
 			path = Hadge;
@@ -126,6 +134,7 @@
 				4DEA77F7245484B500554793 /* KeychainAccess */,
 				4DEA77FA245484FF00554793 /* OctoKit */,
 				4DD70CBD245DBD98007C8D58 /* SDWebImage */,
+				4DD70CC6245E5BC4007C8D58 /* SwiftCSV */,
 			);
 			productName = Hadge;
 			productReference = 4DB3F6742453F7AC004C8BF3 /* Hadge.app */;
@@ -160,6 +169,7 @@
 				4DEA77F6245484B500554793 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				4DEA77F9245484FF00554793 /* XCRemoteSwiftPackageReference "octokit" */,
 				4DD70CBC245DBD98007C8D58 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				4DD70CC5245E5BC4007C8D58 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 			);
 			productRefGroup = 4DB3F6752453F7AC004C8BF3 /* Products */;
 			projectDirPath = "";
@@ -177,6 +187,7 @@
 			files = (
 				4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */,
 				4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */,
+				4DD70CC4245E5AFA007C8D58 /* 2020.csv in Resources */,
 				4DB3F67F2453F7AC004C8BF3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +226,7 @@
 				4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */,
 				4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */,
 				4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */,
+				4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */,
 				4DB3F67A2453F7AC004C8BF3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,6 +437,14 @@
 				minimumVersion = 5.7.3;
 			};
 		};
+		4DD70CC5245E5BC4007C8D58 /* XCRemoteSwiftPackageReference "SwiftCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftcsv/SwiftCSV";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.6;
+			};
+		};
 		4DEA77F3245484A800554793 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
@@ -456,6 +476,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4DD70CBC245DBD98007C8D58 /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
+		};
+		4DD70CC6245E5BC4007C8D58 /* SwiftCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4DD70CC5245E5BC4007C8D58 /* XCRemoteSwiftPackageReference "SwiftCSV" */;
+			productName = SwiftCSV;
 		};
 		4DEA77F4245484A800554793 /* SwiftyJSON */ = {
 			isa = XCSwiftPackageProductDependency;

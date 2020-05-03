@@ -7,6 +7,7 @@
 //
 
 import HealthKit
+import SwiftCSV
 
 class Health {
     static let sharedInstance = Health()
@@ -29,6 +30,25 @@ class Health {
 
         let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
         self.lastOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfNextYear!)
+    }
+
+    func seedSampleData() {
+        do {
+            let path = Bundle.main.path(forResource: "2020", ofType: "csv")
+            let csvFile: CSV = try CSV(url: URL(fileURLWithPath: path!))
+            try csvFile.enumerateAsDict { row in
+                let workout = HKWorkout(activityType: HKWorkoutActivityType(rawValue: UInt(row["type"]!)!)!,
+                    start: (row["start_date"]?.toDate())!,
+                    end: (row["end_date"]?.toDate())!,
+                    duration: TimeInterval(Double(row["duration"]!)!),
+                    totalEnergyBurned: HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: Double(row["energy"]!)!),
+                    totalDistance: HKQuantity(unit: HKUnit.meter(), doubleValue: Double(row["distance"]!)!),
+                    device: HKDevice.local(),
+                    metadata: nil)
+                self.healthStore!.save(workout) { (_, _) in }
+            }
+        } catch {}
+
     }
 
     func loadActivityData() {
