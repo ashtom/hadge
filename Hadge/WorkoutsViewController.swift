@@ -152,7 +152,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             if self.freshWorkoutsAvailable(workouts: workouts) {
                 let content = Health.shared().generateContentForWorkouts(workouts: workouts)
                 let filename = "workouts/\(Health.shared().year).csv"
-                GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts from Hadge.app")
+                GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts from Hadge.app") { _ in }
 
                 self.markLastWorkout(workouts: workouts)
             }

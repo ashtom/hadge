@@ -9,39 +9,67 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
+    var workoutSemaphore = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "SignOutCell"
+        let identifier = "SettingsCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
-        cell.textLabel?.text = "Sign Out"
+
+        switch indexPath.section {
+        case 0:
+            cell.textLabel?.text = "Force upload workouts"
+        case 1:
+            cell.textLabel?.text = "Sign Out"
+        default:
+            cell.textLabel?.text = "Undefined"
+        }
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        switch indexPath.section {
+        case 0:
+            tableView.deselectRow(at: indexPath, animated: true)
+
+            if workoutSemaphore { return }
+
+            workoutSemaphore = true
+            Health.shared().loadWorkouts { workouts in
+                guard let workouts = workouts, workouts.count > 0 else { return }
+
+                let content = Health.shared().generateContentForWorkouts(workouts: workouts)
+                let filename = "workouts/\(Health.shared().year).csv"
+                GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts from Hadge.app") { _ in
+                    self.workoutSemaphore = false
+                }
+            }
+        case 1:
             _ = GitHub.shared().signOut()
 
             let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
             sceneDelegate?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController")
+        default:
+            tableView.deselectRow(at: indexPath, animated: true)
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
+            return "Debug"
+        case 1:
             return "Account"
         default:
             return ""
