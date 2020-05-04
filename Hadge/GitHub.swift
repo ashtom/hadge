@@ -109,7 +109,7 @@ class GitHub {
     }
 
     func getRepository() {
-        Octokit(self.config!).repository(owner: username()!, name: "health") { response in
+        Octokit(self.config!).repository(owner: username()!, name: GitHub.defaultRepository) { response in
             switch response {
             case .success(let repository):
                 os_log("Repository ID: %d", type: .debug, repository.id)
