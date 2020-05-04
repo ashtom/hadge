@@ -56,14 +56,17 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "DataCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
+        let identifier = "WorkoutCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? WorkoutCell
 
-        if let title = data[indexPath.row]["title"] as? String? {
-            cell.textLabel?.text = title
+        if let workout = data[indexPath.row]["workout"] as? HKWorkout? {
+            cell?.titleLabel?.text = workout?.workoutActivityType.name
+            cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmojiMale
+            cell?.setStartDate(workout!.startDate)
+            cell?.setDuration(workout!.duration)
         }
 
-        return cell
+        return cell!
     }
 
     @objc func showSettings(sender: Any) {
@@ -180,7 +183,10 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     func createDataFromWorkouts(workouts: [HKSample]) {
         workouts.forEach { workout in
             guard let workout = workout as? HKWorkout else { return }
-            data.append([ "title": workout.workoutActivityType.associatedEmojiMale! + " " + workout.workoutActivityType.name ])
+            data.append([
+                "title": workout.workoutActivityType.name,
+                "workout": workout
+            ])
         }
 
         DispatchQueue.main.async {
