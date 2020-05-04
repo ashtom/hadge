@@ -63,7 +63,10 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             cell?.titleLabel?.text = workout?.workoutActivityType.name
             cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmojiMale
             cell?.setStartDate(workout!.startDate)
+            cell?.setDistance(workout!.totalDistance)
             cell?.setDuration(workout!.duration)
+            cell?.setEnergy(workout!.totalEnergyBurned)
+            //print(workout!.sourceRevision.source.name)
         }
 
         return cell!
