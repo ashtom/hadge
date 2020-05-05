@@ -73,7 +73,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             cell?.setDistance(workout!.totalDistance)
             cell?.setDuration(workout!.duration)
             cell?.setEnergy(workout!.totalEnergyBurned)
-            //print(workout!.sourceRevision.source.name)
+            cell?.sourceLabel?.text = workout!.sourceRevision.source.name
         }
 
         return cell!

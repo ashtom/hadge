@@ -16,6 +16,7 @@ class WorkoutCell: UITableViewCell {
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var energyLabel: UILabel!
+    @IBOutlet weak var sourceLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
