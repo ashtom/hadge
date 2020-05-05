@@ -20,10 +20,10 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkoutCell" id="RVl-fc-vIy" customClass="WorkoutCell" customModule="Hadge" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" indentationWidth="10" reuseIdentifier="WorkoutCell" id="RVl-fc-vIy" customClass="WorkoutCell" customModule="Hadge" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="102"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RVl-fc-vIy" id="1ld-yI-hBl">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RVl-fc-vIy" id="1ld-yI-hBl">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -37,7 +37,6 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" systemColor="tertiarySystemFillColor" red="0.46274509800000002" green="0.46274509800000002" blue="0.50196078430000002" alpha="0.12" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="cpK-q2-E3Y" firstAttribute="centerX" secondItem="8gA-h1-WJt" secondAttribute="centerX" id="J2w-a6-ZST"/>
                                                         <constraint firstAttribute="width" constant="34" id="lzE-mb-0YE"/>
@@ -96,7 +95,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Gv3-yx-e9v" firstAttribute="top" secondItem="SVb-gR-FaF" secondAttribute="bottom" constant="5" id="5K7-hI-JN1"/>
-                                                <constraint firstItem="8gA-h1-WJt" firstAttribute="leading" secondItem="1ld-yI-hBl" secondAttribute="leading" constant="20" id="8pD-g3-3EM"/>
+                                                <constraint firstItem="8gA-h1-WJt" firstAttribute="leading" secondItem="1ld-yI-hBl" secondAttribute="leadingMargin" id="8pD-g3-3EM"/>
                                                 <constraint firstItem="07E-0H-1k9" firstAttribute="trailing" secondItem="Gv3-yx-e9v" secondAttribute="trailing" id="JuA-FL-a1H"/>
                                                 <constraint firstItem="svM-LS-7K2" firstAttribute="leading" relation="lessThanOrEqual" secondItem="8gA-h1-WJt" secondAttribute="trailing" constant="250" id="Lkk-UR-ejF"/>
                                                 <constraint firstItem="8gA-h1-WJt" firstAttribute="top" secondItem="1ld-yI-hBl" secondAttribute="top" constant="11" id="T1c-PJ-9gK"/>
