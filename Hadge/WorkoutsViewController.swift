@@ -88,6 +88,10 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         loadData()
     }
 
+    @objc func openSafari(sender: Any) {
+        UIApplication.shared.open(URL.init(string: "https://github.com/\(GitHub.shared().username()!)/\(GitHub.defaultRepository)")!)
+    }
+
     func startRefreshing() {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
@@ -161,9 +165,13 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         statusLabel?.numberOfLines = 2
 
         let statusItem = UIBarButtonItem(customView: statusLabel!)
-        let leftItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let rightItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        self.navigationController?.toolbar.setItems([leftItem, statusItem, rightItem], animated: false)
+        let leftButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: nil, action: nil)
+        leftButtonItem.tintColor = UIColor.secondaryLabel
+        let rightButtonItem = UIBarButtonItem(image: UIImage(systemName: "safari"), style: .plain, target: self, action: #selector(openSafari(sender:)))
+        rightButtonItem.tintColor = UIColor.secondaryLabel
+        let leftSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let rightSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        self.navigationController?.toolbar.setItems([leftButtonItem, leftSpaceItem, statusItem, rightSpaceItem, rightButtonItem], animated: false)
     }
 
     func setUpRefreshControl() {
