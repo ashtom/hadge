@@ -75,9 +75,9 @@
                                                     </constraints>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1km" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svM-LS-7K2">
-                                                    <rect key="frame" x="314" y="19.5" width="80" height="18"/>
+                                                    <rect key="frame" x="304" y="19.5" width="90" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="AJa-4K-cMa"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="AJa-4K-cMa"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Kys-85-bcI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
@@ -86,7 +86,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234cal" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07E-0H-1k9">
                                                     <rect key="frame" x="294" y="66.5" width="100" height="18.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="UhS-ld-1Lc"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="UhS-ld-1Lc"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <color key="textColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -97,11 +97,13 @@
                                                 <constraint firstItem="Gv3-yx-e9v" firstAttribute="top" secondItem="SVb-gR-FaF" secondAttribute="bottom" constant="5" id="5K7-hI-JN1"/>
                                                 <constraint firstItem="8gA-h1-WJt" firstAttribute="leading" secondItem="1ld-yI-hBl" secondAttribute="leading" constant="20" id="8pD-g3-3EM"/>
                                                 <constraint firstItem="07E-0H-1k9" firstAttribute="trailing" secondItem="Gv3-yx-e9v" secondAttribute="trailing" id="JuA-FL-a1H"/>
+                                                <constraint firstItem="svM-LS-7K2" firstAttribute="leading" relation="lessThanOrEqual" secondItem="8gA-h1-WJt" secondAttribute="trailing" constant="250" id="Lkk-UR-ejF"/>
                                                 <constraint firstItem="8gA-h1-WJt" firstAttribute="top" secondItem="1ld-yI-hBl" secondAttribute="top" constant="11" id="T1c-PJ-9gK"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Gv3-yx-e9v" secondAttribute="trailing" id="VIe-Th-wQx"/>
                                                 <constraint firstItem="SVb-gR-FaF" firstAttribute="leading" secondItem="8gA-h1-WJt" secondAttribute="trailing" constant="8" id="X4D-8l-73q"/>
                                                 <constraint firstAttribute="bottom" secondItem="07E-0H-1k9" secondAttribute="bottom" constant="17" id="XVl-2Z-P6I"/>
                                                 <constraint firstItem="SVb-gR-FaF" firstAttribute="centerY" secondItem="8gA-h1-WJt" secondAttribute="centerY" id="Z5z-8e-VOt"/>
+                                                <constraint firstItem="07E-0H-1k9" firstAttribute="leading" relation="lessThanOrEqual" secondItem="1ld-yI-hBl" secondAttribute="leadingMargin" constant="275" id="bLR-sl-O6x"/>
                                                 <constraint firstItem="Gv3-yx-e9v" firstAttribute="leading" secondItem="SVb-gR-FaF" secondAttribute="leading" id="fAy-eg-77H"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8gA-h1-WJt" secondAttribute="bottom" constant="50" id="gle-M6-mtK"/>
                                                 <constraint firstItem="SVb-gR-FaF" firstAttribute="trailing" secondItem="1ld-yI-hBl" secondAttribute="trailingMargin" id="pi7-rp-hdC"/>
