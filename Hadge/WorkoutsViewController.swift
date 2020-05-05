@@ -11,12 +11,10 @@ import HealthKit
 import SDWebImage
 
 class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let userDefaultsLastWorkoutKey = "lastWorkout"
 
     var data: [[String: Any]] = []
+    var statusLabel: UILabel?
 
-    @IBOutlet weak var reloadButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -27,9 +25,14 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        loadStatusView()
+
         let objectTypes: Set<HKObjectType> = [
             HKObjectType.activitySummaryType(),
-            HKObjectType.workoutType()
+            HKObjectType.workoutType(),
+            HKQuantityType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.biologicalSex)!
         ]
 
         #if targetEnvironment(simulator)
@@ -61,7 +64,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         if let workout = data[indexPath.row]["workout"] as? HKWorkout? {
             cell?.titleLabel?.text = workout?.workoutActivityType.name
-            cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmojiMale
+            cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmoji(for: Health.shared().getBiologicalSex()!)
             cell?.setStartDate(workout!.startDate)
             cell?.setDistance(workout!.totalDistance)
             cell?.setDuration(workout!.duration)
@@ -101,6 +104,18 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
                 self.tableView.refreshControl?.endRefreshing()
             }
+
+            if self.statusLabel != nil {
+                let lastSyncDate = UserDefaults.standard.object(forKey: UserDefaultKeys.lastSyncDate) as? Date
+                let formatter = DateFormatter.init()
+                formatter.dateStyle = .short
+                formatter.timeStyle = .short
+                if lastSyncDate != nil {
+                    self.statusLabel?.text = "GitHub last updated on\n\(formatter.string(from: lastSyncDate!))."
+                } else {
+                    self.statusLabel?.text = ""
+                }
+            }
         }
     }
 
@@ -130,6 +145,21 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         barButtonItem.customView?.heightAnchor.constraint(equalToConstant: 34).isActive = true
 
         self.navigationItem.leftBarButtonItem = barButtonItem
+    }
+
+    func loadStatusView() {
+        statusLabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: 200, height: 34))
+        statusLabel?.text = ""
+        statusLabel?.textAlignment = NSTextAlignment.center
+        statusLabel?.textColor = UIColor.secondaryLabel
+        statusLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+        statusLabel?.lineBreakMode = .byWordWrapping
+        statusLabel?.numberOfLines = 2
+
+        let statusItem = UIBarButtonItem(customView: statusLabel!)
+        let leftItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let rightItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        self.navigationController?.toolbar.setItems([leftItem, statusItem, rightItem], animated: false)
     }
 
     func setUpRefreshControl() {
@@ -169,7 +199,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {
         guard let workout = workouts.first as? HKWorkout else { return false }
 
-        let lastWorkout = UserDefaults.standard.string(forKey: userDefaultsLastWorkoutKey)
+        let lastWorkout = UserDefaults.standard.string(forKey: UserDefaultKeys.lastWorkout)
         if lastWorkout == nil || lastWorkout != workout.uuid.uuidString {
             return true
         } else {
@@ -180,7 +210,8 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     func markLastWorkout(workouts: [HKSample]) {
         guard let workout = workouts.first as? HKWorkout else { return }
 
-        UserDefaults.standard.set(workout.uuid.uuidString, forKey: userDefaultsLastWorkoutKey)
+        UserDefaults.standard.set(workout.uuid.uuidString, forKey: UserDefaultKeys.lastWorkout)
+        UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
     }
 
     func createDataFromWorkouts(workouts: [HKSample]) {

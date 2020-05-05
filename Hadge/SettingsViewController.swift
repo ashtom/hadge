@@ -20,7 +20,14 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return 2
+        case 1:
+            return 1
+        default:
+            return 0
+        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -29,7 +36,14 @@ class SettingsViewController: UITableViewController {
 
         switch indexPath.section {
         case 0:
-            cell.textLabel?.text = "Force upload workouts"
+            switch indexPath.row {
+            case 0:
+                cell.textLabel?.text = "Clear last workout UUID"
+            case 1:
+                cell.textLabel?.text = "Force upload workouts"
+            default:
+                cell.textLabel?.text = "Undefined"
+            }
         case 1:
             cell.textLabel?.text = "Sign Out"
         default:
@@ -43,17 +57,24 @@ class SettingsViewController: UITableViewController {
         case 0:
             tableView.deselectRow(at: indexPath, animated: true)
 
-            if workoutSemaphore { return }
+            switch indexPath.row {
+            case 0:
+                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastWorkout)
+            case 1:
+                if workoutSemaphore { return }
 
-            workoutSemaphore = true
-            Health.shared().loadWorkouts { workouts in
-                guard let workouts = workouts, workouts.count > 0 else { return }
+                workoutSemaphore = true
+                Health.shared().loadWorkouts { workouts in
+                    guard let workouts = workouts, workouts.count > 0 else { return }
 
-                let content = Health.shared().generateContentForWorkouts(workouts: workouts)
-                let filename = "workouts/\(Health.shared().year).csv"
-                GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts from Hadge.app") { _ in
-                    self.workoutSemaphore = false
+                    let content = Health.shared().generateContentForWorkouts(workouts: workouts)
+                    let filename = "workouts/\(Health.shared().year).csv"
+                    GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts from Hadge.app") { _ in
+                        self.workoutSemaphore = false
+                    }
                 }
+            default: // No op
+                break
             }
         case 1:
             _ = GitHub.shared().signOut()

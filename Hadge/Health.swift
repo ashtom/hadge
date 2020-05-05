@@ -32,6 +32,16 @@ class Health {
         self.lastOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfNextYear!)
     }
 
+    func getBiologicalSex() -> HKBiologicalSexObject? {
+        var biologicalSex: HKBiologicalSexObject?
+        do {
+            try biologicalSex = self.healthStore?.biologicalSex()
+            return biologicalSex
+        } catch {
+            return nil
+        }
+    }
+
     func seedSampleData() {
         do {
             let path = Bundle.main.path(forResource: "2020", ofType: "csv")

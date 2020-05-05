@@ -155,11 +155,6 @@ extension HKWorkoutActivityType {
         }
     }
 
-    enum EmojiGender {
-        case male
-        case female
-    }
-
     var associatedEmojiFemale: String? {
         switch self {
         case .climbing: return "🧗‍♀️"
@@ -176,7 +171,7 @@ extension HKWorkoutActivityType {
         case .wrestling: return "🤼‍♀️"
 
         // Catch-all
-        default:                            return associatedEmoji
+        default: return associatedEmoji
         }
     }
 
@@ -196,14 +191,16 @@ extension HKWorkoutActivityType {
         case .wrestling: return "🤼‍♂️"
 
         // Catch-all
-        default:                            return associatedEmoji
+        default: return associatedEmoji
         }
     }
 
-    func associatedEmoji(for gender: EmojiGender) -> String? {
-        switch gender {
+    func associatedEmoji(for gender: HKBiologicalSexObject) -> String? {
+        switch gender.biologicalSex {
         case .female: return associatedEmojiFemale
         case .male: return associatedEmojiMale
+
+        default: return associatedEmojiMale
         }
     }
 }
