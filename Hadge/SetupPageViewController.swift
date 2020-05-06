@@ -27,6 +27,9 @@ class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSou
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
+
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToLoginViewController), name: .didReceiveHealthAccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToInitialViewController), name: .didSignInSuccessfully, object: nil)
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -67,5 +70,26 @@ class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSou
         }
 
         return firstViewControllerIndex
+    }
+
+    func goToNextPage(animated: Bool = true) {
+        guard let currentViewController = self.viewControllers?.first else { return }
+        guard let nextViewController = dataSource?.pageViewController(self, viewControllerAfter: currentViewController) else { return }
+        setViewControllers([nextViewController], direction: .forward, animated: animated, completion: nil)
+    }
+
+    @objc func forwardToLoginViewController() {
+        DispatchQueue.main.async {
+            self.goToNextPage(animated: true)
+        }
+    }
+
+    @objc func forwardToInitialViewController() {
+        DispatchQueue.main.async {
+            let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
+            if let rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() {
+                sceneDelegate?.window?.rootViewController = rootViewController
+            }
+        }
     }
 }

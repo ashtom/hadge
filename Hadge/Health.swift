@@ -9,6 +9,10 @@
 import HealthKit
 import SwiftCSV
 
+extension Notification.Name {
+    static let didReceiveHealthAccess = Notification.Name("didReceiveHealthAccess")
+}
+
 class Health {
     static let sharedInstance = Health()
 

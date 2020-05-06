@@ -224,22 +224,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeV-Fd-vWJ">
-                                <rect key="frame" x="57" y="420" width="300" height="56"/>
-                                <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="20" y="766" width="374" height="56"/>
+                                <color key="backgroundColor" red="0.86991155149999999" green="0.36144497990000002" blue="0.25090855359999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="7wy-kz-hyi"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="E2G-IZ-neh"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <state key="normal" title="Sign in with GitHub">
-                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="signIn:" destination="DbV-BA-6xV" eventType="touchUpInside" id="O81-rW-TSH"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mi-Cp-UPS">
-                                <rect key="frame" x="105" y="484" width="204" height="30"/>
+                                <rect key="frame" x="105" y="832" width="204" height="30"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <state key="normal" title="Use a Personal Access Token ">
                                     <color key="titleColor" systemColor="placeholderTextColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -247,13 +247,40 @@
                                     <action selector="enterToken:" destination="DbV-BA-6xV" eventType="touchUpInside" id="Ihb-Ao-5Vq"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Connect" translatesAutoresizingMaskIntoConstraints="NO" id="sR4-mB-Di6">
+                                <rect key="frame" x="20" y="94" width="374" height="52"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="kEp-me-Fqq"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xF5-te-3Pk">
+                                <rect key="frame" x="20" y="154" width="374" height="576"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Please sign in with GitHub through the button below. The authentication flow will redirect you to Safari. Once you finished signing in, Safari will ask you to open Hadge again.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="HeV-Fd-vWJ" firstAttribute="centerY" secondItem="0FT-eh-dPC" secondAttribute="centerY" id="Bjn-9G-gYX"/>
+                            <constraint firstItem="oCj-n4-pLU" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HeV-Fd-vWJ" secondAttribute="trailing" id="5dB-r9-r1b"/>
+                            <constraint firstItem="xF5-te-3Pk" firstAttribute="leading" secondItem="sR4-mB-Di6" secondAttribute="leading" id="CmZ-I4-aRm"/>
+                            <constraint firstItem="oCj-n4-pLU" firstAttribute="trailing" secondItem="sR4-mB-Di6" secondAttribute="trailing" constant="20" id="DDm-TR-x6y"/>
+                            <constraint firstItem="oCj-n4-pLU" firstAttribute="bottom" secondItem="HeV-Fd-vWJ" secondAttribute="bottom" constant="40" id="Ew8-md-x1S"/>
+                            <constraint firstItem="HeV-Fd-vWJ" firstAttribute="top" secondItem="xF5-te-3Pk" secondAttribute="bottom" constant="36" id="HlT-Gp-6c9"/>
+                            <constraint firstItem="sR4-mB-Di6" firstAttribute="leading" secondItem="oCj-n4-pLU" secondAttribute="leading" constant="20" id="Z5i-Zc-JTl"/>
                             <constraint firstItem="0mi-Cp-UPS" firstAttribute="centerX" secondItem="HeV-Fd-vWJ" secondAttribute="centerX" id="fW5-jh-THY"/>
                             <constraint firstItem="HeV-Fd-vWJ" firstAttribute="centerX" secondItem="0FT-eh-dPC" secondAttribute="centerX" id="gUY-0a-cBc"/>
-                            <constraint firstItem="0mi-Cp-UPS" firstAttribute="top" secondItem="HeV-Fd-vWJ" secondAttribute="bottom" constant="8" id="iC3-DS-5s5"/>
+                            <constraint firstItem="xF5-te-3Pk" firstAttribute="trailing" secondItem="sR4-mB-Di6" secondAttribute="trailing" id="hjO-6w-OFP"/>
+                            <constraint firstItem="xF5-te-3Pk" firstAttribute="top" secondItem="sR4-mB-Di6" secondAttribute="bottom" constant="8" id="hta-CC-q0P"/>
+                            <constraint firstItem="oCj-n4-pLU" firstAttribute="bottom" secondItem="0mi-Cp-UPS" secondAttribute="bottom" id="iC3-DS-5s5"/>
+                            <constraint firstItem="sR4-mB-Di6" firstAttribute="top" secondItem="oCj-n4-pLU" secondAttribute="top" constant="50" id="nSL-1n-4Ux"/>
+                            <constraint firstItem="HeV-Fd-vWJ" firstAttribute="leading" secondItem="oCj-n4-pLU" secondAttribute="leading" constant="20" id="z6e-I9-gO0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="oCj-n4-pLU"/>
                     </view>
@@ -263,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czx-0d-L0M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-778" y="854"/>
+            <point key="canvasLocation" x="-778.26086956521749" y="853.79464285714278"/>
         </scene>
         <!--Workouts Navigation Controller-->
         <scene sceneID="Zhr-jw-kvk">
@@ -295,38 +322,72 @@
             </objects>
             <point key="canvasLocation" x="-777" y="136"/>
         </scene>
-        <!--View Controller-->
+        <!--Health Request View Controller-->
         <scene sceneID="3eU-4F-EfH">
             <objects>
-                <viewController storyboardIdentifier="HealthRequestViewController" id="tdl-OV-NG7" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HealthRequestViewController" id="tdl-OV-NG7" customClass="HealthRequestViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9hL-PL-oYw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAi-8Y-Nhq">
-                                <rect key="frame" x="57" y="420" width="300" height="56"/>
-                                <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="20" y="766" width="374" height="56"/>
+                                <color key="backgroundColor" red="0.86991155149999999" green="0.36144497990000002" blue="0.25090855359999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="0TE-aU-Qcg"/>
                                     <constraint firstAttribute="height" constant="56" id="auS-Zy-UqL"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <state key="normal" title="Enable Health data access">
-                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="requestHealthAccess:" destination="tdl-OV-NG7" eventType="touchUpInside" id="4Im-Yh-X7M"/>
+                                </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Welcome" translatesAutoresizingMaskIntoConstraints="NO" id="s4N-Rb-sFR">
+                                <rect key="frame" x="20" y="94" width="374" height="52"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="4sk-I8-VTI"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Mew-qn-w4j">
+                                <rect key="frame" x="20" y="154" width="374" height="576"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Hadge exports your workout data to a private GitHub repository in your personal GitHub account. To do this, the app needs access to your data in Health.app. Please provide this access through the button below. You can choose to disable this at any time in the Health.app.
+
+Hadge does not collect any data for any other purposes, and does not send any data to any service other than GitHub. The connection between Hadge and GitHub is directly established through the GitHub API.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="GAi-8Y-Nhq" firstAttribute="centerY" secondItem="9hL-PL-oYw" secondAttribute="centerY" id="EOr-uu-pQU"/>
+                            <constraint firstItem="GAi-8Y-Nhq" firstAttribute="top" secondItem="Mew-qn-w4j" secondAttribute="bottom" constant="36" id="EYt-LO-zan"/>
+                            <constraint firstItem="MX5-rq-ciQ" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="GAi-8Y-Nhq" secondAttribute="trailing" id="EnN-ec-Nb6"/>
+                            <constraint firstItem="GAi-8Y-Nhq" firstAttribute="leading" secondItem="MX5-rq-ciQ" secondAttribute="leading" constant="20" id="L4N-ic-4EA"/>
+                            <constraint firstItem="MX5-rq-ciQ" firstAttribute="bottom" secondItem="GAi-8Y-Nhq" secondAttribute="bottom" constant="40" id="On2-fs-eKD"/>
+                            <constraint firstItem="Mew-qn-w4j" firstAttribute="top" secondItem="s4N-Rb-sFR" secondAttribute="bottom" constant="8" id="SUO-yj-np7"/>
+                            <constraint firstItem="MX5-rq-ciQ" firstAttribute="trailing" secondItem="s4N-Rb-sFR" secondAttribute="trailing" constant="20" id="cNL-NO-XXy"/>
                             <constraint firstItem="GAi-8Y-Nhq" firstAttribute="centerX" secondItem="9hL-PL-oYw" secondAttribute="centerX" id="cgG-F1-bha"/>
+                            <constraint firstItem="s4N-Rb-sFR" firstAttribute="top" secondItem="MX5-rq-ciQ" secondAttribute="top" constant="50" id="iZR-Xw-ZXt"/>
+                            <constraint firstItem="Mew-qn-w4j" firstAttribute="trailing" secondItem="s4N-Rb-sFR" secondAttribute="trailing" id="jB3-gW-d9C"/>
+                            <constraint firstItem="s4N-Rb-sFR" firstAttribute="leading" secondItem="MX5-rq-ciQ" secondAttribute="leading" constant="20" id="lSj-Rb-TBX"/>
+                            <constraint firstItem="Mew-qn-w4j" firstAttribute="leading" secondItem="s4N-Rb-sFR" secondAttribute="leading" id="m4U-Fk-gpS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="MX5-rq-ciQ"/>
                     </view>
+                    <connections>
+                        <outlet property="healthButton" destination="GAi-8Y-Nhq" id="8Gp-NL-QJJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EOB-SS-ZAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1571" y="853"/>
+            <point key="canvasLocation" x="-1571.0144927536232" y="852.45535714285711"/>
         </scene>
     </scenes>
 </document>

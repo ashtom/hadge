@@ -15,17 +15,6 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         signInButton.layer.cornerRadius = 4
-
-        NotificationCenter.default.addObserver(self, selector: #selector(forwardToInitialViewController), name: .didSignInSuccessfully, object: nil)
-    }
-
-    @objc func forwardToInitialViewController() {
-        DispatchQueue.main.async {
-            let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
-            if let rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() {
-                sceneDelegate?.window?.rootViewController = rootViewController
-            }
-        }
     }
 
     @IBAction func signIn(_ sender: Any) {

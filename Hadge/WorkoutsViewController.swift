@@ -32,26 +32,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidAppear(animated)
 
         loadStatusView()
-
-        let objectTypes: Set<HKObjectType> = [
-            HKObjectType.activitySummaryType(),
-            HKObjectType.workoutType(),
-            HKQuantityType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.biologicalSex)!
-        ]
-
-        #if targetEnvironment(simulator)
-        let samplesTypes: Set<HKSampleType> = [
-            HKObjectType.workoutType()
-        ]
-        #else
-        let samplesTypes: Set<HKSampleType> = []
-        #endif
-
-        Health.shared().healthStore?.requestAuthorization(toShare: samplesTypes, read: objectTypes) { (success, _) in
-            if success {
-                self.loadData()
-            }
-        }
+        loadData()
 
         // Debug stuff, will remove later
         //GitHub.shared().getRepository()
