@@ -231,7 +231,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="E2G-IZ-neh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Continue with GitHub">
+                                <state key="normal" title="Sign in with GitHub">
                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -311,7 +311,7 @@
                                     <constraint firstAttribute="height" constant="56" id="auS-Zy-UqL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <state key="normal" title="Request Health Data">
+                                <state key="normal" title="Enable Health data access">
                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>
