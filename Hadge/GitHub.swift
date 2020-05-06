@@ -14,6 +14,7 @@ import os.log
 
 extension Notification.Name {
     static let didSignInSuccessfully = Notification.Name("didSignInSuccessfully")
+    static let didSetUpRepository = Notification.Name("didSetUpRepository")
 }
 
 class GitHub {
@@ -108,18 +109,19 @@ class GitHub {
         }
     }
 
-    func getRepository() {
+    func getRepository(completionHandler: @escaping (String?) -> Swift.Void) {
         Octokit(self.config!).repository(owner: username()!, name: GitHub.defaultRepository) { response in
             switch response {
             case .success(let repository):
                 os_log("Repository ID: %d", type: .debug, repository.id)
+                completionHandler("\(repository.id)")
             case .failure:
-                self.createRepository()
+                self.createRepository(completionHandler: completionHandler)
             }
         }
     }
 
-    func createRepository() {
+    func createRepository(completionHandler: @escaping (String?) -> Swift.Void) {
         let url = URL(string: "https://api.github.com/user/repos")!
         var request = self.createRequest(url: url, httpMethod: "POST")
         let parameters: [String: Any] = [
@@ -131,8 +133,7 @@ class GitHub {
             request.httpBody = try JSON(parameters).rawData()
 
             self.handleRequest(request, completionHandler: { json, _, _ in
-                let responseString = json?.description
-                os_log("Repository created: %@", type: .debug, responseString!)
+                completionHandler(json?["id"].stringValue)
             })
         } catch {
         }

@@ -21,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if !GitHub.shared().isSignedIn() {
             let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SetupPageViewController")
             self.window?.rootViewController = rootController
-            self.window?.backgroundColor = UIColor.systemBackground
         }
     }
 

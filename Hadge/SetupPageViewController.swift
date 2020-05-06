@@ -23,13 +23,15 @@ class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSou
         let appearance = UIPageControl.appearance(whenContainedInInstancesOf: [UIPageViewController.self])
         appearance.pageIndicatorTintColor = UIColor.secondaryLabel
         appearance.currentPageIndicatorTintColor = UIColor.label
+        self.view.backgroundColor = UIColor.systemBackground
 
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(forwardToLoginViewController), name: .didReceiveHealthAccess, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forwardToInitialViewController), name: .didSignInSuccessfully, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToSetupViewController), name: .didSignInSuccessfully, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToInitialViewController), name: .didSetUpRepository, object: nil)
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -81,6 +83,16 @@ class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSou
     @objc func forwardToLoginViewController() {
         DispatchQueue.main.async {
             self.goToNextPage(animated: true)
+        }
+    }
+
+    @objc func forwardToSetupViewController() {
+        DispatchQueue.main.async {
+            for subView in self.view.subviews where subView is UIPageControl {
+                subView.isHidden = true
+            }
+
+            self.setViewControllers([self.viewControllerForIdentifier("SetupViewController")], direction: .forward, animated: true, completion: nil)
         }
     }
 
