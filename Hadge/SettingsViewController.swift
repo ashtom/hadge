@@ -80,7 +80,7 @@ class SettingsViewController: UITableViewController {
             _ = GitHub.shared().signOut()
 
             let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
-            sceneDelegate?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "LoginViewController")
+            sceneDelegate?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SetupPageViewController")
         default:
             tableView.deselectRow(at: indexPath, animated: true)
         }

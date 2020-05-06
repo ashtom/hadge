@@ -15,6 +15,7 @@
 		4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */; };
 		4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */; };
 		4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */; };
+		4DCEDB082462736C00510195 /* SetupPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEDB072462736C00510195 /* SetupPageViewController.swift */; };
 		4DD70CBE245DBD98007C8D58 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD70CBD245DBD98007C8D58 /* SDWebImage */; };
 		4DD70CC0245DBF44007C8D58 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */; };
 		4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CC1245DE64B007C8D58 /* Health.swift */; };
@@ -42,6 +43,7 @@
 		4DB3F6852453F7B0004C8BF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hadge.entitlements; sourceTree = "<group>"; };
 		4DB3F68D2453F7CF004C8BF3 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		4DCEDB072462736C00510195 /* SetupPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPageViewController.swift; sourceTree = "<group>"; };
 		4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DD70CC1245DE64B007C8D58 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		4DD70CC3245E5AF9007C8D58 /* 2020.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = 2020.csv; path = .assets/2020.csv; sourceTree = SOURCE_ROOT; };
@@ -102,6 +104,7 @@
 				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
 				4DB3F6792453F7AC004C8BF3 /* SceneDelegate.swift */,
 				4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */,
+				4DCEDB072462736C00510195 /* SetupPageViewController.swift */,
 				4DD70CC8245E8414007C8D58 /* String+Date.swift */,
 				4D3ACC4F2461D88800BCAB18 /* UserDefaultKeys.swift */,
 				4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */,
@@ -226,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DEA77F22454843400554793 /* GitHub.swift in Sources */,
+				4DCEDB082462736C00510195 /* SetupPageViewController.swift in Sources */,
 				4DD70CCB246066DC007C8D58 /* WorkoutCell.swift in Sources */,
 				4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */,
 				4DD70CC0245DBF44007C8D58 /* SettingsViewController.swift in Sources */,

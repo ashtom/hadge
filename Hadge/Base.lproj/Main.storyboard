@@ -263,7 +263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czx-0d-L0M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-954" y="136"/>
+            <point key="canvasLocation" x="-778" y="854"/>
         </scene>
         <!--Workouts Navigation Controller-->
         <scene sceneID="Zhr-jw-kvk">
@@ -286,6 +286,47 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sac-gZ-ovC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="135.9375"/>
+        </scene>
+        <!--Setup Page View Controller-->
+        <scene sceneID="kz5-Vt-4cE">
+            <objects>
+                <pageViewController storyboardIdentifier="SetupPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="nIO-Y7-ek8" customClass="SetupPageViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ikp-6K-DFv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-777" y="136"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="3eU-4F-EfH">
+            <objects>
+                <viewController storyboardIdentifier="HealthRequestViewController" id="tdl-OV-NG7" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9hL-PL-oYw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GAi-8Y-Nhq">
+                                <rect key="frame" x="57" y="420" width="300" height="56"/>
+                                <color key="backgroundColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="0TE-aU-Qcg"/>
+                                    <constraint firstAttribute="height" constant="56" id="auS-Zy-UqL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Request Health Data">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GAi-8Y-Nhq" firstAttribute="centerY" secondItem="9hL-PL-oYw" secondAttribute="centerY" id="EOr-uu-pQU"/>
+                            <constraint firstItem="GAi-8Y-Nhq" firstAttribute="centerX" secondItem="9hL-PL-oYw" secondAttribute="centerX" id="cgG-F1-bha"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MX5-rq-ciQ"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EOB-SS-ZAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1571" y="853"/>
         </scene>
     </scenes>
 </document>
