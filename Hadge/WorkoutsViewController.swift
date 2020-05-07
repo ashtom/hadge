@@ -63,6 +63,10 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         return cell!
     }
 
+    @objc func showFilter(sender: Any) {
+        performSegue(withIdentifier: "FilterSegue", sender: self)
+    }
+
     @objc func showSettings(sender: Any) {
         performSegue(withIdentifier: "SettingsSegue", sender: self)
     }
@@ -164,7 +168,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         statusLabel?.numberOfLines = 2
 
         let statusItem = UIBarButtonItem(customView: statusLabel!)
-        let leftButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: nil, action: nil)
+        let leftButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(showFilter(sender:)))
         leftButtonItem.tintColor = UIColor.secondaryLabel
         let rightButtonItem = UIBarButtonItem(image: UIImage(systemName: "safari"), style: .plain, target: self, action: #selector(openSafari(sender:)))
         rightButtonItem.tintColor = UIColor.secondaryLabel

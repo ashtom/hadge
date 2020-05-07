@@ -9,5 +9,5 @@
 import Foundation
 
 class Constants {
-    static let debug = false
+    static let debug = true
 }

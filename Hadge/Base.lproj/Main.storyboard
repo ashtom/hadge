@@ -164,6 +164,7 @@
                     <connections>
                         <outlet property="tableView" destination="9p9-BL-FDC" id="Nt5-1D-743"/>
                         <segue destination="8dg-RA-Xw4" kind="presentation" identifier="SettingsSegue" id="SpB-AE-pLC"/>
+                        <segue destination="jbQ-9Y-g5P" kind="presentation" identifier="FilterSegue" id="chg-C4-Pi7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -286,11 +287,12 @@
                     </view>
                     <connections>
                         <outlet property="signInButton" destination="HeV-Fd-vWJ" id="cYO-hp-0Dl"/>
+                        <outlet property="tokenButton" destination="0mi-Cp-UPS" id="Zm0-zr-YMh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czx-0d-L0M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="122" y="1629"/>
+            <point key="canvasLocation" x="138" y="1708"/>
         </scene>
         <!--Workouts Navigation Controller-->
         <scene sceneID="Zhr-jw-kvk">
@@ -388,7 +390,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EOB-SS-ZAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-820" y="1629"/>
+            <point key="canvasLocation" x="-786" y="1708"/>
         </scene>
         <!--Setup View Controller-->
         <scene sceneID="dDz-Ym-Iny">
@@ -437,7 +439,52 @@ Hadge does not collect any data for any other purposes, and does not send any da
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8LW-zz-1ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1048" y="1629"/>
+            <point key="canvasLocation" x="1048" y="1708"/>
+        </scene>
+        <!--Filter Navigation Controller-->
+        <scene sceneID="rsb-bY-Tbj">
+            <objects>
+                <navigationController title="Settings Navigation Controller" id="jbQ-9Y-g5P" userLabel="Filter Navigation Controller" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="P5V-Z5-6xk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FLT-Sh-1zf" kind="relationship" relationship="rootViewController" id="KPF-QL-aNG"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hdi-ne-zmj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1048" y="919"/>
+        </scene>
+        <!--Filter Controller-->
+        <scene sceneID="D1f-QZ-KQM">
+            <objects>
+                <tableViewController title="Settings Controller" id="FLT-Sh-1zf" userLabel="Filter Controller" customClass="FilterViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="DEU-pU-wCO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <connections>
+                            <outlet property="dataSource" destination="FLT-Sh-1zf" id="g7B-Ck-8Ca"/>
+                            <outlet property="delegate" destination="FLT-Sh-1zf" id="5KU-eB-aHk"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Filter" id="oeE-YN-iY8">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="Nyp-Xh-mYn">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="dismiss:" destination="FLT-Sh-1zf" id="9RJ-eL-NgU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IPV-c1-Nx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1958" y="919"/>
         </scene>
     </scenes>
 </document>
