@@ -10,11 +10,13 @@ import UIKit
 
 class LoginViewController: UIViewController {
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var tokenButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         signInButton.layer.cornerRadius = 4
+        tokenButton.isHidden = !Constants.debug
 
         for subView in self.view.subviews where subView is UITextView {
             guard let textView = subView as? UITextView else { continue }

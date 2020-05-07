@@ -16,11 +16,11 @@ class SettingsViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 2 - debugOffset()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
+        switch section + debugOffset() {
         case 0:
             return 4
         case 1:
@@ -34,7 +34,7 @@ class SettingsViewController: UITableViewController {
         let identifier = "SettingsCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
 
-        switch indexPath.section {
+        switch indexPath.section + debugOffset() {
         case 0:
             switch indexPath.row {
             case 0:
@@ -57,7 +57,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
+        switch indexPath.section + debugOffset() {
         case 0:
             tableView.deselectRow(at: indexPath, animated: true)
 
@@ -99,7 +99,7 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
+        switch section + debugOffset() {
         case 0:
             return "Debug"
         case 1:
@@ -111,5 +111,9 @@ class SettingsViewController: UITableViewController {
 
     @IBAction func dismiss(_ sender: Any) {
         self.navigationController!.dismiss(animated: true)
+    }
+
+    func debugOffset() -> Int {
+        return Constants.debug ? 0 : 1
     }
 }
