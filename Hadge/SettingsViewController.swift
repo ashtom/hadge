@@ -22,7 +22,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 4
         case 1:
             return 1
         default:
@@ -38,16 +38,18 @@ class SettingsViewController: UITableViewController {
         case 0:
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Clear last workout UUID"
+                cell.textLabel?.text = "Seed sample data (Simulator only)"
             case 1:
-                cell.textLabel?.text = "Force upload workouts"
+                cell.textLabel?.text = "Clear last workout UUID"
             case 2:
+                cell.textLabel?.text = "Force upload workouts"
+            case 3:
                 cell.textLabel?.text = "Show setup flow on next launch"
             default:
                 cell.textLabel?.text = "Undefined"
             }
         case 1:
-            cell.textLabel?.text = "Sign Out"
+            cell.textLabel?.text = "Sign out"
         default:
             cell.textLabel?.text = "Undefined"
         }
@@ -61,8 +63,14 @@ class SettingsViewController: UITableViewController {
 
             switch indexPath.row {
             case 0:
-                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastWorkout)
+                #if targetEnvironment(simulator)
+                Health.shared().seedSampleData()
+                #else
+                break
+                #endif
             case 1:
+                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastWorkout)
+            case 2:
                 if workoutSemaphore { return }
 
                 workoutSemaphore = true
@@ -75,7 +83,7 @@ class SettingsViewController: UITableViewController {
                         self.workoutSemaphore = false
                     }
                 }
-            case 2:
+            case 3:
                 UserDefaults.standard.set(false, forKey: UserDefaultKeys.setupFinished)
             default: // No op
                 break

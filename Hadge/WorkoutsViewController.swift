@@ -187,11 +187,6 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
             guard let workouts = workouts, workouts.count > 0 else {
                 self.stopRefreshing()
-
-                #if targetEnvironment(simulator)
-                Health.shared().seedSampleData()
-                #endif
-
                 return
             }
 
