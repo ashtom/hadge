@@ -77,19 +77,23 @@ class Health {
         let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: firstOfYear, end: lastOfYear)
         let activityQuery = HKActivitySummaryQuery(predicate: predicate) { (_, summaries, _) in
             guard let summaries = summaries, summaries.count > 0 else { return }
-            summaries.reversed().forEach { summary in
-                print(summary.description)
+            summaries.reversed().forEach { _ in
+                //print(summary.description)
             }
         }
         healthStore?.execute(activityQuery)
     }
 
     func loadWorkouts(completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
-        let predicate = HKQuery.predicateForSamples(withStart: Health().firstOfYear, end: Health().lastOfYear, options: [])
+        loadWorkoutsForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
+    }
+
+    func loadWorkoutsForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
+        let predicate = (start != nil ? HKQuery.predicateForSamples(withStart: start, end: end, options: []) : nil)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
         let sampleQuery = HKSampleQuery(
             sampleType: .workoutType(),
-            predicate: predicate,
+            predicate: (predicate != nil ? predicate : nil),
             limit: 0,
             sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
                 completionHandler(workouts)
