@@ -41,8 +41,9 @@ class LoginViewController: UIViewController {
             textField.placeholder = "Paste your Token here"
         }
 
-        alertController.addAction(saveAction)
         alertController.addAction(cancelAction)
+        alertController.addAction(saveAction)
+        alertController.preferredAction = saveAction
 
         self.present(alertController, animated: true, completion: nil)
     }
