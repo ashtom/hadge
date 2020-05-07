@@ -11,4 +11,5 @@ import Foundation
 class UserDefaultKeys {
     static let lastWorkout = "lastWorkout"
     static let lastSyncDate = "lastSyncDate"
+    static let setupFinished = "setupFinished"
 }

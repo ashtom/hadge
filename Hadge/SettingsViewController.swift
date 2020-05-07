@@ -22,7 +22,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 2
+            return 3
         case 1:
             return 1
         default:
@@ -41,6 +41,8 @@ class SettingsViewController: UITableViewController {
                 cell.textLabel?.text = "Clear last workout UUID"
             case 1:
                 cell.textLabel?.text = "Force upload workouts"
+            case 2:
+                cell.textLabel?.text = "Show setup flow on next launch"
             default:
                 cell.textLabel?.text = "Undefined"
             }
@@ -73,6 +75,8 @@ class SettingsViewController: UITableViewController {
                         self.workoutSemaphore = false
                     }
                 }
+            case 2:
+                UserDefaults.standard.set(false, forKey: UserDefaultKeys.setupFinished)
             default: // No op
                 break
             }

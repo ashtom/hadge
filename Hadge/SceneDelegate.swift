@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Prepare GitHub Auth
         GitHub.shared().prepare()
 
-        if !GitHub.shared().isSignedIn() {
+        if !GitHub.shared().isSignedIn() || !UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
             let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SetupPageViewController")
             self.window?.rootViewController = rootController
         }
