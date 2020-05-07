@@ -162,10 +162,10 @@ class GitHub {
                 request.httpBody = try JSON(parameters).rawData()
 
                 self.handleRequest(request, completionHandler: { json, _, _ in
-                    let responseString = json?.description
-                    os_log("File updated: %@", type: .debug, responseString!)
+                    let sha = json?["content"]["sha"].string
+                    os_log("File updated: %@", type: .debug, sha!)
 
-                    completionHandler(json?["content"]["sha"].string)
+                    completionHandler(sha)
                 })
             } catch {
             }

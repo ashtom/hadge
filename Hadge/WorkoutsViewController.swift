@@ -181,7 +181,6 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     func loadData() {
         startRefreshing()
 
-        //Health.shared().loadActivityData()
         Health.shared().loadWorkouts { workouts in
             self.data = []
 

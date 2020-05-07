@@ -42,8 +42,6 @@ class SetupViewController: UIViewController {
 
                 years[year] = (years[year] == nil ? [] : years[year])
                 years[year]?.append(workout)
-
-                print(workout)
             }
             self.exportYears(years)
         }
