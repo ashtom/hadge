@@ -10,11 +10,19 @@ import UIKit
 import HealthKit
 
 class SetupViewController: UIViewController {
+    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
+    var stopped = false
+
     override func viewDidLoad() {
         initalizeRepository()
     }
 
     func initalizeRepository() {
+        backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "InitialExport") {
+            self.stopped = true
+            UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!)
+        }
+
         GitHub.shared().getRepository { _ in
             GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.app", message: "Update from Hadge.app") { _ in
                 self.startExport()
@@ -43,6 +51,8 @@ class SetupViewController: UIViewController {
 
     func exportYears(_ years: [String: [HKSample]]) {
         guard let year = years.first else { finishExport(); return }
+        guard !stopped else { return }
+
         let content = Health.shared().generateContentForWorkouts(workouts: year.value)
         let filename = "workouts/\(year.key).csv"
         GitHub.shared().updateFile(path: filename, content: content, message: "Initial export for \(year.key).") { _ in
@@ -55,5 +65,7 @@ class SetupViewController: UIViewController {
     func finishExport() {
         UserDefaults.standard.set(true, forKey: UserDefaultKeys.setupFinished)
         NotificationCenter.default.post(name: .didSetUpRepository, object: nil)
+
+        UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier!)
     }
 }
