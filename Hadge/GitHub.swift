@@ -13,7 +13,8 @@ import SwiftyJSON
 import os.log
 
 extension Notification.Name {
-    static let didSignInSuccessfully = Notification.Name("didSignInSuccessfully")
+    static let didSignIn = Notification.Name("didSignIn")
+    static let didSignOut = Notification.Name("didSignOut")
     static let didSetUpRepository = Notification.Name("didSetUpRepository")
 }
 
@@ -102,7 +103,7 @@ class GitHub {
                 os_log("Token stored", type: .debug)
 
                 self.config = TokenConfiguration(self.keychain!["token"])
-                NotificationCenter.default.post(name: .didSignInSuccessfully, object: nil)
+                NotificationCenter.default.post(name: .didSignIn, object: nil)
             case .failure(let error):
                 os_log("Error while loading user: %@", type: .debug, error.localizedDescription)
             }

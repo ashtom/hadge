@@ -22,13 +22,15 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         loadAvatar()
         setUpRefreshControl()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignIn), name: .didSetUpRepository, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignOut), name: .didSignOut, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if !GitHub.shared().isSignedIn() || !UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
-            NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.refreshWasRequested(_:)), name: .didSetUpRepository, object: nil)
             self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
         }
     }
@@ -63,6 +65,21 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     @objc func showSettings(sender: Any) {
         performSegue(withIdentifier: "SettingsSegue", sender: self)
+    }
+
+    @objc func didSignIn() {
+        DispatchQueue.main.async {
+            self.loadAvatar()
+            self.loadData()
+        }
+    }
+
+    @objc func didSignOut() {
+        data = []
+        tableView.reloadData()
+        loadAvatar()
+
+        self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
     }
 
     @objc func refreshWasRequested(_ refreshControl: UIRefreshControl) {

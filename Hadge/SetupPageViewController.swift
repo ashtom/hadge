@@ -31,7 +31,7 @@ class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSou
         }
 
         NotificationCenter.default.addObserver(self, selector: #selector(forwardToLoginViewController), name: .didReceiveHealthAccess, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forwardToSetupViewController), name: .didSignInSuccessfully, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToSetupViewController), name: .didSignIn, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(forwardToInitialViewController), name: .didSetUpRepository, object: nil)
     }
 

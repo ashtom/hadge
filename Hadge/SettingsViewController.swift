@@ -82,9 +82,9 @@ class SettingsViewController: UITableViewController {
             }
         case 1:
             _ = GitHub.shared().signOut()
-
-            let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
-            sceneDelegate?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SetupPageViewController")
+            self.dismiss(animated: false) {
+                NotificationCenter.default.post(name: .didSignOut, object: nil)
+            }
         default:
             tableView.deselectRow(at: indexPath, animated: true)
         }
