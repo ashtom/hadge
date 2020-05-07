@@ -16,6 +16,11 @@ class HealthRequestViewController: UIViewController {
         super.viewDidLoad()
 
         healthButton.layer.cornerRadius = 4
+
+        for subView in self.view.subviews where subView is UITextView {
+            guard let textView = subView as? UITextView else { continue }
+            textView.textContainerInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+        }
     }
 
     @IBAction func requestHealthAccess(_ sender: Any) {

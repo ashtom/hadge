@@ -15,10 +15,19 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         signInButton.layer.cornerRadius = 4
+
+        for subView in self.view.subviews where subView is UITextView {
+            guard let textView = subView as? UITextView else { continue }
+            textView.textContainerInset = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
+        }
     }
 
     @IBAction func signIn(_ sender: Any) {
-        _ = GitHub.shared().signIn()
+        if GitHub.shared().isSignedIn() {
+            NotificationCenter.default.post(name: .didSignIn, object: nil)
+        } else {
+            GitHub.shared().signIn()
+        }
     }
 
     @IBAction func enterToken(_ sender: Any) {

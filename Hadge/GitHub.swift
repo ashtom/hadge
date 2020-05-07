@@ -59,19 +59,14 @@ class GitHub {
         }
     }
 
-    func signIn() -> Bool {
-        if !isSignedIn() {
-            UIApplication.shared.open(configURL!, options: [:], completionHandler: nil)
-            return false
-        } else {
-            return true
-        }
+    func signIn() {
+        UIApplication.shared.open(configURL!, options: [:], completionHandler: nil)
     }
 
-    func signOut() -> Bool {
+    func signOut() {
+        self.keychain!["username"] = nil
         self.keychain!["token"] = nil
         self.prepare()
-        return true
     }
 
     func process(url: URL) {
