@@ -31,6 +31,7 @@
 		4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F4245484A800554793 /* SwiftyJSON */; };
 		4DEA77F8245484B500554793 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F7245484B500554793 /* KeychainAccess */; };
 		4DEA77FB245484FF00554793 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77FA245484FF00554793 /* OctoKit */; };
+		4DF6859F2464CF1000D929EC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6859E2464CF1000D929EC /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+Name.swift"; sourceTree = "<group>"; };
 		4DEA77EF2454842A00554793 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DEA77F12454843400554793 /* GitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
+		4DF6859E2464CF1000D929EC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				4DD70CC3245E5AF9007C8D58 /* 2020.csv */,
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
 				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
+				4DF6859E2464CF1000D929EC /* Constants.swift */,
 				4DEA77F12454843400554793 /* GitHub.swift */,
 				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
 				4DD70CC1245DE64B007C8D58 /* Health.swift */,
@@ -239,6 +242,7 @@
 				4DCEDB082462736C00510195 /* SetupPageViewController.swift in Sources */,
 				4DD70CCB246066DC007C8D58 /* WorkoutCell.swift in Sources */,
 				4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */,
+				4DF6859F2464CF1000D929EC /* Constants.swift in Sources */,
 				4DD70CC0245DBF44007C8D58 /* SettingsViewController.swift in Sources */,
 				4D563CF2246379230034D2CF /* SetupViewController.swift in Sources */,
 				4DB3F67C2453F7AC004C8BF3 /* WorkoutsViewController.swift in Sources */,
