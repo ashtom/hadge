@@ -247,7 +247,7 @@
                                     <action selector="enterToken:" destination="DbV-BA-6xV" eventType="touchUpInside" id="Ihb-Ao-5Vq"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Connect" translatesAutoresizingMaskIntoConstraints="NO" id="sR4-mB-Di6">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Connect" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sR4-mB-Di6">
                                 <rect key="frame" x="20" y="94" width="374" height="52"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -257,7 +257,7 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="xF5-te-3Pk">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF5-te-3Pk">
                                 <rect key="frame" x="20" y="154" width="374" height="576"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <string key="text">Please sign in with GitHub through the button below. The authentication flow will redirect you to Safari. Once you finished signing in, Safari will ask you to open Hadge again.</string>
@@ -308,6 +308,7 @@
                     </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="e65-Pl-Bmf"/>
+                        <segue destination="nIO-Y7-ek8" kind="presentation" identifier="SetupSegue" animates="NO" id="M28-Un-eq2"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sac-gZ-ovC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -344,7 +345,7 @@
                                     <action selector="requestHealthAccess:" destination="tdl-OV-NG7" eventType="touchUpInside" id="4Im-Yh-X7M"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Welcome" translatesAutoresizingMaskIntoConstraints="NO" id="s4N-Rb-sFR">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Welcome" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4N-Rb-sFR">
                                 <rect key="frame" x="20" y="94" width="374" height="52"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -354,7 +355,7 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Mew-qn-w4j">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mew-qn-w4j">
                                 <rect key="frame" x="20" y="154" width="374" height="576"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <string key="text">Hadge exports your workout data to a private GitHub repository in your personal GitHub account. To do this, the app needs access to your data in Health.app. Please provide this access through the button below. You can choose to disable this at any time in the Health.app.
@@ -397,7 +398,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Initial export" translatesAutoresizingMaskIntoConstraints="NO" id="vhu-Sx-z37">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Initial export" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhu-Sx-z37">
                                 <rect key="frame" x="20" y="94" width="374" height="52"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -407,7 +408,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Hadge will now create a private repository  named &quot;health&quot; and export your existing workouts into csv files." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-l8-if7">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Hadge will now create a private repository  named &quot;health&quot; and export your existing workouts into csv files." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-l8-if7">
                                 <rect key="frame" x="20" y="154" width="374" height="613"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>

@@ -17,6 +17,7 @@ class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSou
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.isModalInPresentation = true
         self.dataSource = self
         self.delegate = self
 
@@ -98,10 +99,7 @@ class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSou
 
     @objc func forwardToInitialViewController() {
         DispatchQueue.main.async {
-            let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate
-            if let rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() {
-                sceneDelegate?.window?.rootViewController = rootViewController
-            }
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }

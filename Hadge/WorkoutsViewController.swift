@@ -26,6 +26,11 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        if !GitHub.shared().isSignedIn() || !UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+            NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.refreshWasRequested(_:)), name: .didSetUpRepository, object: nil)
+            self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
