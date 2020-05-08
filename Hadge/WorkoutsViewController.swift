@@ -81,7 +81,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             } else {
                 self.filterButton?.tintColor = UIColor.systemBlue
             }
-            self.loadData()
+            self.loadData(false)
         }
     }
 
@@ -117,23 +117,27 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         UIApplication.shared.open(URL.init(string: "https://github.com/\(GitHub.shared().username()!)/\(GitHub.defaultRepository)")!)
     }
 
-    func startRefreshing() {
+    func startRefreshing(_ visible: Bool = true) {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
                 self.tableView.refreshControl?.beginRefreshing()
 
-                let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
-                self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+                if visible {
+                    let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
+                    self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+                }
             }
         }
     }
 
-    func stopRefreshing() {
+    func stopRefreshing(_ visible: Bool = true) {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
-                let top = self.tableView.adjustedContentInset.top
-                let offset = (self.tableView.refreshControl?.frame.maxY)! + top
-                self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
+                if visible {
+                    let top = self.tableView.adjustedContentInset.top
+                    let offset = (self.tableView.refreshControl?.frame.maxY)! + top
+                    self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
+                }
 
                 self.tableView.refreshControl?.endRefreshing()
             }
@@ -204,14 +208,14 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.refreshControl?.addTarget(self, action: #selector(WorkoutsViewController.refreshWasRequested(_:)), for: UIControl.Event.valueChanged)
     }
 
-    func loadData() {
-        startRefreshing()
+    func loadData(_ visible: Bool = true) {
+        startRefreshing(visible)
 
         Health.shared().loadWorkouts { workouts in
             self.data = []
 
             guard let workouts = workouts, workouts.count > 0 else {
-                self.stopRefreshing()
+                self.stopRefreshing(visible)
                 return
             }
 
@@ -223,7 +227,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
                 self.markLastWorkout(workouts: workouts)
             }
-            self.stopRefreshing()
+            self.stopRefreshing(visible)
         }
     }
 
