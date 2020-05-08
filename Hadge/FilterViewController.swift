@@ -24,11 +24,9 @@ class FilterViewController: UITableViewController {
         super.viewDidLoad()
         self.workoutTypes = HKWorkoutActivityType.values
         self.workoutTypes.sort { $0.name < $1.name }
-        self.checked = [Bool](repeating: false, count: self.workoutTypes.count)
-        self.workoutTypes.enumerated().forEach { (index, element) in
-            if preChecked.isEmpty || preChecked.firstIndex(of: element.rawValue) != nil {
-                checked[index] = true
-            }
+        self.checked = [Bool](repeating: false, count: self.workoutTypes.count + 1)
+        self.preChecked.forEach { index in
+            checked[Int(index)] = true
         }
     }
 
@@ -65,9 +63,10 @@ class FilterViewController: UITableViewController {
         case 1:
             cell.selectionStyle = .none
             cell.textLabel?.text = workoutTypes[indexPath.row].name
-            if !checked[indexPath.row] {
+            let index = Int(workoutTypes[indexPath.row].rawValue)
+            if !checked[index] {
                 cell.accessoryType = .none
-            } else if checked[indexPath.row] {
+            } else if checked[index] {
                 cell.accessoryType = .checkmark
             }
         default:
@@ -82,21 +81,22 @@ class FilterViewController: UITableViewController {
         case 0:
             switch indexPath.row {
             case 0:
-                self.checked = [Bool](repeating: true, count: self.workoutTypes.count)
+                self.checked = [Bool](repeating: true, count: self.workoutTypes.count + 1)
             case 1:
-                self.checked = [Bool](repeating: false, count: self.workoutTypes.count)
+                self.checked = [Bool](repeating: false, count: self.workoutTypes.count + 1)
             default:
                 break
             }
             self.tableView.reloadSections([ 1 ], with: .none)
         case 1:
             if let cell = tableView.cellForRow(at: indexPath) {
+                let index = Int(workoutTypes[indexPath.row].rawValue)
                 if cell.accessoryType == .checkmark {
                      cell.accessoryType = .none
-                     checked[indexPath.row] = false
+                     checked[index] = false
                 } else {
                      cell.accessoryType = .checkmark
-                     checked[indexPath.row] = true
+                     checked[index] = true
                 }
             }
         default:
@@ -109,7 +109,7 @@ class FilterViewController: UITableViewController {
         var active: [UInt] = []
         self.checked.enumerated().forEach { (index, element) in
             if element {
-                active.append(self.workoutTypes[index].rawValue)
+                active.append(UInt(index))
             }
         }
 
