@@ -9,15 +9,27 @@
 import UIKit
 import HealthKit
 
+protocol FilterDelegate: class {
+    func onFilterSelected(workoutTypes: [UInt])
+}
+
 class FilterViewController: UITableViewController {
     var workoutTypes: [HKWorkoutActivityType] = []
     var checked = [Bool]()
+    var preChecked = [UInt]()
+
+    weak var delegate: FilterDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.workoutTypes = HKWorkoutActivityType.values
         self.workoutTypes.sort { $0.name < $1.name }
         self.checked = [Bool](repeating: false, count: self.workoutTypes.count)
+        self.workoutTypes.enumerated().forEach { (index, element) in
+            if preChecked.firstIndex(of: element.rawValue) != nil {
+                checked[index] = true
+            }
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -56,6 +68,14 @@ class FilterViewController: UITableViewController {
     }
 
     @IBAction func dismiss(_ sender: Any) {
+        var active: [UInt] = []
+        self.checked.enumerated().forEach { (index, element) in
+            if element {
+                active.append(self.workoutTypes[index].rawValue)
+            }
+        }
+
+        self.delegate?.onFilterSelected(workoutTypes: active)
         self.navigationController!.dismiss(animated: true)
     }
 }

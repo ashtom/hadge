@@ -10,10 +10,11 @@ import UIKit
 import HealthKit
 import SDWebImage
 
-class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FilterDelegate {
     var data: [[String: Any]] = []
     var statusLabel: UILabel?
+    var filter: [UInt] = []
+    var filterButton: UIBarButtonItem?
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -61,6 +62,27 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
 
         return cell!
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "FilterSegue" {
+            let filterNavigationViewController = segue.destination as? UINavigationController
+            let filterViewController = filterNavigationViewController?.viewControllers.first as? FilterViewController
+            filterViewController?.delegate = self
+            filterViewController?.preChecked = filter
+        }
+    }
+
+    func onFilterSelected(workoutTypes: [UInt]) {
+        if !filter.elementsEqual(workoutTypes) {
+            filter = workoutTypes
+            if filter.isEmpty {
+                self.filterButton?.tintColor = UIColor.secondaryLabel
+            } else {
+                self.filterButton?.tintColor = UIColor.systemBlue
+            }
+            self.loadData()
+        }
     }
 
     @objc func showFilter(sender: Any) {
@@ -168,13 +190,13 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         statusLabel?.numberOfLines = 2
 
         let statusItem = UIBarButtonItem(customView: statusLabel!)
-        let leftButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(showFilter(sender:)))
-        leftButtonItem.tintColor = UIColor.secondaryLabel
+        filterButton = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(showFilter(sender:)))
+        filterButton?.tintColor = UIColor.secondaryLabel
         let rightButtonItem = UIBarButtonItem(image: UIImage(systemName: "safari"), style: .plain, target: self, action: #selector(openSafari(sender:)))
         rightButtonItem.tintColor = UIColor.secondaryLabel
         let leftSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let rightSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        self.navigationController?.toolbar.setItems([leftButtonItem, leftSpaceItem, statusItem, rightSpaceItem, rightButtonItem], animated: false)
+        self.navigationController?.toolbar.setItems([filterButton!, leftSpaceItem, statusItem, rightSpaceItem, rightButtonItem], animated: false)
     }
 
     func setUpRefreshControl() {
@@ -226,10 +248,12 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     func createDataFromWorkouts(workouts: [HKSample]) {
         workouts.forEach { workout in
             guard let workout = workout as? HKWorkout else { return }
-            data.append([
-                "title": workout.workoutActivityType.name,
-                "workout": workout
-            ])
+            if filter.isEmpty || filter.firstIndex(of: workout.workoutActivityType.rawValue) != nil {
+                data.append([
+                    "title": workout.workoutActivityType.name,
+                    "workout": workout
+                ])
+            }
         }
 
         DispatchQueue.main.async {
