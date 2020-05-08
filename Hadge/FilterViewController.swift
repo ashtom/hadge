@@ -11,11 +11,13 @@ import HealthKit
 
 class FilterViewController: UITableViewController {
     var workoutTypes: [HKWorkoutActivityType] = []
+    var checked = [Bool]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.workoutTypes = HKWorkoutActivityType.values
         self.workoutTypes.sort { $0.name < $1.name }
+        self.checked = [Bool](repeating: false, count: self.workoutTypes.count)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -28,11 +30,29 @@ class FilterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "FilterCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .default, reuseIdentifier: identifier)
 
         cell.textLabel?.text = workoutTypes[indexPath.row].name
+        cell.selectionStyle = .none
+        if !checked[indexPath.row] {
+            cell.accessoryType = .none
+        } else if checked[indexPath.row] {
+            cell.accessoryType = .checkmark
+        }
 
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if cell.accessoryType == .checkmark {
+                 cell.accessoryType = .none
+                 checked[indexPath.row] = false
+            } else {
+                 cell.accessoryType = .checkmark
+                 checked[indexPath.row] = true
+            }
+        }
     }
 
     @IBAction func dismiss(_ sender: Any) {
