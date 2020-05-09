@@ -23,6 +23,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         loadAvatar()
         setUpRefreshControl()
+        restoreState()
 
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignIn), name: .didSetUpRepository, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignOut), name: .didSignOut, object: nil)
@@ -199,7 +200,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         let statusItem = UIBarButtonItem(customView: statusLabel!)
         filterButton = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(showFilter(sender:)))
-        filterButton?.tintColor = UIColor.secondaryLabel
+        filterButton?.tintColor = (self.filter.isEmpty ? UIColor.secondaryLabel : UIColor.systemBlue)
         let rightButtonItem = UIBarButtonItem(image: UIImage(systemName: "safari"), style: .plain, target: self, action: #selector(openSafari(sender:)))
         rightButtonItem.tintColor = UIColor.secondaryLabel
         let leftSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -210,6 +211,15 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     func setUpRefreshControl() {
         tableView.refreshControl = UIRefreshControl()
         tableView.refreshControl?.addTarget(self, action: #selector(WorkoutsViewController.refreshWasRequested(_:)), for: UIControl.Event.valueChanged)
+    }
+
+    func restoreState() {
+        self.filter = UserDefaults.standard.array(forKey: UserDefaultKeys.workoutFilter) as? [UInt] ?? [UInt]()
+    }
+
+    func saveState() {
+        UserDefaults.standard.set(self.filter, forKey: UserDefaultKeys.workoutFilter)
+        UserDefaults.standard.synchronize()
     }
 
     func loadData(_ visible: Bool = true) {
@@ -266,6 +276,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.saveState()
         }
     }
 }
