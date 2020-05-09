@@ -33,6 +33,8 @@
 		4DEA77FB245484FF00554793 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77FA245484FF00554793 /* OctoKit */; };
 		4DF6859F2464CF1000D929EC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6859E2464CF1000D929EC /* Constants.swift */; };
 		4DF685A12464D0EE00D929EC /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF685A02464D0EE00D929EC /* FilterViewController.swift */; };
+		4DF685A42465AEDC00D929EC /* FilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF685A32465AEDC00D929EC /* FilterHeaderView.swift */; };
+		4DF685A62465B21F00D929EC /* FilterHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF685A52465B21F00D929EC /* FilterHeaderView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		4DEA77F12454843400554793 /* GitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
 		4DF6859E2464CF1000D929EC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4DF685A02464D0EE00D929EC /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		4DF685A32465AEDC00D929EC /* FilterHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterHeaderView.swift; sourceTree = "<group>"; };
+		4DF685A52465B21F00D929EC /* FilterHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterHeaderView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
 				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
 				4DF6859E2464CF1000D929EC /* Constants.swift */,
+				4DF685A32465AEDC00D929EC /* FilterHeaderView.swift */,
+				4DF685A52465B21F00D929EC /* FilterHeaderView.xib */,
 				4DF685A02464D0EE00D929EC /* FilterViewController.swift */,
 				4DEA77F12454843400554793 /* GitHub.swift */,
 				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
@@ -208,6 +214,7 @@
 			files = (
 				4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */,
 				4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */,
+				4DF685A62465B21F00D929EC /* FilterHeaderView.xib in Resources */,
 				4DD70CC4245E5AFA007C8D58 /* 2020.csv in Resources */,
 				4DB3F67F2453F7AC004C8BF3 /* Main.storyboard in Resources */,
 			);
@@ -252,6 +259,7 @@
 				4D3ACC502461D88800BCAB18 /* UserDefaultKeys.swift in Sources */,
 				4DF685A12464D0EE00D929EC /* FilterViewController.swift in Sources */,
 				4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */,
+				4DF685A42465AEDC00D929EC /* FilterHeaderView.swift in Sources */,
 				4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */,
 				4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */,
 				4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */,

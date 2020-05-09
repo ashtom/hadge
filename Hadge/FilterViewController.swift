@@ -17,6 +17,8 @@ class FilterViewController: UITableViewController {
     var workoutTypes: [HKWorkoutActivityType] = []
     var checked = [Bool]()
     var preChecked = [UInt]()
+    var selectAllValue = true
+    var selectAllButton: UIButton?
 
     weak var delegate: FilterDelegate?
 
@@ -28,81 +30,70 @@ class FilterViewController: UITableViewController {
         self.preChecked.forEach { index in
             checked[Int(index)] = true
         }
+
+        let nib = UINib(nibName: "FilterHeaderView", bundle: nil)
+        self.tableView.register(nib, forHeaderFooterViewReuseIdentifier: FilterHeaderView.reuseIdentifier)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 2
-        case 1:
-            return workoutTypes.count
-        default:
-            return 0
-        }
+        return workoutTypes.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "FilterCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .default, reuseIdentifier: identifier)
 
-        switch indexPath.section {
-        case 0:
-            cell.selectionStyle = .gray
-            switch indexPath.row {
-            case 0:
-                cell.textLabel?.text = "Select all"
-            case 1:
-                cell.textLabel?.text = "Deselect all"
-            default:
-                cell.textLabel?.text = nil
-            }
-        case 1:
-            cell.selectionStyle = .none
-            cell.textLabel?.text = workoutTypes[indexPath.row].name
-            let index = Int(workoutTypes[indexPath.row].rawValue)
-            if !checked[index] {
-                cell.accessoryType = .none
-            } else if checked[index] {
-                cell.accessoryType = .checkmark
-            }
-        default:
-            cell.textLabel?.text = nil
+        cell.selectionStyle = .none
+        cell.textLabel?.text = workoutTypes[indexPath.row].name
+        let index = Int(workoutTypes[indexPath.row].rawValue)
+        if !checked[index] {
+            cell.accessoryType = .none
+        } else if checked[index] {
+            cell.accessoryType = .checkmark
         }
 
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-            case 0:
-                self.checked = [Bool](repeating: true, count: self.workoutTypes.count + 1)
-            case 1:
-                self.checked = [Bool](repeating: false, count: self.workoutTypes.count + 1)
-            default:
-                break
+        if let cell = tableView.cellForRow(at: indexPath) {
+            let index = Int(workoutTypes[indexPath.row].rawValue)
+            if cell.accessoryType == .checkmark {
+                 cell.accessoryType = .none
+                 checked[index] = false
+            } else {
+                 cell.accessoryType = .checkmark
+                 checked[index] = true
             }
-            self.tableView.reloadSections([ 1 ], with: .none)
-        case 1:
-            if let cell = tableView.cellForRow(at: indexPath) {
-                let index = Int(workoutTypes[indexPath.row].rawValue)
-                if cell.accessoryType == .checkmark {
-                     cell.accessoryType = .none
-                     checked[index] = false
-                } else {
-                     cell.accessoryType = .checkmark
-                     checked[index] = true
-                }
-            }
-        default:
-            break
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: FilterHeaderView.reuseIdentifier) as? FilterHeaderView
+        guard let selectAllButton = headerView?.viewWithTag(1) as? UIButton else { return nil }
+        self.selectAllButton = selectAllButton
+        self.selectAllButton?.addTarget(self, action: #selector(selectAllValues(_:)), for: .touchUpInside)
+        return headerView!
+    }
+
+    @objc func selectAllValues(_ sender: UIButton) {
+        self.checked = [Bool](repeating: selectAllValue, count: self.workoutTypes.count + 1)
+        selectAllValue = !selectAllValue
+        if selectAllValue {
+            selectAllButton?.setTitle("Deselect All", for: .normal)
+        } else {
+            selectAllButton?.setTitle("Select All", for: .normal)
+        }
+        self.tableView.reloadSections([ 0 ], with: .none)
     }
 
     @IBAction func dismiss(_ sender: Any) {

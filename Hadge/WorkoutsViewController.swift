@@ -127,6 +127,10 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
                     self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
                 }
             }
+
+            if self.statusLabel != nil {
+                self.statusLabel?.text = "Checking for workouts..."
+            }
         }
     }
 
