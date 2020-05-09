@@ -95,12 +95,8 @@ class Health {
     func loadWorkoutsForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
         let predicate = (start != nil ? HKQuery.predicateForSamples(withStart: start, end: end, options: []) : nil)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        let sampleQuery = HKSampleQuery(
-            sampleType: .workoutType(),
-            predicate: (predicate != nil ? predicate : nil),
-            limit: 0,
-            sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
-                completionHandler(workouts)
+        let sampleQuery = HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 0, sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
+            completionHandler(workouts)
         }
         healthStore?.execute(sampleQuery)
     }
