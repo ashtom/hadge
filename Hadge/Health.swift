@@ -62,13 +62,16 @@ class Health {
                 self.healthStore!.save(workout) { (_, _) in }
             }
         } catch {}
-
     }
 
-    func loadActivityData() {
+    func loadActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
+        loadActivityDataForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
+    }
+
+    func loadActivityDataForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
         let calendar = Calendar.current
-        var firstOfYear = calendar.dateComponents([ .day, .month, .year], from: self.firstOfYear!)
-        var lastOfYear = calendar.dateComponents([ .day, .month, .year], from: self.lastOfYear!)
+        var firstOfYear = calendar.dateComponents([ .day, .month, .year], from: start!)
+        var lastOfYear = calendar.dateComponents([ .day, .month, .year], from: end!)
 
         // Calendar needs to be non-nil, but isn't auto-populated in dateComponents call
         firstOfYear.calendar = calendar
@@ -76,9 +79,10 @@ class Health {
 
         let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: firstOfYear, end: lastOfYear)
         let activityQuery = HKActivitySummaryQuery(predicate: predicate) { (_, summaries, _) in
-            guard let summaries = summaries, summaries.count > 0 else { return }
-            summaries.reversed().forEach { _ in
-                //print(summary.description)
+            if let summaries = summaries, summaries.count > 0 {
+                completionHandler(summaries)
+            } else {
+                completionHandler([])
             }
         }
         healthStore?.execute(activityQuery)
