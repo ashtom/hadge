@@ -102,12 +102,30 @@ class Health {
     }
 
     func generateContentForWorkouts(workouts: [HKSample]) -> String {
-        let header = "uuid,start_date,end_date,type,name,duration,distance,energy\n"
+        let header = "uuid,start_date,end_date,type,name,duration,distance,elevation,energy\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         workouts.reversed().forEach { workout in
             guard let workout = workout as? HKWorkout else { return }
-            let line = "\(workout.uuid),\(workout.startDate),\(workout.endDate),\(workout.workoutActivityType.rawValue),\"\(workout.workoutActivityType.name)\",\(workout.duration),\(workout.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0),\(workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)\n"
-            content.append(line)
+
+            var components: [String] = []
+            components.append("\(workout.uuid)")
+            components.append("\(workout.startDate)")
+            components.append("\(workout.endDate)")
+            components.append("\(workout.workoutActivityType.rawValue)")
+            components.append(workout.workoutActivityType.name)
+            components.append("\(workout.duration)")
+            components.append("\(workout.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0)")
+
+            if let elevation = workout.metadata?["HKElevationAscended"] as? HKQuantity {
+                components.append("\(elevation.doubleValue(for: HKUnit.meter()))")
+            } else {
+                components.append("")
+            }
+
+            components.append("\(workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)")
+
+            content.append(components.joined(separator: ","))
+            content.append("\n")
         }
         return String.init(content)
     }
