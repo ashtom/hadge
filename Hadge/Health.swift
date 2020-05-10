@@ -102,7 +102,7 @@ class Health {
     }
 
     func generateContentForWorkouts(workouts: [HKSample]) -> String {
-        let header = "uuid,start_date,end_date,type,name,duration,distance,elevation,energy\n"
+        let header = "uuid,start_date,end_date,type,name,duration,distance,elevation,flights,strokes,energy\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         workouts.reversed().forEach { workout in
             guard let workout = workout as? HKWorkout else { return }
@@ -122,6 +122,8 @@ class Health {
                 components.append("")
             }
 
+            components.append("\(workout.totalFlightsClimbed?.doubleValue(for: HKUnit.count()) ?? 0)")
+            components.append("\(workout.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0)")
             components.append("\(workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)")
 
             content.append(components.joined(separator: ","))
