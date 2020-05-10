@@ -46,24 +46,6 @@ class Health {
         }
     }
 
-    func seedSampleData() {
-        do {
-            let path = Bundle.main.path(forResource: "2020", ofType: "csv")
-            let csvFile: CSV = try CSV(url: URL(fileURLWithPath: path!))
-            try csvFile.enumerateAsDict { row in
-                let workout = HKWorkout(activityType: HKWorkoutActivityType(rawValue: UInt(row["type"]!)!)!,
-                    start: (row["start_date"]?.toDate())!,
-                    end: (row["end_date"]?.toDate())!,
-                    duration: TimeInterval(Double(row["duration"]!)!),
-                    totalEnergyBurned: HKQuantity(unit: HKUnit.kilocalorie(), doubleValue: Double(row["energy"]!)!),
-                    totalDistance: HKQuantity(unit: HKUnit.meter(), doubleValue: Double(row["distance"]!)!),
-                    device: HKDevice.local(),
-                    metadata: nil)
-                self.healthStore!.save(workout) { (_, _) in }
-            }
-        } catch {}
-    }
-
     func loadActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
         loadActivityDataForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
     }

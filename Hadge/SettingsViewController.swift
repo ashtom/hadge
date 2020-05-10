@@ -22,7 +22,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section + debugOffset() {
         case 0:
-            return 4
+            return 3
         case 1:
             return 1
         default:
@@ -38,12 +38,10 @@ class SettingsViewController: UITableViewController {
         case 0:
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Seed sample data (Simulator only)"
-            case 1:
                 cell.textLabel?.text = "Clear last workout UUID"
-            case 2:
+            case 1:
                 cell.textLabel?.text = "Force upload workouts"
-            case 3:
+            case 2:
                 cell.textLabel?.text = "Show setup flow on next launch"
             default:
                 cell.textLabel?.text = "Undefined"
@@ -63,14 +61,9 @@ class SettingsViewController: UITableViewController {
 
             switch indexPath.row {
             case 0:
-                #if targetEnvironment(simulator)
-                Health.shared().seedSampleData()
-                #else
-                break
-                #endif
-            case 1:
                 UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastWorkout)
-            case 2:
+                UserDefaults.standard.synchronize()
+            case 1:
                 if workoutSemaphore { return }
 
                 workoutSemaphore = true
@@ -83,8 +76,9 @@ class SettingsViewController: UITableViewController {
                         self.workoutSemaphore = false
                     }
                 }
-            case 3:
+            case 2:
                 UserDefaults.standard.set(false, forKey: UserDefaultKeys.setupFinished)
+                UserDefaults.standard.synchronize()
             default: // No op
                 break
             }

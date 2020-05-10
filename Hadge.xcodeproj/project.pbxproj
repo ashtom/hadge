@@ -21,7 +21,6 @@
 		4DD70CBE245DBD98007C8D58 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD70CBD245DBD98007C8D58 /* SDWebImage */; };
 		4DD70CC0245DBF44007C8D58 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */; };
 		4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CC1245DE64B007C8D58 /* Health.swift */; };
-		4DD70CC4245E5AFA007C8D58 /* 2020.csv in Resources */ = {isa = PBXBuildFile; fileRef = 4DD70CC3245E5AF9007C8D58 /* 2020.csv */; };
 		4DD70CC7245E5BC4007C8D58 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD70CC6245E5BC4007C8D58 /* SwiftCSV */; };
 		4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CC8245E8414007C8D58 /* String+Date.swift */; };
 		4DD70CCB246066DC007C8D58 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */; };
@@ -54,7 +53,6 @@
 		4DCEDB072462736C00510195 /* SetupPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupPageViewController.swift; sourceTree = "<group>"; };
 		4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4DD70CC1245DE64B007C8D58 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
-		4DD70CC3245E5AF9007C8D58 /* 2020.csv */ = {isa = PBXFileReference; lastKnownFileType = text; name = 2020.csv; path = .assets/2020.csv; sourceTree = SOURCE_ROOT; };
 		4DD70CC8245E8414007C8D58 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
 		4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
 		4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+Name.swift"; sourceTree = "<group>"; };
@@ -103,7 +101,6 @@
 		4DB3F6762453F7AC004C8BF3 /* Hadge */ = {
 			isa = PBXGroup;
 			children = (
-				4DD70CC3245E5AF9007C8D58 /* 2020.csv */,
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
 				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
 				4DF6859E2464CF1000D929EC /* Constants.swift */,
@@ -215,7 +212,6 @@
 				4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */,
 				4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */,
 				4DF685A62465B21F00D929EC /* FilterHeaderView.xib in Resources */,
-				4DD70CC4245E5AFA007C8D58 /* 2020.csv in Resources */,
 				4DB3F67F2453F7AC004C8BF3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
