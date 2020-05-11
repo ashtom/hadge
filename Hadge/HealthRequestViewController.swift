@@ -26,6 +26,16 @@ class HealthRequestViewController: UIViewController {
     @IBAction func requestHealthAccess(_ sender: Any) {
         let objectTypes: Set<HKObjectType> = [
             HKObjectType.activitySummaryType(),
+            HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!,
+            HKObjectType.quantityType(forIdentifier: .basalEnergyBurned)!,
+            HKObjectType.quantityType(forIdentifier: .distanceCycling)!,
+            HKObjectType.quantityType(forIdentifier: .distanceDownhillSnowSports)!,
+            HKObjectType.quantityType(forIdentifier: .distanceSwimming)!,
+            HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+            HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
+            HKObjectType.quantityType(forIdentifier: .heartRate)!,
+            HKObjectType.quantityType(forIdentifier: .stepCount)!,
+            HKObjectType.quantityType(forIdentifier: .swimmingStrokeCount)!,
             HKObjectType.workoutType(),
             HKQuantityType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.biologicalSex)!
         ]

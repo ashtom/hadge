@@ -252,11 +252,16 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func loadActivity(_ visible: Bool = true) {
         Health.shared().loadActivityData { summaries in
-            summaries?.reversed().forEach { summary in
-                print(summary.description)
+            summaries?.reversed().forEach { _ in
+                //print(summary.description)
             }
             self.stopRefreshing(visible)
         }
+
+        let now = Date.init()
+        Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .stepCount)!, unit: HKUnit.count(), date: now) { sum in print("Steps: \(sum)") }
+        Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!, unit: HKUnit.count(), date: now) { sum in print("Flights Climbed: \(sum)") }
+        Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!, unit: HKUnit.meter(), date: now) { sum in print("Distance: \(sum)") }
     }
 
     func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {

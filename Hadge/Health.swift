@@ -46,6 +46,23 @@ class Health {
         }
     }
 
+    func getQuantityForDate(_ quantity: HKQuantityType, unit: HKUnit, date: Date, completionHandler: @escaping (Double) -> Void) {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: date)
+        let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: endOfDay, options: .strictStartDate)
+        let query = HKStatisticsQuery(quantityType: quantity, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, _ in
+            guard let result = result, let sum = result.sumQuantity() else {
+                completionHandler(0.0)
+                return
+            }
+
+            completionHandler(sum.doubleValue(for: unit))
+        }
+
+        healthStore?.execute(query)
+    }
+
     func loadActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
         loadActivityDataForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
     }
