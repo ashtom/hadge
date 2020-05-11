@@ -262,6 +262,14 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .stepCount)!, unit: HKUnit.count(), date: now) { sum in print("Steps: \(sum)") }
         Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!, unit: HKUnit.count(), date: now) { sum in print("Flights Climbed: \(sum)") }
         Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!, unit: HKUnit.meter(), date: now) { sum in print("Distance: \(sum)") }
+
+        Health.shared().getQuantityForDates(HKQuantityType.quantityType(forIdentifier: .stepCount)!, unit: HKUnit.count(), start: Health.shared().firstOfYear!, end: Health.shared().lastOfYear!) { statistics in
+            if let quantity = statistics?.sumQuantity() {
+                let date = statistics?.startDate
+                let steps = quantity.doubleValue(for: HKUnit.count())
+                print("\(date.debugDescription): steps = \(steps)")
+            }
+        }
     }
 
     func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {

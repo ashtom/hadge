@@ -63,6 +63,29 @@ class Health {
         healthStore?.execute(query)
     }
 
+    func getQuantityForDates(_ quantity: HKQuantityType, unit: HKUnit, start: Date, end: Date, completionHandler: @escaping (HKStatistics?) -> Void) {
+        let calendar = NSCalendar.current
+        let interval = NSDateComponents()
+        interval.day = 1
+
+        let anchorComponents = calendar.dateComponents([.day, .month, .year], from: NSDate() as Date)
+        let anchorDate = calendar.date(from: anchorComponents)
+
+        let query = HKStatisticsCollectionQuery(quantityType: quantity, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate!, intervalComponents: interval as DateComponents)
+        query.initialResultsHandler = {query, results, error in
+            guard let results = results else {
+                completionHandler(nil)
+                return
+            }
+
+            results.enumerateStatistics(from: start, to: end as Date) { statistics, _ in
+                completionHandler(statistics)
+            }
+        }
+
+        healthStore?.execute(query)
+    }
+
     func loadActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
         loadActivityDataForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
     }
