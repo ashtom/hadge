@@ -84,7 +84,7 @@ class Health {
     }
 
     func generateContentForWorkouts(workouts: [HKSample]) -> String {
-        let header = "uuid,start_date,end_date,type,name,duration,distance,elevation,flights,strokes,energy\n"
+        let header = "UUID,Start Date,End Date,Type,Name,Duration,Distance,Elevation Ascended,Flights Climbed,Swim Strokes,Total Energy\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         workouts.reversed().forEach { workout in
             guard let workout = workout as? HKWorkout else { return }
