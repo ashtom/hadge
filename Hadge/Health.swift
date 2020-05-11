@@ -95,22 +95,26 @@ class Health {
             components.append("\(workout.endDate)")
             components.append("\(workout.workoutActivityType.rawValue)")
             components.append(workout.workoutActivityType.name)
-            components.append("\(workout.duration)")
-            components.append("\(workout.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0)")
+            components.append(String(format: "%.3f", workout.duration))
+            components.append(quantityToString(workout.totalDistance, unit: HKUnit.meter()))
 
             if let elevation = workout.metadata?["HKElevationAscended"] as? HKQuantity {
-                components.append("\(elevation.doubleValue(for: HKUnit.meter()))")
+                components.append(quantityToString(elevation, unit: HKUnit.meter()))
             } else {
-                components.append("")
+                components.append("0")
             }
 
-            components.append("\(workout.totalFlightsClimbed?.doubleValue(for: HKUnit.count()) ?? 0)")
-            components.append("\(workout.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0)")
-            components.append("\(workout.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)")
+            components.append(quantityToString(workout.totalFlightsClimbed, unit: HKUnit.count(), int: true))
+            components.append(quantityToString(workout.totalSwimmingStrokeCount, unit: HKUnit.count(), int: true))
+            components.append(quantityToString(workout.totalEnergyBurned, unit: HKUnit.kilocalorie()))
 
             content.append(components.joined(separator: ","))
             content.append("\n")
         }
         return String.init(content)
+    }
+
+    func quantityToString(_ quantity: HKQuantity?, unit: HKUnit, int: Bool = false) -> String {
+        return String(format: (int ? "%.0f" : "%.2f"), quantity?.doubleValue(for: unit) ?? 0)
     }
 }
