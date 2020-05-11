@@ -33,7 +33,7 @@ class SetupViewController: UIViewController {
     func startExport() {
         Health.shared().loadWorkoutsForDates(start: nil, end: nil) { workouts in
             var years: [String: [HKSample]] = [:]
-            workouts?.reversed().forEach { workout in
+            workouts?.forEach { workout in
                 guard let workout = workout as? HKWorkout else { return }
 
                 let calendar = Calendar.current
