@@ -72,7 +72,7 @@ class SettingsViewController: UITableViewController {
 
                     let content = Health.shared().generateContentForWorkouts(workouts: workouts)
                     let filename = "workouts/\(Health.shared().year).csv"
-                    GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts from Hadge.app") { _ in
+                    GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts") { _ in
                         self.workoutSemaphore = false
                     }
                 }
