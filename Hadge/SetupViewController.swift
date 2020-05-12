@@ -12,6 +12,7 @@ import HealthKit
 class SetupViewController: UIViewController {
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     var stopped = false
+    var years: [String: [Any]] = [:]
 
     override func viewDidLoad() {
         initalizeRepository()
@@ -32,54 +33,49 @@ class SetupViewController: UIViewController {
 
     func collectWorkoutData() {
         Health.shared().getWorkoutsForDates(start: nil, end: nil) { workouts in
-            var years: [String: [HKSample]] = [:]
+            self.initalizeYears()
             workouts?.forEach { workout in
                 guard let workout = workout as? HKWorkout else { return }
-
-                let year = self.yearFromDate(workout.startDate)
-                years[year] = (years[year] == nil ? [] : years[year])
-                years[year]?.append(workout)
+                self.addDataToYears(self.yearFromDate(workout.startDate), data: workout)
             }
-            self.exportWorkouts(years)
-        }
-    }
-
-    func exportWorkouts(_ years: [String: [HKSample]]) {
-        guard let year = years.first else { collectActivityData(); return }
-        guard !stopped else { return }
-
-        let content = Health.shared().generateContentForWorkouts(workouts: year.value)
-        let filename = "workouts/\(year.key).csv"
-        GitHub.shared().updateFile(path: filename, content: content, message: "Initial export for \(year.key).") { _ in
-            var next = years
-            next.removeValue(forKey: year.key)
-            self.exportWorkouts(next)
+            self.exportData(self.years, directory: "workouts", contentHandler: { workouts in
+                return Health.shared().generateContentForWorkouts(workouts: workouts)
+            }, completionHandler: { self.collectActivityData() })
         }
     }
 
     func collectActivityData() {
         let start = Calendar.current.date(from: DateComponents(year: 2008, month: 1, day: 1))
         Health.shared().getActivityDataForDates(start: start, end: Health.shared().yesterday) { summaries in
-            var years: [String: [HKActivitySummary]] = [:]
+            self.initalizeYears()
             summaries?.forEach { summary in
-                let year = String(summary.dateComponents(for: Calendar.current).year!)
-                years[year] = (years[year] == nil ? [] : years[year])
-                years[year]?.append(summary)
+                self.addDataToYears(String(summary.dateComponents(for: Calendar.current).year!), data: summary)
             }
-            self.exportActivity(years)
+            self.exportData(self.years, directory: "activity", contentHandler: { summaries in
+                return Health.shared().generateContentForActivityData(summaries: summaries)
+            }, completionHandler: { self.finishExport() })
         }
     }
 
-    func exportActivity(_ years: [String: [HKActivitySummary]]) {
-        guard let year = years.first else { finishExport(); return }
+    func initalizeYears() {
+        self.years = [:]
+    }
+
+    func addDataToYears(_ year: String, data: Any) {
+        years[year] = (years[year] == nil ? [] : years[year])
+        years[year]?.append(data)
+    }
+
+    func exportData(_ years: [String: [Any]], directory: String, contentHandler: @escaping ([Any]) -> String, completionHandler: @escaping () -> Swift.Void) {
+        guard let year = years.first else { completionHandler(); return }
         guard !stopped else { return }
 
-        let content = Health.shared().generateContentForActivityData(summaries: year.value)
-        let filename = "activity/\(year.key).csv"
+        let content = contentHandler(year.value)
+        let filename = "\(directory)/\(year.key).csv"
         GitHub.shared().updateFile(path: filename, content: content, message: "Initial export for \(year.key).") { _ in
             var next = years
             next.removeValue(forKey: year.key)
-            self.exportActivity(next)
+            self.exportData(next, directory: directory, contentHandler: contentHandler, completionHandler: completionHandler)
         }
     }
 

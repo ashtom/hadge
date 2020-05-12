@@ -41,7 +41,10 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidAppear(animated)
 
         loadStatusView()
-        loadData()
+
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+            loadData(false)
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,7 +100,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     @objc func didSignIn() {
         DispatchQueue.main.async {
             self.loadAvatar()
-            self.loadData()
+            self.loadData(false)
         }
     }
 

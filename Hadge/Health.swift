@@ -114,11 +114,13 @@ class Health {
         healthStore?.execute(activityQuery)
     }
 
-    func generateContentForActivityData(summaries: [HKActivitySummary]?) -> String {
+    func generateContentForActivityData(summaries: [Any]?) -> String {
         let header = "Date,Move Actual,Move Goal,Exercise Actual,Exercise Goal,Stand Actual,Stand Goal\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         let calendar = Calendar.current
         summaries?.forEach { summary in
+            guard let summary = summary as? HKActivitySummary else { return }
+
             let date = Calendar.current.date(from: summary.dateComponents(for: calendar))
             guard date != nil else { return }
 
@@ -150,7 +152,7 @@ class Health {
         healthStore?.execute(sampleQuery)
     }
 
-    func generateContentForWorkouts(workouts: [HKSample]) -> String {
+    func generateContentForWorkouts(workouts: [Any]) -> String {
         let header = "UUID,Start Date,End Date,Type,Name,Duration,Distance,Elevation Ascended,Flights Climbed,Swim Strokes,Total Energy\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         workouts.reversed().forEach { workout in
