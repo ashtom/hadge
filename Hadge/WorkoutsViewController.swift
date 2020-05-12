@@ -228,7 +228,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func loadWorkouts(_ visible: Bool = true) {
-        Health.shared().loadWorkouts { workouts in
+        Health.shared().getWorkouts { workouts in
             self.data = []
 
             guard let workouts = workouts, workouts.count > 0 else {
@@ -251,11 +251,12 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func loadActivity(_ visible: Bool = true) {
-        Health.shared().loadActivityData { summaries in
-            summaries?.reversed().forEach { _ in
-                //print(summary.description)
+        Health.shared().getActivityData { summaries in
+            let content = Health.shared().generateContentForActivityData(summaries: summaries)
+            let filename = "activity/\(Health.shared().year).csv"
+            GitHub.shared().updateFile(path: filename, content: content, message: "Update activity from Hadge.app") { _ in
+                self.stopRefreshing(visible)
             }
-            self.stopRefreshing(visible)
         }
 
         let now = Date.init()

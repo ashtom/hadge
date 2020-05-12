@@ -86,11 +86,11 @@ class Health {
         healthStore?.execute(query)
     }
 
-    func loadActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
-        loadActivityDataForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
+    func getActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
+        getActivityDataForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
     }
 
-    func loadActivityDataForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
+    func getActivityDataForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
         let calendar = Calendar.current
         var firstOfYear = calendar.dateComponents([ .day, .month, .year], from: start!)
         var lastOfYear = calendar.dateComponents([ .day, .month, .year], from: end!)
@@ -110,11 +110,37 @@ class Health {
         healthStore?.execute(activityQuery)
     }
 
-    func loadWorkouts(completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
-        loadWorkoutsForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
+    func generateContentForActivityData(summaries: [HKActivitySummary]?) -> String {
+        let header = "Date,Move Actual,Move Goal,Exercise Actual,Exercise Goal,Stand Actual,Stand Goal\n"
+        let content: NSMutableString = NSMutableString.init(string: header)
+        let calendar = Calendar.current
+        summaries?.enumerated().forEach { (index, summary) in
+            let date = Calendar.current.date(from: summary.dateComponents(for: calendar))
+            guard date != nil else { return }
+
+            var components: [String] = []
+            components.append("\(date!)")
+            components.append(quantityToString(summary.activeEnergyBurned, unit: HKUnit.kilocalorie()))
+            components.append(quantityToString(summary.activeEnergyBurnedGoal, unit: HKUnit.kilocalorie()))
+            components.append(quantityToString(summary.appleExerciseTime, unit: HKUnit.minute()))
+            components.append(quantityToString(summary.appleExerciseTimeGoal, unit: HKUnit.minute()))
+            components.append(quantityToString(summary.appleStandHours, unit: HKUnit.count(), int: true))
+            components.append(quantityToString(summary.appleStandHoursGoal, unit: HKUnit.count(), int: true))
+
+            // Ignore last entry as today is by definition incomplete
+            if index < summaries!.count - 1 {
+                content.append(components.joined(separator: ","))
+                content.append("\n")
+            }
+        }
+        return String.init(content)
     }
 
-    func loadWorkoutsForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
+    func getWorkouts(completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
+        getWorkoutsForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
+    }
+
+    func getWorkoutsForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
         let predicate = (start != nil ? HKQuery.predicateForSamples(withStart: start, end: end, options: []) : nil)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
         let sampleQuery = HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 0, sortDescriptors: [sortDescriptor]) { (_, workouts, _) in

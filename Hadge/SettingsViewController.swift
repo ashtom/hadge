@@ -67,7 +67,7 @@ class SettingsViewController: UITableViewController {
                 if workoutSemaphore { return }
 
                 workoutSemaphore = true
-                Health.shared().loadWorkouts { workouts in
+                Health.shared().getWorkouts { workouts in
                     guard let workouts = workouts, workouts.count > 0 else { return }
 
                     let content = Health.shared().generateContentForWorkouts(workouts: workouts)
