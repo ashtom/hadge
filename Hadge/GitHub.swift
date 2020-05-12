@@ -156,7 +156,11 @@ class GitHub {
             let parameters: [String: Any] = [
                 "message": message,
                 "sha": sha,
-                "content": content.data(using: String.Encoding.utf8)!.base64EncodedString()
+                "content": content.data(using: String.Encoding.utf8)!.base64EncodedString(),
+                "author": [
+                    "name": "Hadge",
+                    "email": "hadge@entire.io"
+                ]
             ]
             do {
                 request.httpBody = try JSON(parameters).rawData()
