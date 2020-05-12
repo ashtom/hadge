@@ -26,12 +26,12 @@ class SetupViewController: UIViewController {
 
         GitHub.shared().getRepository { _ in
             GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.", message: "Update README") { _ in
-                self.collectWorkoutData()
+                self.collectWorkoutData { self.collectActivityData { self.finishExport() } }
             }
         }
     }
 
-    func collectWorkoutData() {
+    func collectWorkoutData(completionHandler: @escaping () -> Swift.Void) {
         Health.shared().getWorkoutsForDates(start: nil, end: nil) { workouts in
             self.initalizeYears()
             workouts?.forEach { workout in
@@ -40,11 +40,11 @@ class SetupViewController: UIViewController {
             }
             self.exportData(self.years, directory: "workouts", contentHandler: { workouts in
                 return Health.shared().generateContentForWorkouts(workouts: workouts)
-            }, completionHandler: { self.collectActivityData() })
+            }, completionHandler: completionHandler)
         }
     }
 
-    func collectActivityData() {
+    func collectActivityData(completionHandler: @escaping () -> Swift.Void) {
         let start = Calendar.current.date(from: DateComponents(year: 2008, month: 1, day: 1))
         Health.shared().getActivityDataForDates(start: start, end: Health.shared().yesterday) { summaries in
             self.initalizeYears()
@@ -53,7 +53,7 @@ class SetupViewController: UIViewController {
             }
             self.exportData(self.years, directory: "activity", contentHandler: { summaries in
                 return Health.shared().generateContentForActivityData(summaries: summaries)
-            }, completionHandler: { self.finishExport() })
+            }, completionHandler: completionHandler)
         }
     }
 
