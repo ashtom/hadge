@@ -19,6 +19,8 @@ class Health {
     var year: Int
     var firstOfYear: Date?
     var lastOfYear: Date?
+    var today: Date?
+    var yesterday: Date?
     var healthStore: HKHealthStore?
 
     static func shared() -> Health {
@@ -31,6 +33,8 @@ class Health {
         let calendar = Calendar.current
         self.year = calendar.component(.year, from: Date())
         self.firstOfYear = Calendar.current.date(from: DateComponents(year: year, month: 1, day: 1))
+        self.today = calendar.startOfDay(for: Date.init())
+        self.yesterday = Calendar.current.date(byAdding: .day, value: -1, to: self.today!)
 
         let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
         self.lastOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfNextYear!)
@@ -87,19 +91,19 @@ class Health {
     }
 
     func getActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
-        getActivityDataForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
+        getActivityDataForDates(start: firstOfYear, end: yesterday, completionHandler: completionHandler)
     }
 
     func getActivityDataForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
         let calendar = Calendar.current
-        var firstOfYear = calendar.dateComponents([ .day, .month, .year], from: start!)
-        var lastOfYear = calendar.dateComponents([ .day, .month, .year], from: end!)
+        var startComponents = calendar.dateComponents([ .day, .month, .year], from: start!)
+        var endComponents = calendar.dateComponents([ .day, .month, .year], from: end!)
 
         // Calendar needs to be non-nil, but isn't auto-populated in dateComponents call
-        firstOfYear.calendar = calendar
-        lastOfYear.calendar = calendar
+        startComponents.calendar = calendar
+        endComponents.calendar = calendar
 
-        let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: firstOfYear, end: lastOfYear)
+        let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: startComponents, end: endComponents)
         let activityQuery = HKActivitySummaryQuery(predicate: predicate) { (_, summaries, _) in
             if let summaries = summaries, summaries.count > 0 {
                 completionHandler(summaries)
@@ -114,7 +118,7 @@ class Health {
         let header = "Date,Move Actual,Move Goal,Exercise Actual,Exercise Goal,Stand Actual,Stand Goal\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         let calendar = Calendar.current
-        summaries?.enumerated().forEach { (index, summary) in
+        summaries?.forEach { summary in
             let date = Calendar.current.date(from: summary.dateComponents(for: calendar))
             guard date != nil else { return }
 
@@ -127,17 +131,14 @@ class Health {
             components.append(quantityToString(summary.appleStandHours, unit: HKUnit.count(), int: true))
             components.append(quantityToString(summary.appleStandHoursGoal, unit: HKUnit.count(), int: true))
 
-            // Ignore last entry as today is by definition incomplete
-            if index < summaries!.count - 1 {
-                content.append(components.joined(separator: ","))
-                content.append("\n")
-            }
+            content.append(components.joined(separator: ","))
+            content.append("\n")
         }
         return String.init(content)
     }
 
     func getWorkouts(completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
-        getWorkoutsForDates(start: Health().firstOfYear, end: Health().lastOfYear, completionHandler: completionHandler)
+        getWorkoutsForDates(start: firstOfYear, end: lastOfYear, completionHandler: completionHandler)
     }
 
     func getWorkoutsForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
