@@ -9,6 +9,19 @@
 import UIKit
 import HealthKit
 
+infix operator >=>: AdditionPrecedence
+
+public typealias Collector = (@escaping () -> Void) -> Void
+public func || (first: @escaping Collector, second: @escaping Collector) -> Collector {
+    return { combine in
+        first {
+            second {
+                combine()
+            }
+        }
+    }
+}
+
 class SetupViewController: UIViewController {
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     var stopped = false
@@ -26,7 +39,7 @@ class SetupViewController: UIViewController {
 
         GitHub.shared().getRepository { _ in
             GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.", message: "Update README") { _ in
-                self.collectWorkoutData { self.collectActivityData { self.finishExport() } }
+                (self.collectWorkoutData || self.collectActivityData || self.finishExport) { }
             }
         }
     }
@@ -79,11 +92,11 @@ class SetupViewController: UIViewController {
         }
     }
 
-    func finishExport() {
+    func finishExport(completionHandler: @escaping () -> Swift.Void) {
         UserDefaults.standard.set(true, forKey: UserDefaultKeys.setupFinished)
         NotificationCenter.default.post(name: .didSetUpRepository, object: nil)
-
         UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier!)
+        completionHandler()
     }
 
     func yearFromDate(_ date: Date) -> String {
