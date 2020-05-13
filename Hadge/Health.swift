@@ -8,6 +8,7 @@
 
 import HealthKit
 import SwiftCSV
+import SwiftDate
 
 extension Notification.Name {
     static let didReceiveHealthAccess = Notification.Name("didReceiveHealthAccess")
@@ -87,7 +88,7 @@ class Health {
                 if let quantity = statistics.sumQuantity() {
                     let date = statistics.startDate
                     let value = quantity.doubleValue(for: unit)
-                    mapped["\(date)"] = value
+                    mapped[date.toISO()] = value
                 }
             }
 
@@ -132,7 +133,7 @@ class Health {
             guard date != nil else { return }
 
             var components: [String] = []
-            components.append("\(date!)")
+            components.append(date!.toISO())
             components.append(quantityToString(summary.activeEnergyBurned, unit: HKUnit.kilocalorie()))
             components.append(quantityToString(summary.activeEnergyBurnedGoal, unit: HKUnit.kilocalorie()))
             components.append(quantityToString(summary.appleExerciseTime, unit: HKUnit.minute()))
@@ -167,8 +168,8 @@ class Health {
 
             var components: [String] = []
             components.append("\(workout.uuid)")
-            components.append("\(workout.startDate)")
-            components.append("\(workout.endDate)")
+            components.append(workout.startDate.toISO())
+            components.append(workout.endDate.toISO())
             components.append("\(workout.workoutActivityType.rawValue)")
             components.append(workout.workoutActivityType.name)
             components.append(String(format: "%.3f", workout.duration))
