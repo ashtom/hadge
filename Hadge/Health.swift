@@ -88,7 +88,7 @@ class Health {
                 if let quantity = statistics.sumQuantity() {
                     let date = statistics.startDate
                     let value = quantity.doubleValue(for: unit)
-                    mapped[date.toISO()] = value
+                    mapped[date.toFormat("yyyy-MM-dd")] = value
                 }
             }
 
@@ -133,7 +133,7 @@ class Health {
             guard date != nil else { return }
 
             var components: [String] = []
-            components.append(date!.toISO())
+            components.append(date!.toFormat("yyyy-MM-dd"))
             components.append(quantityToString(summary.activeEnergyBurned, unit: HKUnit.kilocalorie()))
             components.append(quantityToString(summary.activeEnergyBurnedGoal, unit: HKUnit.kilocalorie()))
             components.append(quantityToString(summary.appleExerciseTime, unit: HKUnit.minute()))
