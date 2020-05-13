@@ -235,10 +235,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         Health.shared().getWorkouts { workouts in
             self.data = []
 
-            guard let workouts = workouts, workouts.count > 0 else {
-                self.stopRefreshing(visible)
-                return
-            }
+            guard let workouts = workouts, workouts.count > 0 else { self.stopRefreshing(visible); return }
 
             self.createDataFromWorkouts(workouts: workouts)
             if self.freshWorkoutsAvailable(workouts: workouts) {
@@ -255,6 +252,8 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func loadActivity(_ visible: Bool = true) {
+        guard freshActivityAvailable() else { self.stopRefreshing(visible); return }
+
         Health.shared().getActivityData { summaries in
             let content = Health.shared().generateContentForActivityData(summaries: summaries)
             let filename = "activity/\(Health.shared().year).csv"
@@ -269,20 +268,22 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             let content = Health.shared().generateContentForDistances(distances: distances)
             let filename = "distances/\(Health.shared().year).csv"
             GitHub.shared().updateFile(path: filename, content: content, message: "Update distances") { _ in
+                self.markLastDistance(distances: distances!)
                 self.stopRefreshing(visible)
             }
         }
+    }
+
+    func freshActivityAvailable() -> Bool {
+        let lastDate = UserDefaults.standard.string(forKey: UserDefaultKeys.lastActivitySyncDate)
+        return lastDate == nil || Health.shared().yesterday!.toFormat("yyyy-MM-dd") > lastDate!
     }
 
     func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {
         guard let workout = workouts.first as? HKWorkout else { return false }
 
         let lastWorkout = UserDefaults.standard.string(forKey: UserDefaultKeys.lastWorkout)
-        if lastWorkout == nil || lastWorkout != workout.uuid.uuidString {
-            return true
-        } else {
-            return false
-        }
+        return lastWorkout == nil || lastWorkout != workout.uuid.uuidString
     }
 
     func markLastWorkout(workouts: [HKSample]) {
@@ -290,6 +291,12 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         UserDefaults.standard.set(workout.uuid.uuidString, forKey: UserDefaultKeys.lastWorkout)
         UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
+    }
+
+    func markLastDistance(distances: [[String: Any]]) {
+        let lastDate = distances.last?["date"] as? String
+
+        UserDefaults.standard.set(lastDate, forKey: UserDefaultKeys.lastActivitySyncDate)
     }
 
     func createDataFromWorkouts(workouts: [HKSample]) {
