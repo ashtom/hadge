@@ -39,7 +39,7 @@ class SetupViewController: UIViewController {
 
         GitHub.shared().getRepository { _ in
             GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.", message: "Update README") { _ in
-                (self.collectWorkoutData || self.collectActivityData || self.finishExport) { }
+                (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport) { }
             }
         }
     }
@@ -58,7 +58,7 @@ class SetupViewController: UIViewController {
     }
 
     func collectActivityData(completionHandler: @escaping () -> Swift.Void) {
-        let start = Calendar.current.date(from: DateComponents(year: 2008, month: 1, day: 1))
+        let start = Calendar.current.date(from: DateComponents(year: 2014, month: 1, day: 1))
         Health.shared().getActivityDataForDates(start: start, end: Health.shared().yesterday) { summaries in
             self.initalizeYears()
             summaries?.forEach { summary in
@@ -66,6 +66,20 @@ class SetupViewController: UIViewController {
             }
             self.exportData(self.years, directory: "activity", contentHandler: { summaries in
                 return Health.shared().generateContentForActivityData(summaries: summaries)
+            }, completionHandler: completionHandler)
+        }
+    }
+
+    func collectDistanceData(completionHandler: @escaping () -> Swift.Void) {
+        let start = Calendar.current.date(from: DateComponents(year: 2014, month: 1, day: 1))
+        Health.shared().distanceDataSource?.getAllDistances(start: start!, end: Health.shared().today!) { distances in
+            self.initalizeYears()
+            distances?.forEach { entry in
+                let date = entry["date"] as? String
+                self.addDataToYears(String(date!.prefix(4)), data: entry)
+            }
+            self.exportData(self.years, directory: "distances", contentHandler: { distances in
+                return Health.shared().generateContentForDistances(distances: distances)
             }, completionHandler: completionHandler)
         }
     }

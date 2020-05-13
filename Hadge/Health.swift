@@ -149,15 +149,17 @@ class Health {
     }
 
     func getDistances(completionHandler: @escaping ([[String: Any]]?) -> Void) {
-        distanceDataSource?.getAllDistances { distances in
+        distanceDataSource?.getAllDistances(start: firstOfYear!, end: today!) { distances in
             completionHandler(distances)
         }
     }
 
-    func generateContentForDistances(distances: [[String: Any]]?) -> String {
+    func generateContentForDistances(distances: [Any]?) -> String {
         let header = "Date,Distance Walking/Running,Steps,Distance Swimming,Strokes,Distance Cycling,Distance Wheelchair,Distance Downhill Snowsports\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         distances?.forEach { entry in
+            guard let entry = entry as? [String: Any] else { return }
+
             var components: [String] = []
             components.append(entry["date"] as? String ?? "")
             components.append(quantityToString(entry["walkingDistance"] as? HKQuantity, unit: HKUnit.meter()))

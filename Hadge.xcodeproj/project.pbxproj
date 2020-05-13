@@ -108,6 +108,7 @@
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
 				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
 				4DF6859E2464CF1000D929EC /* Constants.swift */,
+				4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */,
 				4DF685A32465AEDC00D929EC /* FilterHeaderView.swift */,
 				4DF685A52465B21F00D929EC /* FilterHeaderView.xib */,
 				4DF685A02464D0EE00D929EC /* FilterViewController.swift */,
@@ -128,7 +129,6 @@
 				4D3ACC4F2461D88800BCAB18 /* UserDefaultKeys.swift */,
 				4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */,
 				4DB3F67B2453F7AC004C8BF3 /* WorkoutsViewController.swift */,
-				4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */,
 			);
 			path = Hadge;
 			sourceTree = "<group>";
