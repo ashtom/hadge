@@ -16,7 +16,6 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     var statusLabel: UILabel?
     var filter: [UInt] = []
     var filterButton: UIBarButtonItem?
-    let dispatchGroup = DispatchGroup()
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -260,39 +259,18 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             let content = Health.shared().generateContentForActivityData(summaries: summaries)
             let filename = "activity/\(Health.shared().year).csv"
             GitHub.shared().updateFile(path: filename, content: content, message: "Update activity") { _ in
-                self.stopRefreshing(visible)
+                self.loadDistances()
             }
         }
-
-        loadDistances()
     }
 
     func loadDistances(_ visible: Bool = true) {
-        dispatchGroup.enter()
-        var steps: [String: Double]?
-        Health.shared().getQuantityForDates(HKQuantityType.quantityType(forIdentifier: .stepCount)!, unit: HKUnit.count(), start: Health.shared().firstOfYear!, end: Health.shared().lastOfYear!) { statistics in
-            steps = statistics
-            self.dispatchGroup.leave()
-        }
-
-        dispatchGroup.enter()
-        var walkingDistances: [String: Double]?
-        Health.shared().getQuantityForDates(HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!, unit: HKUnit.meter(), start: Health.shared().firstOfYear!, end: Health.shared().lastOfYear!) { statistics in
-            walkingDistances = statistics
-            self.dispatchGroup.leave()
-        }
-
-        var distances = [[String: Any]]()
-        dispatchGroup.notify(queue: .main) {
-            Date.enumerateDates(from: Health.shared().firstOfYear!, to: Health.shared().today!, increment: DateComponents.create { $0.day = 1 }).forEach { date in
-                var entry = [String: Any]()
-                let key = date.toFormat("yyyy-MM-dd")
-                entry["date"] = key
-                entry["steps"] = steps?[key]
-                entry["walkingDistance"] = walkingDistances?[key]
-                distances.append(entry)
+        Health.shared().getDistances { distances in
+            let content = Health.shared().generateContentForDistances(distances: distances)
+            let filename = "distances/\(Health.shared().year).csv"
+            GitHub.shared().updateFile(path: filename, content: content, message: "Update distances") { _ in
+                self.stopRefreshing(visible)
             }
-            print(distances.sorted(by: { ($0["date"] as? String)! < ($1["date"] as? String)! }))
         }
     }
 

@@ -32,6 +32,7 @@ class HealthRequestViewController: UIViewController {
             HKObjectType.quantityType(forIdentifier: .distanceDownhillSnowSports)!,
             HKObjectType.quantityType(forIdentifier: .distanceSwimming)!,
             HKObjectType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+            HKObjectType.quantityType(forIdentifier: .distanceWheelchair)!,
             HKObjectType.quantityType(forIdentifier: .flightsClimbed)!,
             HKObjectType.quantityType(forIdentifier: .heartRate)!,
             HKObjectType.quantityType(forIdentifier: .stepCount)!,

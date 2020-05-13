@@ -11,6 +11,7 @@
 		4D563CF024634D010034D2CF /* HealthRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */; };
 		4D563CF2246379230034D2CF /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D563CF1246379230034D2CF /* SetupViewController.swift */; };
 		4DAE94C0246B7B230036AC72 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 4DAE94BF246B7B230036AC72 /* SwiftDate */; };
+		4DAE94C2246B9C130036AC72 /* DistanceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */; };
 		4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */; };
 		4DB3F67A2453F7AC004C8BF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F6792453F7AC004C8BF3 /* SceneDelegate.swift */; };
 		4DB3F67C2453F7AC004C8BF3 /* WorkoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F67B2453F7AC004C8BF3 /* WorkoutsViewController.swift */; };
@@ -41,6 +42,7 @@
 		4D3ACC4F2461D88800BCAB18 /* UserDefaultKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKeys.swift; sourceTree = "<group>"; };
 		4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthRequestViewController.swift; sourceTree = "<group>"; };
 		4D563CF1246379230034D2CF /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceDataSource.swift; sourceTree = "<group>"; };
 		4DB3F6742453F7AC004C8BF3 /* Hadge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hadge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DB3F6792453F7AC004C8BF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				4D3ACC4F2461D88800BCAB18 /* UserDefaultKeys.swift */,
 				4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */,
 				4DB3F67B2453F7AC004C8BF3 /* WorkoutsViewController.swift */,
+				4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */,
 			);
 			path = Hadge;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				4DF685A42465AEDC00D929EC /* FilterHeaderView.swift in Sources */,
 				4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */,
 				4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */,
+				4DAE94C2246B9C130036AC72 /* DistanceDataSource.swift in Sources */,
 				4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */,
 				4DB3F67A2453F7AC004C8BF3 /* SceneDelegate.swift in Sources */,
 			);

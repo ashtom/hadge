@@ -23,6 +23,7 @@ class Health {
     var today: Date?
     var yesterday: Date?
     var healthStore: HKHealthStore?
+    var distanceDataSource: DistanceDataSource?
 
     static func shared() -> Health {
         return sharedInstance
@@ -30,6 +31,7 @@ class Health {
 
     init() {
         self.healthStore = HKHealthStore()
+        self.distanceDataSource = DistanceDataSource()
 
         let calendar = Calendar.current
         self.year = calendar.component(.year, from: Date())
@@ -51,24 +53,24 @@ class Health {
         }
     }
 
-    func getQuantityForDate(_ quantity: HKQuantityType, unit: HKUnit, date: Date, completionHandler: @escaping (Double) -> Void) {
+    func getQuantityForDate(_ quantity: HKQuantityType, date: Date, completionHandler: @escaping (HKQuantity?) -> Void) {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: date)
         let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: date)
         let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: endOfDay, options: .strictStartDate)
         let query = HKStatisticsQuery(quantityType: quantity, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, _ in
             guard let result = result, let sum = result.sumQuantity() else {
-                completionHandler(0.0)
+                completionHandler(nil)
                 return
             }
 
-            completionHandler(sum.doubleValue(for: unit))
+            completionHandler(sum)
         }
 
         healthStore?.execute(query)
     }
 
-    func getQuantityForDates(_ quantity: HKQuantityType, unit: HKUnit, start: Date, end: Date, completionHandler: @escaping ([String: Double]?) -> Void) {
+    func getQuantityForDates(_ quantity: HKQuantityType, start: Date, end: Date, completionHandler: @escaping ([String: HKQuantity]?) -> Void) {
         let calendar = NSCalendar.current
         let interval = NSDateComponents()
         interval.day = 1
@@ -83,12 +85,11 @@ class Health {
                 return
             }
 
-            var mapped: [String: Double] = [:]
+            var mapped: [String: HKQuantity] = [:]
             results.enumerateStatistics(from: start, to: end as Date) { statistics, _ in
                 if let quantity = statistics.sumQuantity() {
                     let date = statistics.startDate
-                    let value = quantity.doubleValue(for: unit)
-                    mapped[date.toFormat("yyyy-MM-dd")] = value
+                    mapped[date.toFormat("yyyy-MM-dd")] = quantity
                 }
             }
 
@@ -140,6 +141,32 @@ class Health {
             components.append(quantityToString(summary.appleExerciseTimeGoal, unit: HKUnit.minute()))
             components.append(quantityToString(summary.appleStandHours, unit: HKUnit.count(), int: true))
             components.append(quantityToString(summary.appleStandHoursGoal, unit: HKUnit.count(), int: true))
+
+            content.append(components.joined(separator: ","))
+            content.append("\n")
+        }
+        return String.init(content)
+    }
+
+    func getDistances(completionHandler: @escaping ([[String: Any]]?) -> Void) {
+        distanceDataSource?.getAllDistances { distances in
+            completionHandler(distances)
+        }
+    }
+
+    func generateContentForDistances(distances: [[String: Any]]?) -> String {
+        let header = "Date,Distance Walking/Running,Steps,Distance Swimming,Strokes,Distance Cycling,Distance Wheelchair,Distance Downhill Snowsports\n"
+        let content: NSMutableString = NSMutableString.init(string: header)
+        distances?.forEach { entry in
+            var components: [String] = []
+            components.append(entry["date"] as? String ?? "")
+            components.append(quantityToString(entry["walkingDistance"] as? HKQuantity, unit: HKUnit.meter()))
+            components.append(quantityToString(entry["steps"] as? HKQuantity, unit: HKUnit.count()))
+            components.append(quantityToString(entry["swimmingDistance"] as? HKQuantity, unit: HKUnit.meter()))
+            components.append(quantityToString(entry["strokes"] as? HKQuantity, unit: HKUnit.count()))
+            components.append(quantityToString(entry["cyclingDistance"] as? HKQuantity, unit: HKUnit.meter()))
+            components.append(quantityToString(entry["wheelchairDistance"] as? HKQuantity, unit: HKUnit.meter()))
+            components.append(quantityToString(entry["downhillDistance"] as? HKQuantity, unit: HKUnit.meter()))
 
             content.append(components.joined(separator: ","))
             content.append("\n")
