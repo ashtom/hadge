@@ -15,6 +15,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     var statusLabel: UILabel?
     var filter: [UInt] = []
     var filterButton: UIBarButtonItem?
+    let dispatchGroup = DispatchGroup()
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -262,17 +263,25 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
 
-        let now = Date.init()
-        Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .stepCount)!, unit: HKUnit.count(), date: now) { sum in print("Steps: \(sum)") }
-        Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!, unit: HKUnit.count(), date: now) { sum in print("Flights Climbed: \(sum)") }
-        Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!, unit: HKUnit.meter(), date: now) { sum in print("Distance: \(sum)") }
+        loadDistances()
+    }
+
+    func loadDistances(_ visible: Bool = true) {
+        dispatchGroup.enter()
 
         Health.shared().getQuantityForDates(HKQuantityType.quantityType(forIdentifier: .stepCount)!, unit: HKUnit.count(), start: Health.shared().firstOfYear!, end: Health.shared().lastOfYear!) { statistics in
-            if let quantity = statistics?.sumQuantity() {
-                let date = statistics?.startDate
-                let steps = quantity.doubleValue(for: HKUnit.count())
-                print("\(date.debugDescription): steps = \(steps)")
-            }
+            print(statistics ?? "Empty")
+            self.dispatchGroup.leave()
+        }
+
+        dispatchGroup.enter()
+        Health.shared().getQuantityForDates(HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!, unit: HKUnit.meter(), start: Health.shared().firstOfYear!, end: Health.shared().lastOfYear!) { statistics in
+            print(statistics ?? "Empty")
+            self.dispatchGroup.leave()
+        }
+
+        dispatchGroup.notify(queue: .main) {
+            print("Done")
         }
     }
 

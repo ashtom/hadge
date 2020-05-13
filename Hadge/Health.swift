@@ -67,7 +67,7 @@ class Health {
         healthStore?.execute(query)
     }
 
-    func getQuantityForDates(_ quantity: HKQuantityType, unit: HKUnit, start: Date, end: Date, completionHandler: @escaping (HKStatistics?) -> Void) {
+    func getQuantityForDates(_ quantity: HKQuantityType, unit: HKUnit, start: Date, end: Date, completionHandler: @escaping ([String: Double]?) -> Void) {
         let calendar = NSCalendar.current
         let interval = NSDateComponents()
         interval.day = 1
@@ -82,9 +82,16 @@ class Health {
                 return
             }
 
+            var mapped: [String: Double] = [:]
             results.enumerateStatistics(from: start, to: end as Date) { statistics, _ in
-                completionHandler(statistics)
+                if let quantity = statistics.sumQuantity() {
+                    let date = statistics.startDate
+                    let value = quantity.doubleValue(for: unit)
+                    mapped["\(date)"] = value
+                }
             }
+
+            completionHandler(mapped)
         }
 
         healthStore?.execute(query)
