@@ -87,18 +87,35 @@ class GitHub {
         self.keychain!["username"]
     }
 
+    func fullname() -> String? {
+        self.keychain!["fullname"]
+    }
+
     func loadCurrentUser(config: TokenConfiguration) {
         _ = Octokit(config).me { response in
             switch response {
             case .success(let user):
                 os_log("GitHub User: %@", type: .debug, user.login!)
 
+                self.keychain!["fullname"] = user.name
                 self.keychain!["username"] = user.login
                 self.keychain!["token"] = config.accessToken
                 os_log("Token stored", type: .debug)
 
                 self.config = TokenConfiguration(self.keychain!["token"])
                 NotificationCenter.default.post(name: .didSignIn, object: nil)
+            case .failure(let error):
+                os_log("Error while loading user: %@", type: .debug, error.localizedDescription)
+            }
+        }
+    }
+
+    func refreshCurrentUser() {
+        _ = Octokit(self.config!).me { response in
+            switch response {
+            case .success(let user):
+                self.keychain!["fullname"] = user.name
+                self.keychain!["username"] = user.login
             case .failure(let error):
                 os_log("Error while loading user: %@", type: .debug, error.localizedDescription)
             }

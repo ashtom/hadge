@@ -35,6 +35,8 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
         if !GitHub.shared().isSignedIn() || !UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
             self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
+        } else {
+            GitHub.shared().refreshCurrentUser()
         }
     }
 

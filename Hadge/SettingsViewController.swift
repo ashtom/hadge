@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SettingsViewController: UITableViewController {
     var workoutSemaphore = false
@@ -20,11 +21,11 @@ class SettingsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section + debugOffset() {
+        switch section {
         case 0:
-            return 3
+            return 2
         case 1:
-            return 1
+            return 3
         default:
             return 0
         }
@@ -33,9 +34,12 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "SettingsCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
+        cell.separatorInset = UIEdgeInsets.init(top: 0, left: 15.0, bottom: 0, right: 0)
 
-        switch indexPath.section + debugOffset() {
+        switch indexPath.section {
         case 0:
+            return accountCellForRow(indexPath.row)
+        case 1:
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "Force upload on next refresh"
@@ -46,60 +50,89 @@ class SettingsViewController: UITableViewController {
             default:
                 cell.textLabel?.text = "Undefined"
             }
-        case 1:
-            cell.textLabel?.text = "Sign out"
         default:
             cell.textLabel?.text = "Undefined"
         }
         return cell
     }
 
+    func accountCellForRow(_ row: Int) -> UITableViewCell {
+        switch row {
+        case 0:
+            let identifier = "AccountCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? AccountCell
+            let username = GitHub.shared().returnAuthenticatedUsername()
+            let avatarURL = "https://github.com/\(username).png?size=102"
+            cell?.avatarView.sd_setImage(with: URL(string: avatarURL), completed: nil)
+            cell?.nameLabel.text = GitHub.shared().fullname() ?? ""
+            cell?.loginLabel.text = "@\(GitHub.shared().username() ?? "")"
+            return cell!
+        default:
+            let identifier = "SettingsCell"
+            let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
+            cell.separatorInset = UIEdgeInsets.init(top: 0, left: 15.0, bottom: 0, right: 0)
+            cell.textLabel?.text = "Sign out"
+            cell.textLabel?.textColor = UIColor.systemRed
+            return cell
+        }
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section + debugOffset() {
+        switch indexPath.section {
         case 0:
             tableView.deselectRow(at: indexPath, animated: true)
 
             switch indexPath.row {
-            case 0:
-                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastWorkout)
-                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastSyncDate)
-                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastActivitySyncDate)
-                UserDefaults.standard.synchronize()
             case 1:
-                if workoutSemaphore { return }
-
-                workoutSemaphore = true
-                Health.shared().getWorkouts { workouts in
-                    guard let workouts = workouts, workouts.count > 0 else { return }
-
-                    let content = Health.shared().generateContentForWorkouts(workouts: workouts)
-                    let filename = "workouts/\(Health.shared().year).csv"
-                    GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts") { _ in
-                        self.workoutSemaphore = false
-                    }
+                _ = GitHub.shared().signOut()
+                self.dismiss(animated: false) {
+                    NotificationCenter.default.post(name: .didSignOut, object: nil)
                 }
-            case 2:
-                UserDefaults.standard.set(false, forKey: UserDefaultKeys.setupFinished)
-                UserDefaults.standard.synchronize()
-            default: // No op
+            default:
                 break
             }
         case 1:
-            _ = GitHub.shared().signOut()
-            self.dismiss(animated: false) {
-                NotificationCenter.default.post(name: .didSignOut, object: nil)
-            }
+            tableView.deselectRow(at: indexPath, animated: true)
+            handleDebugOptionsInRow(indexPath.row)
         default:
             tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+
+    func handleDebugOptionsInRow(_ row: Int) {
+        switch row {
+        case 0:
+            UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastWorkout)
+            UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastSyncDate)
+            UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastActivitySyncDate)
+            UserDefaults.standard.synchronize()
+        case 1:
+            if workoutSemaphore { return }
+
+            workoutSemaphore = true
+            Health.shared().getWorkouts { workouts in
+                guard let workouts = workouts, workouts.count > 0 else { return }
+
+                let content = Health.shared().generateContentForWorkouts(workouts: workouts)
+                let filename = "workouts/\(Health.shared().year).csv"
+                GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts") { _ in
+                    self.workoutSemaphore = false
+                }
+            }
+        case 2:
+            UserDefaults.standard.set(false, forKey: UserDefaultKeys.setupFinished)
+            UserDefaults.standard.synchronize()
+        default: // No op
+            break
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section + debugOffset() {
         case 0:
-            return "Debug"
-        case 1:
             return "Account"
+        case 1:
+            return "Debug"
         default:
             return ""
         }
