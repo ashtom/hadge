@@ -38,9 +38,9 @@ class SettingsViewController: UITableViewController {
         case 0:
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Clear last workout UUID"
+                cell.textLabel?.text = "Force upload on next refresh"
             case 1:
-                cell.textLabel?.text = "Force upload workouts"
+                cell.textLabel?.text = "Force upload workouts now"
             case 2:
                 cell.textLabel?.text = "Show setup flow on next launch"
             default:
@@ -62,6 +62,8 @@ class SettingsViewController: UITableViewController {
             switch indexPath.row {
             case 0:
                 UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastWorkout)
+                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastSyncDate)
+                UserDefaults.standard.set(nil, forKey: UserDefaultKeys.lastActivitySyncDate)
                 UserDefaults.standard.synchronize()
             case 1:
                 if workoutSemaphore { return }
