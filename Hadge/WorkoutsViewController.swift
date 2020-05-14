@@ -139,6 +139,14 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
 
+    func updateStatusLabel(_ text: String) {
+        DispatchQueue.main.async {
+            if self.statusLabel != nil {
+                self.statusLabel?.text = text
+            }
+        }
+    }
+
     func stopRefreshing(_ visible: Bool = true) {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
@@ -253,6 +261,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
 
     func loadActivity(_ visible: Bool = true) {
         guard freshActivityAvailable() else { self.stopRefreshing(visible); return }
+        updateStatusLabel("Refreshing activity data...")
 
         Health.shared().getActivityData { summaries in
             let content = Health.shared().generateContentForActivityData(summaries: summaries)
@@ -264,6 +273,8 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func loadDistances(_ visible: Bool = true) {
+        updateStatusLabel("Refreshing distances...")
+
         Health.shared().getDistances { distances in
             let content = Health.shared().generateContentForDistances(distances: distances)
             let filename = "distances/\(Health.shared().year).csv"
@@ -297,6 +308,7 @@ class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableVi
         let lastDate = distances.last?["date"] as? String
 
         UserDefaults.standard.set(lastDate, forKey: UserDefaultKeys.lastActivitySyncDate)
+        UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
     }
 
     func createDataFromWorkouts(workouts: [HKSample]) {
