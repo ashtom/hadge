@@ -11,7 +11,7 @@ import HealthKit
 import SDWebImage
 import SwiftDate
 
-class WorkoutsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, FilterDelegate {
+class WorkoutsViewController: EntireViewController, UITableViewDataSource, UITableViewDelegate, FilterDelegate {
     var data: [[String: Any]] = []
     var statusLabel: UILabel?
     var filter: [UInt] = []

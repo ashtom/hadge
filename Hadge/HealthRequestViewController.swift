@@ -9,7 +9,7 @@
 import UIKit
 import HealthKit
 
-class HealthRequestViewController: UIViewController {
+class HealthRequestViewController: EntireViewController {
     @IBOutlet weak var healthButton: UIButton!
 
     override func viewDidLoad() {

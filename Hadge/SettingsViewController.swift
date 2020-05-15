@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: EntireTableViewController {
     var workoutSemaphore = false
 
     override func viewDidLoad() {

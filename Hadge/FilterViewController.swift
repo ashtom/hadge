@@ -13,7 +13,7 @@ protocol FilterDelegate: class {
     func onFilterSelected(workoutTypes: [UInt])
 }
 
-class FilterViewController: UITableViewController {
+class FilterViewController: EntireTableViewController {
     var workoutTypes: [HKWorkoutActivityType] = []
     var checked = [Bool]()
     var preChecked = [UInt]()

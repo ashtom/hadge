@@ -22,7 +22,7 @@ public func || (first: @escaping Collector, second: @escaping Collector) -> Coll
     }
 }
 
-class SetupViewController: UIViewController {
+class SetupViewController: EntireViewController {
     var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     var stopped = false
     var years: [String: [Any]] = [:]

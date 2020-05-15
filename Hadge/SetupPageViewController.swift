@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SetupPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+class SetupPageViewController: EntirePageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     lazy var orderedViewControllers = [
         self.viewControllerForIdentifier("HealthRequestViewController"),
         self.viewControllerForIdentifier("LoginViewController")

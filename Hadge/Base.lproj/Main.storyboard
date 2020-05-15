@@ -262,7 +262,7 @@
         <!--Settings Navigation Controller-->
         <scene sceneID="LfT-QI-lTl">
             <objects>
-                <navigationController title="Settings Navigation Controller" id="8dg-RA-Xw4" userLabel="Settings Navigation Controller" sceneMemberID="viewController">
+                <navigationController title="Settings Navigation Controller" id="8dg-RA-Xw4" userLabel="Settings Navigation Controller" customClass="EntireNavigationController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PIb-mm-l7s">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -359,7 +359,7 @@
         <!--Workouts Navigation Controller-->
         <scene sceneID="Zhr-jw-kvk">
             <objects>
-                <navigationController title="Workouts Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dUI-fG-aZt" sceneMemberID="viewController">
+                <navigationController title="Workouts Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dUI-fG-aZt" customClass="EntireNavigationController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Q3L-8w-pCl">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -506,7 +506,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
         <!--Filter Navigation Controller-->
         <scene sceneID="rsb-bY-Tbj">
             <objects>
-                <navigationController title="Settings Navigation Controller" id="jbQ-9Y-g5P" userLabel="Filter Navigation Controller" sceneMemberID="viewController">
+                <navigationController title="Settings Navigation Controller" id="jbQ-9Y-g5P" userLabel="Filter Navigation Controller" customClass="EntireNavigationController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="P5V-Z5-6xk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
