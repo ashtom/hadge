@@ -44,7 +44,7 @@ extension UIViewController {
         case .dark:
             overrideUserInterfaceStyle = .dark
         case .light:
-            overrideUserInterfaceStyle = .dark
+            overrideUserInterfaceStyle = .light
         default:
             overrideUserInterfaceStyle = .unspecified
         }

@@ -17,7 +17,7 @@ class SettingsViewController: EntireTableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2 - debugOffset()
+        return 3 - debugOffset()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,6 +25,8 @@ class SettingsViewController: EntireTableViewController {
         case 0:
             return 2
         case 1:
+            return 3
+        case 2:
             return 3
         default:
             return 0
@@ -40,6 +42,20 @@ class SettingsViewController: EntireTableViewController {
         case 0:
             return accountCellForRow(indexPath.row)
         case 1:
+            switch indexPath.row {
+            case 0:
+                cell.textLabel?.text = "Automatic"
+                cell.accessoryType = (self.overrideUserInterfaceStyle == .unspecified ? .checkmark : .none)
+            case 1:
+                cell.textLabel?.text = "Dark"
+                cell.accessoryType = (self.overrideUserInterfaceStyle == .dark ? .checkmark : .none)
+            case 2:
+                cell.textLabel?.text = "Light"
+                cell.accessoryType = (self.overrideUserInterfaceStyle == .light ? .checkmark : .none)
+            default:
+                cell.textLabel?.text = "Undefined"
+            }
+        case 2:
             switch indexPath.row {
             case 0:
                 cell.textLabel?.text = "Force upload on next refresh"
@@ -78,10 +94,10 @@ class SettingsViewController: EntireTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+
         switch indexPath.section {
         case 0:
-            tableView.deselectRow(at: indexPath, animated: true)
-
             switch indexPath.row {
             case 1:
                 _ = GitHub.shared().signOut()
@@ -92,10 +108,23 @@ class SettingsViewController: EntireTableViewController {
                 break
             }
         case 1:
-            tableView.deselectRow(at: indexPath, animated: true)
+            var newInterfaceStyle: InterfaceStyle
+            switch indexPath.row {
+            case 1:
+                newInterfaceStyle = .dark
+            case 2:
+                newInterfaceStyle = .light
+            default:
+                newInterfaceStyle = .automatic
+            }
+            UserDefaults.standard.setValue(newInterfaceStyle.rawValue, forKeyPath: UserDefaultKeys.interfaceStyle)
+            self.setInterfaceStyle()
+            self.navigationController?.setInterfaceStyle()
+            // TODO: Send a notification to update other view controllers
+        case 2:
             handleDebugOptionsInRow(indexPath.row)
         default:
-            tableView.deselectRow(at: indexPath, animated: true)
+            break
         }
     }
 
@@ -132,6 +161,8 @@ class SettingsViewController: EntireTableViewController {
         case 0:
             return "Account"
         case 1:
+            return "Appearance"
+        case 2:
             return "Debug"
         default:
             return ""
