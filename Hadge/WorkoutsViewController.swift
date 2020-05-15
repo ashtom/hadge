@@ -11,7 +11,7 @@ import HealthKit
 import SDWebImage
 import SwiftDate
 
-class WorkoutsViewController: EntireViewController, UITableViewDataSource, UITableViewDelegate, FilterDelegate {
+class WorkoutsViewController: EntireViewController {
     var data: [[String: Any]] = []
     var statusLabel: UILabel?
     var filter: [UInt] = []
@@ -28,6 +28,7 @@ class WorkoutsViewController: EntireViewController, UITableViewDataSource, UITab
 
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignIn), name: .didSetUpRepository, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignOut), name: .didSignOut, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didChangeInterfaceStyle), name: .didChangeInterfaceStyle, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,45 +51,12 @@ class WorkoutsViewController: EntireViewController, UITableViewDataSource, UITab
         }
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "WorkoutCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? WorkoutCell
-
-        if let workout = data[indexPath.row]["workout"] as? HKWorkout? {
-            cell?.titleLabel?.text = workout?.workoutActivityType.name
-            cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmoji(for: Health.shared().getBiologicalSex()!)
-            cell?.setStartDate(workout!.startDate)
-            cell?.setDistance(workout!.totalDistance)
-            cell?.setDuration(workout!.duration)
-            cell?.setEnergy(workout!.totalEnergyBurned)
-            cell?.sourceLabel?.text = workout!.sourceRevision.source.name
-        }
-
-        return cell!
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FilterSegue" {
             let filterNavigationViewController = segue.destination as? UINavigationController
             let filterViewController = filterNavigationViewController?.viewControllers.first as? FilterViewController
             filterViewController?.delegate = self
             filterViewController?.preChecked = filter
-        }
-    }
-
-    func onFilterSelected(workoutTypes: [UInt]) {
-        if !filter.elementsEqual(workoutTypes) {
-            filter = workoutTypes
-            if filter.isEmpty {
-                self.filterButton?.tintColor = UIColor.secondaryLabel
-            } else {
-                self.filterButton?.tintColor = UIColor.systemBlue
-            }
-            self.loadData(false)
         }
     }
 
@@ -113,6 +81,13 @@ class WorkoutsViewController: EntireViewController, UITableViewDataSource, UITab
         loadAvatar()
 
         self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
+    }
+
+    @objc func didChangeInterfaceStyle() {
+        DispatchQueue.main.async {
+            self.setInterfaceStyle()
+            self.navigationController?.setInterfaceStyle()
+        }
     }
 
     @objc func refreshWasRequested(_ refreshControl: UIRefreshControl) {
@@ -327,6 +302,46 @@ class WorkoutsViewController: EntireViewController, UITableViewDataSource, UITab
         DispatchQueue.main.async {
             self.tableView.reloadData()
             self.saveState()
+        }
+    }
+}
+
+extension WorkoutsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = "WorkoutCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? WorkoutCell
+
+        if let workout = data[indexPath.row]["workout"] as? HKWorkout? {
+            cell?.titleLabel?.text = workout?.workoutActivityType.name
+            cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmoji(for: Health.shared().getBiologicalSex()!)
+            cell?.setStartDate(workout!.startDate)
+            cell?.setDistance(workout!.totalDistance)
+            cell?.setDuration(workout!.duration)
+            cell?.setEnergy(workout!.totalEnergyBurned)
+            cell?.sourceLabel?.text = workout!.sourceRevision.source.name
+        }
+
+        return cell!
+    }
+}
+
+extension WorkoutsViewController: UITableViewDelegate {
+}
+
+extension WorkoutsViewController: FilterDelegate {
+    func onFilterSelected(workoutTypes: [UInt]) {
+        if !filter.elementsEqual(workoutTypes) {
+            filter = workoutTypes
+            if filter.isEmpty {
+                self.filterButton?.tintColor = UIColor.secondaryLabel
+            } else {
+                self.filterButton?.tintColor = UIColor.systemBlue
+            }
+            self.loadData(false)
         }
     }
 }

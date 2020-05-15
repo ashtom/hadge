@@ -120,7 +120,7 @@ class SettingsViewController: EntireTableViewController {
             UserDefaults.standard.setValue(newInterfaceStyle.rawValue, forKeyPath: UserDefaultKeys.interfaceStyle)
             self.setInterfaceStyle()
             self.navigationController?.setInterfaceStyle()
-            // TODO: Send a notification to update other view controllers
+            NotificationCenter.default.post(name: .didChangeInterfaceStyle, object: nil)
         case 2:
             handleDebugOptionsInRow(indexPath.row)
         default:
