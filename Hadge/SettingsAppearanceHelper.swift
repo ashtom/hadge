@@ -12,9 +12,10 @@ class SettingsAppearanceHelper {
     var overrideUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
 
     func tableView(_ tableView: UITableView, cellForRow: Int) -> UITableViewCell {
-        let identifier = "SettingsCell"
+        let identifier = "AppearanceCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .subtitle, reuseIdentifier: identifier)
         cell.separatorInset = UIEdgeInsets.init(top: 0, left: 15.0, bottom: 0, right: 0)
+        cell.selectionStyle = .none
 
         switch cellForRow {
         case 0:
@@ -43,9 +44,13 @@ class SettingsAppearanceHelper {
         default:
             newInterfaceStyle = .automatic
         }
+
         UserDefaults.standard.setValue(newInterfaceStyle.rawValue, forKeyPath: UserDefaultKeys.interfaceStyle)
+
+        tableView.reloadData()
         viewController.setInterfaceStyle()
         viewController.navigationController?.setInterfaceStyle()
+
         NotificationCenter.default.post(name: .didChangeInterfaceStyle, object: nil)
     }
 }

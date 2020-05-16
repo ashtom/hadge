@@ -96,6 +96,17 @@ class SettingsViewController: EntireTableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        switch SettingsSections.build(with: section) {
+        case .account:
+            return nil
+        case .appearance:
+            return nil
+        case .debug:
+            return "This section will be removed in the release build."
+        }
+    }
+
     @IBAction func dismiss(_ sender: Any) {
         self.navigationController!.dismiss(animated: true)
     }
