@@ -24,6 +24,7 @@ class Health {
     var yesterday: Date?
     var healthStore: HKHealthStore?
     var distanceDataSource: DistanceDataSource?
+    var stopExport: Bool = false
 
     static func shared() -> Health {
         return sharedInstance
@@ -222,5 +223,18 @@ class Health {
 
     func quantityToString(_ quantity: HKQuantity?, unit: HKUnit, int: Bool = false) -> String {
         return String(format: (int ? "%.0f" : "%.2f"), quantity?.doubleValue(for: unit) ?? 0)
+    }
+
+    func exportData(_ years: [String: [Any]], directory: String, contentHandler: @escaping ([Any]) -> String, completionHandler: @escaping () -> Swift.Void) {
+        guard let year = years.first else { completionHandler(); return }
+        guard !stopExport else { return }
+
+        let content = contentHandler(year.value)
+        let filename = "\(directory)/\(year.key).csv"
+        GitHub.shared().updateFile(path: filename, content: content, message: "Initial export for \(year.key).") { _ in
+            var next = years
+            next.removeValue(forKey: year.key)
+            self.exportData(next, directory: directory, contentHandler: contentHandler, completionHandler: completionHandler)
+        }
     }
 }

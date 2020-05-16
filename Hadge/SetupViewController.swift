@@ -48,7 +48,7 @@ class SetupViewController: EntireViewController {
         }
 
         GitHub.shared().getRepository { _ in
-            GitHub.shared().updateFile(path: "README.md", content: "This repo is automatically updated by Hadge.", message: "Update README") { _ in
+            GitHub.shared().updateFile(path: "README.md", content: self.loadReadMeTemplate(), message: "Update README") { _ in
                 (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport) { }
             }
         }
@@ -61,7 +61,7 @@ class SetupViewController: EntireViewController {
                 guard let workout = workout as? HKWorkout else { return }
                 self.addDataToYears(self.yearFromDate(workout.startDate), data: workout)
             }
-            self.exportData(self.years, directory: "workouts", contentHandler: { workouts in
+            Health.shared().exportData(self.years, directory: "workouts", contentHandler: { workouts in
                 return Health.shared().generateContentForWorkouts(workouts: workouts)
             }, completionHandler: completionHandler)
         }
@@ -74,7 +74,7 @@ class SetupViewController: EntireViewController {
             summaries?.forEach { summary in
                 self.addDataToYears(String(summary.dateComponents(for: Calendar.current).year!), data: summary)
             }
-            self.exportData(self.years, directory: "activity", contentHandler: { summaries in
+            Health.shared().exportData(self.years, directory: "activity", contentHandler: { summaries in
                 return Health.shared().generateContentForActivityData(summaries: summaries)
             }, completionHandler: completionHandler)
         }
@@ -88,7 +88,7 @@ class SetupViewController: EntireViewController {
                 let date = entry["date"] as? String
                 self.addDataToYears(String(date!.prefix(4)), data: entry)
             }
-            self.exportData(self.years, directory: "distances", contentHandler: { distances in
+            Health.shared().exportData(self.years, directory: "distances", contentHandler: { distances in
                 return Health.shared().generateContentForDistances(distances: distances)
             }, completionHandler: completionHandler)
         }
@@ -101,19 +101,6 @@ class SetupViewController: EntireViewController {
     func addDataToYears(_ year: String, data: Any) {
         years[year] = (years[year] == nil ? [] : years[year])
         years[year]?.append(data)
-    }
-
-    func exportData(_ years: [String: [Any]], directory: String, contentHandler: @escaping ([Any]) -> String, completionHandler: @escaping () -> Swift.Void) {
-        guard let year = years.first else { completionHandler(); return }
-        guard !stopped else { return }
-
-        let content = contentHandler(year.value)
-        let filename = "\(directory)/\(year.key).csv"
-        GitHub.shared().updateFile(path: filename, content: content, message: "Initial export for \(year.key).") { _ in
-            var next = years
-            next.removeValue(forKey: year.key)
-            self.exportData(next, directory: directory, contentHandler: contentHandler, completionHandler: completionHandler)
-        }
     }
 
     func finishExport(completionHandler: @escaping () -> Swift.Void) {
@@ -134,5 +121,18 @@ class SetupViewController: EntireViewController {
         let calendar = Calendar.current
         let yearComponent = calendar.dateComponents([.year], from: date)
         return String(yearComponent.year!)
+    }
+
+    func loadReadMeTemplate() -> String {
+        if let filepath = Bundle.main.path(forResource: "ReadMeTemplate", ofType: "md") {
+            do {
+                let contents = try String(contentsOfFile: filepath)
+                return contents
+            } catch {
+            }
+        } else {
+        }
+
+        return "This repo is managed by Hadge."
     }
 }
