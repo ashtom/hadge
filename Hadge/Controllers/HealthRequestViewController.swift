@@ -1,11 +1,3 @@
-//
-//  HealthRequestViewController.swift
-//  Hadge
-//
-//  Created by Thomas Dohmke on 5/6/20.
-//  Copyright © 2020 Entire. All rights reserved.
-//
-
 import UIKit
 import HealthKit
 

@@ -1,11 +1,3 @@
-//
-//  SettingsViewController.swift
-//  Tasks
-//
-//  Created by Daniel Adams on 09.03.19.
-//  Copyright © 2019 Entire. All rights reserved.
-//
-
 import UIKit
 import SDWebImage
 

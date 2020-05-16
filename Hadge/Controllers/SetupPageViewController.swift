@@ -1,11 +1,3 @@
-//
-//  SetupPageViewController.swift
-//  Hadge
-//
-//  Created by Thomas Dohmke on 5/5/20.
-//  Copyright © 2020 Entire. All rights reserved.
-//
-
 import UIKit
 
 class SetupPageViewController: EntirePageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {

@@ -1,11 +1,3 @@
-//
-//  GitHub.swift
-//  Events
-//
-//  Created by Thomas Dohmke on 4/1/20.
-//  Copyright © 2020 Entire. All rights reserved.
-//
-
 import UIKit
 import KeychainAccess
 import OctoKit

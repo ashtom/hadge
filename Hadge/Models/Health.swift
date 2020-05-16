@@ -1,11 +1,3 @@
-//
-//  Health.swift
-//  Hadge
-//
-//  Created by Thomas Dohmke on 5/2/20.
-//  Copyright © 2020 Entire. All rights reserved.
-//
-
 import HealthKit
 import SwiftCSV
 import SwiftDate

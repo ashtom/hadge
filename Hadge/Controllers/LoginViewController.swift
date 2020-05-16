@@ -1,11 +1,3 @@
-//
-//  LoginViewController.swift
-//  Events
-//
-//  Created by Daniel Adams on 07.02.19.
-//  Copyright © 2019 Entire. All rights reserved.
-//
-
 import UIKit
 
 class LoginViewController: EntireViewController {
