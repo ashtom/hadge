@@ -13,6 +13,7 @@
 		4D3DFA3A246FA77800EDCBEC /* SettingsDebugHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3DFA39246FA77800EDCBEC /* SettingsDebugHelper.swift */; };
 		4D3DFA3C2470337200EDCBEC /* SettingsAboutHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3DFA3B2470337200EDCBEC /* SettingsAboutHelper.swift */; };
 		4D3DFA3E2470340A00EDCBEC /* SettingsSyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3DFA3D2470340A00EDCBEC /* SettingsSyncHelper.swift */; };
+		4D3DFA502470571B00EDCBEC /* ReadMeTemplate.md in Resources */ = {isa = PBXBuildFile; fileRef = 4D3DFA4F2470571B00EDCBEC /* ReadMeTemplate.md */; };
 		4D563CF024634D010034D2CF /* HealthRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */; };
 		4D563CF2246379230034D2CF /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D563CF1246379230034D2CF /* SetupViewController.swift */; };
 		4D6B4B62246D8B5800847D49 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6B4B61246D8B5800847D49 /* AccountCell.swift */; };
@@ -51,6 +52,7 @@
 		4D3DFA39246FA77800EDCBEC /* SettingsDebugHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDebugHelper.swift; sourceTree = "<group>"; };
 		4D3DFA3B2470337200EDCBEC /* SettingsAboutHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAboutHelper.swift; sourceTree = "<group>"; };
 		4D3DFA3D2470340A00EDCBEC /* SettingsSyncHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSyncHelper.swift; sourceTree = "<group>"; };
+		4D3DFA4F2470571B00EDCBEC /* ReadMeTemplate.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ReadMeTemplate.md; sourceTree = "<group>"; };
 		4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthRequestViewController.swift; sourceTree = "<group>"; };
 		4D563CF1246379230034D2CF /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		4D6B4B61246D8B5800847D49 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
@@ -97,6 +99,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D3DFA492470563F00EDCBEC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4D6B4B61246D8B5800847D49 /* AccountCell.swift */,
+				4DF685A32465AEDC00D929EC /* FilterHeaderView.swift */,
+				4DF685A52465B21F00D929EC /* FilterHeaderView.xib */,
+				4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */,
+				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
+				4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4D3DFA4B247056C900EDCBEC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4D3DFA33246F125800EDCBEC /* EntireViewController.swift */,
+				4DF685A02464D0EE00D929EC /* FilterViewController.swift */,
+				4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */,
+				4DEA77EF2454842A00554793 /* LoginViewController.swift */,
+				4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */,
+				4DCEDB072462736C00510195 /* SetupPageViewController.swift */,
+				4D563CF1246379230034D2CF /* SetupViewController.swift */,
+				4DB3F67B2453F7AC004C8BF3 /* WorkoutsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4D3DFA4C247056D900EDCBEC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */,
+				4DEA77F12454843400554793 /* GitHub.swift */,
+				4DD70CC1245DE64B007C8D58 /* Health.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4D3DFA4D247056D900EDCBEC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6859E2464CF1000D929EC /* Constants.swift */,
+				4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */,
+				4D3DFA3B2470337200EDCBEC /* SettingsAboutHelper.swift */,
+				4D3DFA35246FA58C00EDCBEC /* SettingsAccountHelper.swift */,
+				4D3DFA37246FA74D00EDCBEC /* SettingsAppearanceHelper.swift */,
+				4D3DFA39246FA77800EDCBEC /* SettingsDebugHelper.swift */,
+				4D3DFA3D2470340A00EDCBEC /* SettingsSyncHelper.swift */,
+				4DD70CC8245E8414007C8D58 /* String+Date.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4D3DFA4E247056E600EDCBEC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
+				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
+				4DB3F6852453F7B0004C8BF3 /* Info.plist */,
+				4D3DFA4F2470571B00EDCBEC /* ReadMeTemplate.md */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		4DB3F66B2453F7AC004C8BF3 = {
 			isa = PBXGroup;
 			children = (
@@ -117,36 +183,13 @@
 		4DB3F6762453F7AC004C8BF3 /* Hadge */ = {
 			isa = PBXGroup;
 			children = (
-				4D6B4B61246D8B5800847D49 /* AccountCell.swift */,
+				4D3DFA4E247056E600EDCBEC /* Resources */,
+				4D3DFA4B247056C900EDCBEC /* Controllers */,
+				4D3DFA4D247056D900EDCBEC /* Helpers */,
+				4D3DFA4C247056D900EDCBEC /* Models */,
+				4D3DFA492470563F00EDCBEC /* Views */,
 				4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */,
-				4DB3F6802453F7B0004C8BF3 /* Assets.xcassets */,
-				4DF6859E2464CF1000D929EC /* Constants.swift */,
-				4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */,
-				4D3DFA33246F125800EDCBEC /* EntireViewController.swift */,
-				4DF685A32465AEDC00D929EC /* FilterHeaderView.swift */,
-				4DF685A52465B21F00D929EC /* FilterHeaderView.xib */,
-				4DF685A02464D0EE00D929EC /* FilterViewController.swift */,
-				4DEA77F12454843400554793 /* GitHub.swift */,
-				4DB3F68B2453F7CE004C8BF3 /* Hadge.entitlements */,
-				4DD70CC1245DE64B007C8D58 /* Health.swift */,
-				4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */,
-				4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */,
-				4DB3F6852453F7B0004C8BF3 /* Info.plist */,
-				4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */,
-				4DEA77EF2454842A00554793 /* LoginViewController.swift */,
-				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
 				4DB3F6792453F7AC004C8BF3 /* SceneDelegate.swift */,
-				4D3DFA3B2470337200EDCBEC /* SettingsAboutHelper.swift */,
-				4D3DFA35246FA58C00EDCBEC /* SettingsAccountHelper.swift */,
-				4D3DFA37246FA74D00EDCBEC /* SettingsAppearanceHelper.swift */,
-				4D3DFA39246FA77800EDCBEC /* SettingsDebugHelper.swift */,
-				4D3DFA3D2470340A00EDCBEC /* SettingsSyncHelper.swift */,
-				4DD70CBF245DBF44007C8D58 /* SettingsViewController.swift */,
-				4DCEDB072462736C00510195 /* SetupPageViewController.swift */,
-				4D563CF1246379230034D2CF /* SetupViewController.swift */,
-				4DD70CC8245E8414007C8D58 /* String+Date.swift */,
-				4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */,
-				4DB3F67B2453F7AC004C8BF3 /* WorkoutsViewController.swift */,
 			);
 			path = Hadge;
 			sourceTree = "<group>";
@@ -234,6 +277,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3DFA502470571B00EDCBEC /* ReadMeTemplate.md in Resources */,
 				4DB3F6842453F7B0004C8BF3 /* LaunchScreen.storyboard in Resources */,
 				4DB3F6812453F7B0004C8BF3 /* Assets.xcassets in Resources */,
 				4DF685A62465B21F00D929EC /* FilterHeaderView.xib in Resources */,
