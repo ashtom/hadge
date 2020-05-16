@@ -33,6 +33,8 @@ extension ReusableViewEnum where Self: RawRepresentable, Self.RawValue == Int {
 private enum SettingsSections: Int, ReusableViewEnum {
     case account = 0
     case appearance
+    case sync
+    case about
     case debug
 }
 
@@ -40,6 +42,8 @@ class SettingsViewController: EntireTableViewController {
     var accountHelper = SettingsAccountHelper()
     var appearanceHelper = SettingsAppearanceHelper()
     var debugHelper = SettingsDebugHelper()
+    var aboutHelper = SettingsAboutHelper()
+    var syncHelper = SettingsSyncHelper()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +59,10 @@ class SettingsViewController: EntireTableViewController {
             return 2
         case .appearance:
             return 3
+        case .sync:
+            return 1
+        case .about:
+            return 1
         case .debug:
             return 3
         }
@@ -67,6 +75,10 @@ class SettingsViewController: EntireTableViewController {
         case .appearance:
             appearanceHelper.overrideUserInterfaceStyle = self.overrideUserInterfaceStyle
             return appearanceHelper.tableView(tableView, cellForRow: indexPath.row)
+        case .sync:
+            return syncHelper.tableView(tableView, cellForRow: indexPath.row)
+        case .about:
+            return aboutHelper.tableView(tableView, cellForRow: indexPath.row)
         case .debug:
             return debugHelper.tableView(tableView, cellForRow: indexPath.row)
         }
@@ -80,6 +92,10 @@ class SettingsViewController: EntireTableViewController {
             accountHelper.tableView(tableView, didSelectRow: indexPath.row, viewController: self)
         case .appearance:
             appearanceHelper.tableView(tableView, didSelectRow: indexPath.row, viewController: self)
+        case .sync:
+            syncHelper.tableView(tableView, didSelectRow: indexPath.row, viewController: self)
+        case .about:
+            aboutHelper.tableView(tableView, didSelectRow: indexPath.row, viewController: self)
         case .debug:
             debugHelper.tableView(tableView, didSelectRow: indexPath.row, viewController: self)
         }
@@ -91,6 +107,10 @@ class SettingsViewController: EntireTableViewController {
             return "Account"
         case .appearance:
             return "Appearance"
+        case .sync:
+            return "Sync"
+        case .about:
+            return "About"
         case .debug:
             return "Debug"
         }
@@ -102,6 +122,12 @@ class SettingsViewController: EntireTableViewController {
             return nil
         case .appearance:
             return nil
+        case .sync:
+            return "This will re-upload all activity, distance, and workout data for all years with available data. You typically don't need to do this unless you deleted the repository or files in it."
+        case .about:
+            let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+            let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
+            return "You are using Hadge \(version!) (\(build!)).\nMade with ❤️ in Seattle."
         case .debug:
             return "This section will be removed in the release build."
         }
