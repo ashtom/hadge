@@ -27,8 +27,18 @@ class SetupViewController: EntireViewController {
     var stopped = false
     var years: [String: [Any]] = [:]
 
+    @IBOutlet weak var titleView: UITextView!
+    @IBOutlet weak var bodyView: UITextView!
+
+    // If the delegate is set, we assume that the controller is used outside the setup flow
+    weak var delegate: NSObject?
+
     override func viewDidLoad() {
         initalizeRepository()
+
+        if delegate != nil {
+            self.titleView.text = "Re-upload all data"
+        }
     }
 
     func initalizeRepository() {
@@ -110,6 +120,13 @@ class SetupViewController: EntireViewController {
         UserDefaults.standard.set(true, forKey: UserDefaultKeys.setupFinished)
         NotificationCenter.default.post(name: .didSetUpRepository, object: nil)
         UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier!)
+
+        if delegate != nil {
+            DispatchQueue.main.async {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+
         completionHandler()
     }
 

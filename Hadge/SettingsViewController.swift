@@ -133,8 +133,19 @@ class SettingsViewController: EntireTableViewController {
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "UploadSegue" {
+            let setupViewController = segue.destination as? SetupViewController
+            setupViewController?.delegate = self
+        }
+    }
+
     @IBAction func dismiss(_ sender: Any) {
         self.navigationController!.dismiss(animated: true)
+    }
+
+    @objc func didFinishUpload() {
+        NotificationCenter.default.removeObserver(self, name: .didSetUpRepository, object: nil)
     }
 
     func debugOffset() -> Int {

@@ -30,9 +30,7 @@ class SetupPageViewController: EntirePageViewController, UIPageViewControllerDat
             setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
 
-        NotificationCenter.default.addObserver(self, selector: #selector(forwardToLoginViewController), name: .didReceiveHealthAccess, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forwardToSetupViewController), name: .didSignIn, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(forwardToInitialViewController), name: .didSetUpRepository, object: nil)
+        addObservers()
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -75,6 +73,18 @@ class SetupPageViewController: EntirePageViewController, UIPageViewControllerDat
         return firstViewControllerIndex
     }
 
+    func addObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToLoginViewController), name: .didReceiveHealthAccess, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToSetupViewController), name: .didSignIn, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(forwardToInitialViewController), name: .didSetUpRepository, object: nil)
+    }
+
+    func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: .didReceiveHealthAccess, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didSignIn, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .didSetUpRepository, object: nil)
+    }
+
     func goToNextPage(animated: Bool = true) {
         guard let currentViewController = self.viewControllers?.first else { return }
         guard let nextViewController = dataSource?.pageViewController(self, viewControllerAfter: currentViewController) else { return }
@@ -99,6 +109,7 @@ class SetupPageViewController: EntirePageViewController, UIPageViewControllerDat
 
     @objc func forwardToInitialViewController() {
         DispatchQueue.main.async {
+            self.removeObservers()
             self.dismiss(animated: true, completion: nil)
         }
     }

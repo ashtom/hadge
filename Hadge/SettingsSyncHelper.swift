@@ -26,6 +26,9 @@ class SettingsSyncHelper {
 
     func tableView(_ tableView: UITableView, didSelectRow: Int, viewController: SettingsViewController) {
         switch didSelectRow {
+        case 0:
+            NotificationCenter.default.addObserver(viewController, selector: #selector(SettingsViewController.didFinishUpload), name: .didSetUpRepository, object: nil)
+            viewController.performSegue(withIdentifier: "UploadSegue", sender: self)
         default: // No op
             break
         }

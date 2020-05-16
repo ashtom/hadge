@@ -254,10 +254,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="2Hv-ma-IeC" kind="presentation" identifier="UploadSegue" id="41o-XU-3qV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iZL-Ha-QxR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958" y="-657"/>
+            <point key="canvasLocation" x="1958" y="919"/>
         </scene>
         <!--Settings Navigation Controller-->
         <scene sceneID="LfT-QI-lTl">
@@ -276,7 +279,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0y-xd-T2M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1048" y="-657"/>
+            <point key="canvasLocation" x="1048" y="919"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="7Gq-ay-wzI">
@@ -459,11 +462,11 @@ Hadge does not collect any data for any other purposes, and does not send any da
             <objects>
                 <viewController storyboardIdentifier="SetupViewController" id="2Hv-ma-IeC" customClass="SetupViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uqp-QL-hOs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Initial export" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhu-Sx-z37">
-                                <rect key="frame" x="20" y="94" width="374" height="52"/>
+                                <rect key="frame" x="20" y="50" width="374" height="52"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="cul-Rl-DZO"/>
@@ -472,15 +475,16 @@ Hadge does not collect any data for any other purposes, and does not send any da
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Hadge will now create a private repository  named &quot;health&quot; and export your existing workouts into csv files." textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-l8-if7">
-                                <rect key="frame" x="20" y="154" width="374" height="613"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-l8-if7">
+                                <rect key="frame" x="20" y="110" width="374" height="603"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Hadge will create a private repository named "health", or use an existing repository with this name, and export your existing activity, distances, and workouts into csv files.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Q3h-0n-yQq">
-                                <rect key="frame" x="188.5" y="775" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="721" width="37" height="37"/>
                                 <color key="color" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </activityIndicatorView>
                         </subviews>
@@ -498,6 +502,10 @@ Hadge does not collect any data for any other purposes, and does not send any da
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vnU-9Q-wV7"/>
                     </view>
+                    <connections>
+                        <outlet property="bodyView" destination="gbR-l8-if7" id="rLv-ud-T0x"/>
+                        <outlet property="titleView" destination="vhu-Sx-z37" id="87l-Qa-CTE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8LW-zz-1ie" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -520,7 +528,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hdi-ne-zmj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1048" y="919"/>
+            <point key="canvasLocation" x="1048" y="-698"/>
         </scene>
         <!--Filter Controller-->
         <scene sceneID="D1f-QZ-KQM">
@@ -546,7 +554,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPV-c1-Nx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958" y="919"/>
+            <point key="canvasLocation" x="1958" y="-698"/>
         </scene>
     </scenes>
 </document>
