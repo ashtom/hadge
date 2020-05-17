@@ -69,11 +69,13 @@ class WorkoutsViewController: EntireViewController {
     }
 
     @objc func didSignOut() {
-        data = []
-        tableView.reloadData()
-        loadAvatar()
+        DispatchQueue.main.async {
+            self.data = []
+            self.tableView.reloadData()
+            self.loadAvatar()
 
-        self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
+            self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
+        }
     }
 
     @objc func didChangeInterfaceStyle() {

@@ -108,7 +108,11 @@ class GitHub {
             case .success(let user):
                 self.keychain!["fullname"] = user.name
                 self.keychain!["username"] = user.login
-            case .failure(let error):
+            case .failure(let error as NSError):
+                if error.code == 401 {
+                    self.signOut()
+                    NotificationCenter.default.post(name: .didSignOut, object: nil)
+                }
                 os_log("Error while loading user: %@", type: .debug, error.localizedDescription)
             }
         }
