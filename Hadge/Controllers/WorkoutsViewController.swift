@@ -26,6 +26,10 @@ class WorkoutsViewController: EntireViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didFinishExport), name: .didFinishExport, object: nil)
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -94,7 +98,15 @@ class WorkoutsViewController: EntireViewController {
     }
 
     @objc func didFinishExport() {
-        stopRefreshing()
+        let lastSyncDate = UserDefaults.standard.object(forKey: UserDefaultKeys.lastSyncDate) as? Date
+        let formatter = DateFormatter.init()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
+        if lastSyncDate != nil {
+            updateStatusLabel("GitHub last updated on\n\(formatter.string(from: lastSyncDate!)).")
+        } else {
+            updateStatusLabel("")
+        }
     }
 
     @objc func refreshWasRequested(_ refreshControl: UIRefreshControl) {
@@ -111,10 +123,10 @@ class WorkoutsViewController: EntireViewController {
             if self.tableView.refreshControl != nil {
                 self.tableView.refreshControl?.beginRefreshing()
 
-                if visible {
-                    let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
-                    self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
-                }
+//                if visible {
+//                    let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
+//                    self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+//                }
             }
 
             if self.statusLabel != nil {
@@ -134,25 +146,13 @@ class WorkoutsViewController: EntireViewController {
     func stopRefreshing(_ visible: Bool = true) {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
-                if visible {
-                    let top = self.tableView.adjustedContentInset.top
-                    let offset = (self.tableView.refreshControl?.frame.maxY)! + top
-                    self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
-                }
+//                if visible {
+//                    let top = self.tableView.adjustedContentInset.top
+//                    let offset = (self.tableView.refreshControl?.frame.maxY)! + top
+//                    self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
+//                }
 
                 self.tableView.refreshControl?.endRefreshing()
-            }
-
-            if self.statusLabel != nil {
-                let lastSyncDate = UserDefaults.standard.object(forKey: UserDefaultKeys.lastSyncDate) as? Date
-                let formatter = DateFormatter.init()
-                formatter.dateStyle = .short
-                formatter.timeStyle = .short
-                if lastSyncDate != nil {
-                    self.statusLabel?.text = "GitHub last updated on\n\(formatter.string(from: lastSyncDate!))."
-                } else {
-                    self.statusLabel?.text = ""
-                }
             }
         }
     }
@@ -246,7 +246,8 @@ class WorkoutsViewController: EntireViewController {
         }
 
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.stopRefreshing(true)
+            self.tableView.reloadSections([ 0 ], with: .automatic)
             self.saveState()
         }
     }

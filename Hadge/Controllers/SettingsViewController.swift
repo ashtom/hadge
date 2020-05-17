@@ -41,6 +41,10 @@ class SettingsViewController: EntireTableViewController {
         super.viewDidLoad()
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return SettingsSections.all.count - debugOffset()
     }
