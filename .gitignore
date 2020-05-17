@@ -28,3 +28,6 @@ DerivedData/
 
 ## Sample Data
 .assets/*.csv
+
+## Secrets
+Secrets.xcconfig
