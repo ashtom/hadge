@@ -181,6 +181,7 @@ class GitHub {
                     completionHandler(sha)
                 })
             } catch {
+                completionHandler(nil)
             }
         }
     }

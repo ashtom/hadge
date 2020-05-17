@@ -21,6 +21,9 @@ class WorkoutsViewController: EntireViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignIn), name: .didSetUpRepository, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didSignOut), name: .didSignOut, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didChangeInterfaceStyle), name: .didChangeInterfaceStyle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.collectingActivityData), name: .collectingActivityData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.collectingDistanceData), name: .collectingDistanceData, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WorkoutsViewController.didFinishExport), name: .didFinishExport, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +83,18 @@ class WorkoutsViewController: EntireViewController {
             self.setInterfaceStyle()
             self.navigationController?.setInterfaceStyle()
         }
+    }
+
+    @objc func collectingActivityData() {
+        updateStatusLabel("Refreshing activity data...")
+    }
+
+    @objc func collectingDistanceData() {
+        updateStatusLabel("Refreshing distance data...")
+    }
+
+    @objc func didFinishExport() {
+        stopRefreshing()
     }
 
     @objc func refreshWasRequested(_ refreshControl: UIRefreshControl) {
@@ -215,69 +230,8 @@ class WorkoutsViewController: EntireViewController {
             guard let workouts = workouts, workouts.count > 0 else { self.stopRefreshing(visible); return }
 
             self.createDataFromWorkouts(workouts: workouts)
-            if self.freshWorkoutsAvailable(workouts: workouts) {
-                let content = Health.shared().generateContentForWorkouts(workouts: workouts)
-                let filename = "workouts/\(Health.shared().year).csv"
-                GitHub.shared().updateFile(path: filename, content: content, message: "Update workouts") { _ in
-                    self.markLastWorkout(workouts: workouts)
-                    self.loadActivity(visible)
-                }
-            } else {
-                self.loadActivity(visible)
-            }
         }
-    }
-
-    func loadActivity(_ visible: Bool = true) {
-        guard freshActivityAvailable() else { self.stopRefreshing(visible); return }
-        updateStatusLabel("Refreshing activity data...")
-
-        Health.shared().getActivityData { summaries in
-            let content = Health.shared().generateContentForActivityData(summaries: summaries)
-            let filename = "activity/\(Health.shared().year).csv"
-            GitHub.shared().updateFile(path: filename, content: content, message: "Update activity") { _ in
-                self.loadDistances()
-            }
-        }
-    }
-
-    func loadDistances(_ visible: Bool = true) {
-        updateStatusLabel("Refreshing distances...")
-
-        Health.shared().getDistances { distances in
-            let content = Health.shared().generateContentForDistances(distances: distances)
-            let filename = "distances/\(Health.shared().year).csv"
-            GitHub.shared().updateFile(path: filename, content: content, message: "Update distances") { _ in
-                self.markLastDistance(distances: distances!)
-                self.stopRefreshing(visible)
-            }
-        }
-    }
-
-    func freshActivityAvailable() -> Bool {
-        let lastDate = UserDefaults.standard.string(forKey: UserDefaultKeys.lastActivitySyncDate)
-        return lastDate == nil || Health.shared().yesterday!.toFormat("yyyy-MM-dd") > lastDate!
-    }
-
-    func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {
-        guard let workout = workouts.first as? HKWorkout else { return false }
-
-        let lastWorkout = UserDefaults.standard.string(forKey: UserDefaultKeys.lastWorkout)
-        return lastWorkout == nil || lastWorkout != workout.uuid.uuidString
-    }
-
-    func markLastWorkout(workouts: [HKSample]) {
-        guard let workout = workouts.first as? HKWorkout else { return }
-
-        UserDefaults.standard.set(workout.uuid.uuidString, forKey: UserDefaultKeys.lastWorkout)
-        UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
-    }
-
-    func markLastDistance(distances: [[String: Any]]) {
-        let lastDate = distances.last?["date"] as? String
-
-        UserDefaults.standard.set(lastDate, forKey: UserDefaultKeys.lastActivitySyncDate)
-        UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
+        BackgroundTaskHelper.shared().handleForegroundFetch()
     }
 
     func createDataFromWorkouts(workouts: [HKSample]) {

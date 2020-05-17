@@ -217,6 +217,32 @@ class Health {
         return String(format: (int ? "%.0f" : "%.2f"), quantity?.doubleValue(for: unit) ?? 0)
     }
 
+    func freshWorkoutsAvailable(workouts: [HKSample]) -> Bool {
+        guard let workout = workouts.first as? HKWorkout else { return false }
+
+        let lastWorkout = UserDefaults.standard.string(forKey: UserDefaultKeys.lastWorkout)
+        return lastWorkout == nil || lastWorkout != workout.uuid.uuidString
+    }
+
+    func freshActivityAvailable() -> Bool {
+        let lastDate = UserDefaults.standard.string(forKey: UserDefaultKeys.lastActivitySyncDate)
+        return lastDate == nil || Health.shared().yesterday!.toFormat("yyyy-MM-dd") > lastDate!
+    }
+
+    func markLastWorkout(workouts: [HKSample]) {
+        guard let workout = workouts.first as? HKWorkout else { return }
+
+        UserDefaults.standard.set(workout.uuid.uuidString, forKey: UserDefaultKeys.lastWorkout)
+        UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
+    }
+
+    func markLastDistance(distances: [[String: Any]]) {
+        let lastDate = distances.last?["date"] as? String
+
+        UserDefaults.standard.set(lastDate, forKey: UserDefaultKeys.lastActivitySyncDate)
+        UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
+    }
+
     func exportData(_ years: [String: [Any]], directory: String, contentHandler: @escaping ([Any]) -> String, completionHandler: @escaping () -> Swift.Void) {
         guard let year = years.first else { completionHandler(); return }
         guard !stopExport else { return }

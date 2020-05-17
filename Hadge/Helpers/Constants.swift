@@ -1,7 +1,7 @@
 import Foundation
 
 class Constants {
-    static let debug = false
+    static let debug = true
 }
 
 class UserDefaultKeys {
@@ -21,4 +21,8 @@ enum InterfaceStyle: Int {
 
 extension Notification.Name {
     static let didChangeInterfaceStyle = Notification.Name("didChangeInterfaceStyle")
+    static let isCollectingWorkouts = Notification.Name("isCollectingWorkouts")
+    static let collectingActivityData = Notification.Name("isCollectingActivityData")
+    static let collectingDistanceData = Notification.Name("isCollectingDistanceData")
+    static let didFinishExport = Notification.Name("didFinishExport")
 }
