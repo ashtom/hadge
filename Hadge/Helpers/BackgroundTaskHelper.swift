@@ -46,7 +46,7 @@ class BackgroundTaskHelper {
         (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport) { }
     }
 
-    func collectWorkoutData(completionHandler: @escaping () -> Swift.Void) {
+    func collectWorkoutData(completionHandler: @escaping () -> Void) {
         NotificationCenter.default.post(name: .isCollectingWorkouts, object: nil)
         Health.shared().getWorkouts { workouts in
             guard let workouts = workouts, workouts.count > 0 else { completionHandler(); return }
@@ -64,7 +64,7 @@ class BackgroundTaskHelper {
         }
     }
 
-    func collectActivityData(completionHandler: @escaping () -> Swift.Void) {
+    func collectActivityData(completionHandler: @escaping () -> Void) {
         guard Health.shared().freshActivityAvailable() else { completionHandler(); return }
 
         self.updateActivityData = true
@@ -78,7 +78,7 @@ class BackgroundTaskHelper {
         }
     }
 
-    func collectDistanceData(completionHandler: @escaping () -> Swift.Void) {
+    func collectDistanceData(completionHandler: @escaping () -> Void) {
         guard self.updateActivityData else { completionHandler(); return }
 
         NotificationCenter.default.post(name: .collectingDistanceData, object: nil)
@@ -92,13 +92,13 @@ class BackgroundTaskHelper {
         }
     }
 
-    func finishExport(completionHandler: @escaping () -> Swift.Void) {
+    func finishExport(completionHandler: @escaping () -> Void) {
         self.updateActivityData = false
         NotificationCenter.default.post(name: .didFinishExport, object: nil)
         completionHandler()
     }
 
-    func finishBackgroundTask(completionHandler: @escaping () -> Swift.Void) {
+    func finishBackgroundTask(completionHandler: @escaping () -> Void) {
         self.task?.setTaskCompleted(success: true)
         self.task = nil
 

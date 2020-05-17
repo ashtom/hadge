@@ -33,7 +33,7 @@ class SetupViewController: EntireViewController {
         }
     }
 
-    func collectWorkoutData(completionHandler: @escaping () -> Swift.Void) {
+    func collectWorkoutData(completionHandler: @escaping () -> Void) {
         Health.shared().getWorkoutsForDates(start: nil, end: nil) { workouts in
             self.initalizeYears()
             workouts?.forEach { workout in
@@ -46,7 +46,7 @@ class SetupViewController: EntireViewController {
         }
     }
 
-    func collectActivityData(completionHandler: @escaping () -> Swift.Void) {
+    func collectActivityData(completionHandler: @escaping () -> Void) {
         let start = Calendar.current.date(from: DateComponents(year: 2014, month: 1, day: 1))
         Health.shared().getActivityDataForDates(start: start, end: Health.shared().yesterday) { summaries in
             self.initalizeYears()
@@ -59,7 +59,7 @@ class SetupViewController: EntireViewController {
         }
     }
 
-    func collectDistanceData(completionHandler: @escaping () -> Swift.Void) {
+    func collectDistanceData(completionHandler: @escaping () -> Void) {
         let start = Calendar.current.date(from: DateComponents(year: 2014, month: 1, day: 1))
         Health.shared().distanceDataSource?.getAllDistances(start: start!, end: Health.shared().today!) { distances in
             self.initalizeYears()
@@ -82,7 +82,7 @@ class SetupViewController: EntireViewController {
         years[year]?.append(data)
     }
 
-    func finishExport(completionHandler: @escaping () -> Swift.Void) {
+    func finishExport(completionHandler: @escaping () -> Void) {
         UserDefaults.standard.set(true, forKey: UserDefaultKeys.setupFinished)
         NotificationCenter.default.post(name: .didSetUpRepository, object: nil)
         UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier!)

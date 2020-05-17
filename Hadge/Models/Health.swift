@@ -92,11 +92,11 @@ class Health {
         healthStore?.execute(query)
     }
 
-    func getActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
+    func getActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Void) {
         getActivityDataForDates(start: firstOfYear, end: yesterday, completionHandler: completionHandler)
     }
 
-    func getActivityDataForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKActivitySummary]?) -> Swift.Void) {
+    func getActivityDataForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKActivitySummary]?) -> Void) {
         let calendar = Calendar.current
         var startComponents = calendar.dateComponents([ .day, .month, .year], from: start!)
         var endComponents = calendar.dateComponents([ .day, .month, .year], from: end!)
@@ -169,11 +169,11 @@ class Health {
         return String.init(content)
     }
 
-    func getWorkouts(completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
+    func getWorkouts(completionHandler: @escaping ([HKSample]?) -> Void) {
         getWorkoutsForDates(start: firstOfYear, end: lastOfYear, completionHandler: completionHandler)
     }
 
-    func getWorkoutsForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKSample]?) -> Swift.Void) {
+    func getWorkoutsForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKSample]?) -> Void) {
         let predicate = (start != nil ? HKQuery.predicateForSamples(withStart: start, end: end, options: []) : nil)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
         let sampleQuery = HKSampleQuery(sampleType: .workoutType(), predicate: predicate, limit: 0, sortDescriptors: [sortDescriptor]) { (_, workouts, _) in
@@ -243,7 +243,7 @@ class Health {
         UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
     }
 
-    func exportData(_ years: [String: [Any]], directory: String, contentHandler: @escaping ([Any]) -> String, completionHandler: @escaping () -> Swift.Void) {
+    func exportData(_ years: [String: [Any]], directory: String, contentHandler: @escaping ([Any]) -> String, completionHandler: @escaping () -> Void) {
         guard let year = years.first else { completionHandler(); return }
         guard !stopExport else { return }
 

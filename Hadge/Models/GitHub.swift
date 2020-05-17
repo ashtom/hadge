@@ -114,7 +114,7 @@ class GitHub {
         }
     }
 
-    func getRepository(completionHandler: @escaping (String?) -> Swift.Void) {
+    func getRepository(completionHandler: @escaping (String?) -> Void) {
         Octokit(self.config!).repository(owner: username()!, name: GitHub.defaultRepository) { response in
             switch response {
             case .success(let repository):
@@ -126,7 +126,7 @@ class GitHub {
         }
     }
 
-    func createRepository(completionHandler: @escaping (String?) -> Swift.Void) {
+    func createRepository(completionHandler: @escaping (String?) -> Void) {
         let url = URL(string: "https://api.github.com/user/repos")!
         var request = self.createRequest(url: url, httpMethod: "POST")
         let parameters: [String: Any] = [
@@ -144,7 +144,7 @@ class GitHub {
         }
     }
 
-    func getFile(path: String, completionHandler: @escaping (String) -> Swift.Void) {
+    func getFile(path: String, completionHandler: @escaping (String) -> Void) {
         let url = URL(string: "https://api.github.com/repos/\(username()!)/\(GitHub.defaultRepository)/contents/\(path)")!
         let request = self.createRequest(url: url, httpMethod: "GET")
 
@@ -158,7 +158,7 @@ class GitHub {
         })
     }
 
-    func updateFile(path: String, content: String, message: String, completionHandler: @escaping (String?) -> Swift.Void) {
+    func updateFile(path: String, content: String, message: String, completionHandler: @escaping (String?) -> Void) {
         getFile(path: path) { sha in
             let url = URL(string: "https://api.github.com/repos/\(self.username()!)/\(GitHub.defaultRepository)/contents/\(path)")!
             var request = self.createRequest(url: url, httpMethod: "PUT")
@@ -199,7 +199,7 @@ class GitHub {
         return request
     }
 
-    func handleRequest(_ request: URLRequest, completionHandler: @escaping (JSON?, Int, Error?) -> Swift.Void) {
+    func handleRequest(_ request: URLRequest, completionHandler: @escaping (JSON?, Int, Error?) -> Void) {
         let configuration = URLSessionConfiguration.ephemeral
         let session = URLSession(configuration: configuration)
         let task: URLSessionDataTask = session.dataTask(with: request) { data, response, error in
