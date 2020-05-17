@@ -122,11 +122,6 @@ class WorkoutsViewController: EntireViewController {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
                 self.tableView.refreshControl?.beginRefreshing()
-
-//                if visible {
-//                    let yOffset = self.tableView.contentOffset.y - (self.tableView.refreshControl?.frame.size.height)!
-//                    self.tableView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
-//                }
             }
 
             if self.statusLabel != nil {
@@ -146,12 +141,6 @@ class WorkoutsViewController: EntireViewController {
     func stopRefreshing(_ visible: Bool = true) {
         DispatchQueue.main.async {
             if self.tableView.refreshControl != nil {
-//                if visible {
-//                    let top = self.tableView.adjustedContentInset.top
-//                    let offset = (self.tableView.refreshControl?.frame.maxY)! + top
-//                    self.tableView.setContentOffset(CGPoint(x: 0, y: -offset), animated: true)
-//                }
-
                 self.tableView.refreshControl?.endRefreshing()
             }
         }
