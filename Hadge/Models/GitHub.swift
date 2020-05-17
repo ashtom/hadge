@@ -176,8 +176,9 @@ class GitHub {
 
                 self.handleRequest(request, completionHandler: { json, _, _ in
                     let sha = json?["content"]["sha"].string
-                    os_log("File updated: %@", type: .debug, sha!)
-
+                    if sha != nil {
+                        os_log("File updated: %@", type: .debug, sha!)
+                    }
                     completionHandler(sha)
                 })
             } catch {
