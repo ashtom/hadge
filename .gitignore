@@ -30,4 +30,5 @@ DerivedData/
 .assets/*.csv
 
 ## Secrets
+Generated
 Secrets.xcconfig
