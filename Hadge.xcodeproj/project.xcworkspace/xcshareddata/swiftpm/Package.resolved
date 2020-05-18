@@ -14,9 +14,9 @@
         "package": "OctoKit",
         "repositoryURL": "https://github.com/nerdishbynature/octokit.swift",
         "state": {
-          "branch": null,
-          "revision": "c391cfba4d33f3f4c7d7d8fa6708970f7d30af82",
-          "version": "0.10.1"
+          "branch": "master",
+          "revision": "6bd75bc7dd15d3bf67dcd198ee8066182a125dfb",
+          "version": null
         }
       },
       {

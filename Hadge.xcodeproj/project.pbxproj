@@ -20,6 +20,8 @@
 		4D563CF2246379230034D2CF /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D563CF1246379230034D2CF /* SetupViewController.swift */; };
 		4D6B4B62246D8B5800847D49 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6B4B61246D8B5800847D49 /* AccountCell.swift */; };
 		4D886C46247191770088CF56 /* Secrets.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C45247191770088CF56 /* Secrets.generated.swift */; };
+		4D886C4824724A660088CF56 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C4724724A660088CF56 /* PaddingLabel.swift */; };
+		4D886C4A24724AC60088CF56 /* UITableView+EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C4924724AC60088CF56 /* UITableView+EmptyMessage.swift */; };
 		4DAE94C0246B7B230036AC72 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 4DAE94BF246B7B230036AC72 /* SwiftDate */; };
 		4DAE94C2246B9C130036AC72 /* DistanceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */; };
 		4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */; };
@@ -64,6 +66,8 @@
 		4D886C4024718AD30088CF56 /* Secrets.template.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.template.xcconfig; sourceTree = "<group>"; };
 		4D886C4124718B240088CF56 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		4D886C45247191770088CF56 /* Secrets.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.generated.swift; sourceTree = "<group>"; };
+		4D886C4724724A660088CF56 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
+		4D886C4924724AC60088CF56 /* UITableView+EmptyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+EmptyMessage.swift"; sourceTree = "<group>"; };
 		4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceDataSource.swift; sourceTree = "<group>"; };
 		4DB3F6742453F7AC004C8BF3 /* Hadge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hadge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,7 +119,9 @@
 				4DF685A52465B21F00D929EC /* FilterHeaderView.xib */,
 				4DB3F6822453F7B0004C8BF3 /* LaunchScreen.storyboard */,
 				4DB3F67D2453F7AC004C8BF3 /* Main.storyboard */,
+				4D886C4724724A660088CF56 /* PaddingLabel.swift */,
 				4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */,
+				4D886C4924724AC60088CF56 /* UITableView+EmptyMessage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -359,6 +365,7 @@
 				4D3DFA36246FA58C00EDCBEC /* SettingsAccountHelper.swift in Sources */,
 				4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */,
 				4DF6859F2464CF1000D929EC /* Constants.swift in Sources */,
+				4D886C4824724A660088CF56 /* PaddingLabel.swift in Sources */,
 				4DD70CC0245DBF44007C8D58 /* SettingsViewController.swift in Sources */,
 				4D3DFA34246F125800EDCBEC /* EntireViewController.swift in Sources */,
 				4D563CF2246379230034D2CF /* SetupViewController.swift in Sources */,
@@ -372,6 +379,7 @@
 				4D3DFA3E2470340A00EDCBEC /* SettingsSyncHelper.swift in Sources */,
 				4DF685A42465AEDC00D929EC /* FilterHeaderView.swift in Sources */,
 				4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */,
+				4D886C4A24724AC60088CF56 /* UITableView+EmptyMessage.swift in Sources */,
 				4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */,
 				4DAE94C2246B9C130036AC72 /* DistanceDataSource.swift in Sources */,
 				4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */,
@@ -627,8 +635,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.10.1;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
