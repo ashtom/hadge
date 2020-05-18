@@ -8,6 +8,7 @@ class WorkoutsViewController: EntireViewController {
     var statusLabel: UILabel?
     var filter: [UInt] = []
     var filterButton: UIBarButtonItem?
+    var dataLoaded: Bool = false
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -213,6 +214,7 @@ class WorkoutsViewController: EntireViewController {
     }
 
     func loadData(_ visible: Bool = true) {
+        dataLoaded = false
         startRefreshing(visible)
         loadWorkouts(visible)
     }
@@ -220,6 +222,7 @@ class WorkoutsViewController: EntireViewController {
     func loadWorkouts(_ visible: Bool = true) {
         Health.shared().getWorkouts { workouts in
             self.data = []
+            self.dataLoaded = true
 
             guard let workouts = workouts, workouts.count > 0 else { self.stopRefreshing(visible); return }
 
@@ -252,7 +255,7 @@ extension WorkoutsViewController: UITableViewDataSource {
         if data.count == 0 && filter.count > 0 {
             tableView.setEmptyMessage("No workouts for the selected filter.")
             return data.count
-        } else if data.count == 0 {
+        } else if data.count == 0 && dataLoaded {
             tableView.setEmptyMessage("No workout data available. Check the permissions for Hadge in Health app if you recently worked out.")
             return 0
         } else {
