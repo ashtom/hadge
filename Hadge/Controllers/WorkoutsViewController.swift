@@ -98,7 +98,7 @@ class WorkoutsViewController: EntireViewController {
         let formatter = DateFormatter.init()
         formatter.dateStyle = .short
         formatter.timeStyle = .short
-        if lastSyncDate != nil {
+        if lastSyncDate != nil && data.count > 0 {
             updateStatusLabel("GitHub last updated on\n\(formatter.string(from: lastSyncDate!)).")
         } else {
             updateStatusLabel("")
@@ -249,7 +249,16 @@ class WorkoutsViewController: EntireViewController {
 
 extension WorkoutsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        if data.count == 0 && filter.count > 0 {
+            tableView.setEmptyMessage("No workouts for the selected filter.")
+            return data.count
+        } else if data.count == 0 {
+            tableView.setEmptyMessage("No workout data available. Check the permissions for Hadge in Health app if you recently worked out.")
+            return 0
+        } else {
+            tableView.restore()
+            return data.count
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
