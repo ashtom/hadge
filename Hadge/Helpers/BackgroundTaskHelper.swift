@@ -70,6 +70,8 @@ class BackgroundTaskHelper {
         self.updateActivityData = true
         NotificationCenter.default.post(name: .collectingActivityData, object: nil)
         Health.shared().getActivityData { summaries in
+            guard let summaries = summaries, summaries.count > 0 else { completionHandler(); return }
+
             let content = Health.shared().generateContentForActivityData(summaries: summaries)
             let filename = "activity/\(Health.shared().year).csv"
             GitHub.shared().updateFile(path: filename, content: content, message: "Update activity") { _ in
