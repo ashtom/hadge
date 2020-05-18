@@ -1,5 +1,6 @@
 import UIKit
 import BackgroundTasks
+import HealthKit
 import os.log
 
 class BackgroundTaskHelper {
@@ -25,7 +26,8 @@ class BackgroundTaskHelper {
     func scheduleBackgroundFetchTask() {
         let request = BGProcessingTaskRequest(identifier: "io.entire.hadge.bg-fetch")
         request.requiresNetworkConnectivity = true
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 3600)
+        request.requiresExternalPower = true
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 60)
         do {
             try BGTaskScheduler.shared.submit(request)
             os_log("BG task scheduled.")
@@ -35,7 +37,6 @@ class BackgroundTaskHelper {
     }
 
     func handleBackgroundFetchTask(task: BGProcessingTask) {
-        scheduleBackgroundFetchTask()
         os_log("BG task started")
 
         self.task = task
@@ -97,14 +98,46 @@ class BackgroundTaskHelper {
     func finishExport(completionHandler: @escaping () -> Void) {
         self.updateActivityData = false
         NotificationCenter.default.post(name: .didFinishExport, object: nil)
-        completionHandler()
+
+        Health.shared().getActivityDataForDates(start: Health.shared().today, end: Health.shared().today) { summaries in
+            guard let summaries = summaries, summaries.count > 0 else { completionHandler(); return }
+
+            let energy = Int(summaries.last?.activeEnergyBurned.doubleValue(for: .kilocalorie()) ?? 0)
+            if self.task != nil {
+                self.sendNotification(energy)
+                completionHandler()
+            } else {
+                DispatchQueue.main.async {
+                    UIApplication.shared.applicationIconBadgeNumber = energy
+                    completionHandler()
+                }
+            }
+        }
     }
 
     func finishBackgroundTask(completionHandler: @escaping () -> Void) {
         self.task?.setTaskCompleted(success: true)
         self.task = nil
 
+        scheduleBackgroundFetchTask()
+
         os_log("BG task completed")
         completionHandler()
+    }
+
+    func sendNotification(_ badge: Int) {
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = "Hadge"
+        notificationContent.body = "Total energy burned: \(badge)"
+        notificationContent.badge = NSNumber(value: badge)
+
+        let tigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
+        let request = UNNotificationRequest(identifier: "Hadge", content: notificationContent, trigger: tigger)
+
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if let error = error {
+                os_log("Notification Error: %@", error.localizedDescription)
+            }
+        }
     }
 }
