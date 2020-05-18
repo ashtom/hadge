@@ -635,8 +635,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
