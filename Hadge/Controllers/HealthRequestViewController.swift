@@ -33,11 +33,9 @@ class HealthRequestViewController: EntireViewController {
             HKQuantityType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.biologicalSex)!
         ]
 
-        let samplesTypes: Set<HKSampleType> = []
-
-        Health.shared().healthStore?.getRequestStatusForAuthorization(toShare: samplesTypes, read: objectTypes) { (status, _) in
+        Health.shared().healthStore?.getRequestStatusForAuthorization(toShare: [], read: objectTypes) { (status, _) in
             if status == .shouldRequest {
-                Health.shared().healthStore?.requestAuthorization(toShare: samplesTypes, read: objectTypes) { (_, _) in
+                Health.shared().healthStore?.requestAuthorization(toShare: [], read: objectTypes) { (_, _) in
                     NotificationCenter.default.post(name: .didReceiveHealthAccess, object: nil)
                 }
             } else {
