@@ -33,13 +33,7 @@ class HealthRequestViewController: EntireViewController {
             HKQuantityType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.biologicalSex)!
         ]
 
-        #if targetEnvironment(simulator)
-        let samplesTypes: Set<HKSampleType> = [
-            HKObjectType.workoutType()
-        ]
-        #else
         let samplesTypes: Set<HKSampleType> = []
-        #endif
 
         Health.shared().healthStore?.getRequestStatusForAuthorization(toShare: samplesTypes, read: objectTypes) { (status, _) in
             if status == .shouldRequest {
