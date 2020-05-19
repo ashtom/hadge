@@ -104,7 +104,7 @@ class BackgroundTaskHelper {
 
             let energy = Int(summaries.last?.activeEnergyBurned.doubleValue(for: .kilocalorie()) ?? 0)
             if self.task != nil {
-                self.sendNotification(energy)
+                //self.sendNotification(energy)
                 completionHandler()
             } else {
                 DispatchQueue.main.async {
