@@ -10,7 +10,7 @@ We do not collect, use, save, or shared any of your personal data. Hadge exports
 
 Hadge does not collect any data for any other purposes, and does not send any data to any service other than GitHub. The connection between Hadge and GitHub is directly established through the GitHub API, secured by SSL, and authenticated through your GitHub user. You can delete this connection at any time by revoking the token in your GitHub account settings or by deinstalling Hadge app.
 
-Our applications don’t collect personal information from anyone, including children under the age of 13.
+We don’t collect personal information from anyone, including children under the age of 13.
 
 ## License
 
