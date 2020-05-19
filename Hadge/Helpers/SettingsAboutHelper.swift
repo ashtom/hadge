@@ -21,7 +21,7 @@ class SettingsAboutHelper {
     func tableView(_ tableView: UITableView, didSelectRow: Int, viewController: SettingsViewController) {
         switch didSelectRow {
         case 0:
-            UIApplication.shared.open(URL.init(string: "https://github.com/ashtom/hadge")!)
+            UIApplication.shared.open(URL.init(string: "https://github.com/entireio/hadge")!)
         default: // No op
             break
         }
