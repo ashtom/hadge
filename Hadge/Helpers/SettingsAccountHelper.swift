@@ -9,8 +9,15 @@ class SettingsAccountHelper {
             let username = GitHub.shared().returnAuthenticatedUsername()
             let avatarURL = "https://github.com/\(username).png?size=102"
             cell?.avatarView.sd_setImage(with: URL(string: avatarURL), completed: nil)
-            cell?.nameLabel.text = GitHub.shared().fullname() ?? ""
-            cell?.loginLabel.text = "@\(GitHub.shared().username() ?? "")"
+
+            let fullname = GitHub.shared().fullname()
+            if fullname == nil || fullname!.isEmpty {
+                cell?.nameLabel.text = "@\(GitHub.shared().username() ?? "")"
+                cell?.loginLabel.text = ""
+            } else {
+                cell?.nameLabel.text = GitHub.shared().fullname() ?? ""
+                cell?.loginLabel.text = "@\(GitHub.shared().username() ?? "")"
+            }
             return cell!
         default:
             let identifier = "SettingsCell"
