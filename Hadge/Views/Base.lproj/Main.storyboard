@@ -331,6 +331,10 @@
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1jW-Zk-bls">
+                                <rect key="frame" x="188.5" y="777" width="37" height="37"/>
+                                <color key="color" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -339,7 +343,9 @@
                             <constraint firstItem="oCj-n4-pLU" firstAttribute="trailing" secondItem="sR4-mB-Di6" secondAttribute="trailing" constant="20" id="DDm-TR-x6y"/>
                             <constraint firstItem="oCj-n4-pLU" firstAttribute="bottom" secondItem="HeV-Fd-vWJ" secondAttribute="bottom" constant="40" id="Ew8-md-x1S"/>
                             <constraint firstItem="HeV-Fd-vWJ" firstAttribute="top" secondItem="xF5-te-3Pk" secondAttribute="bottom" constant="36" id="HlT-Gp-6c9"/>
+                            <constraint firstItem="oCj-n4-pLU" firstAttribute="bottom" secondItem="1jW-Zk-bls" secondAttribute="bottom" constant="48" id="Ps5-zn-8kd"/>
                             <constraint firstItem="sR4-mB-Di6" firstAttribute="leading" secondItem="oCj-n4-pLU" secondAttribute="leading" constant="20" id="Z5i-Zc-JTl"/>
+                            <constraint firstItem="1jW-Zk-bls" firstAttribute="centerX" secondItem="0FT-eh-dPC" secondAttribute="centerX" id="awl-yP-jX0"/>
                             <constraint firstItem="0mi-Cp-UPS" firstAttribute="centerX" secondItem="HeV-Fd-vWJ" secondAttribute="centerX" id="fW5-jh-THY"/>
                             <constraint firstItem="HeV-Fd-vWJ" firstAttribute="centerX" secondItem="0FT-eh-dPC" secondAttribute="centerX" id="gUY-0a-cBc"/>
                             <constraint firstItem="xF5-te-3Pk" firstAttribute="trailing" secondItem="sR4-mB-Di6" secondAttribute="trailing" id="hjO-6w-OFP"/>
@@ -351,6 +357,7 @@
                         <viewLayoutGuide key="safeArea" id="oCj-n4-pLU"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="1jW-Zk-bls" id="x75-wr-fU8"/>
                         <outlet property="signInButton" destination="HeV-Fd-vWJ" id="cYO-hp-0Dl"/>
                         <outlet property="tokenButton" destination="0mi-Cp-UPS" id="Zm0-zr-YMh"/>
                     </connections>
@@ -476,7 +483,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-l8-if7">
-                                <rect key="frame" x="20" y="110" width="374" height="603"/>
+                                <rect key="frame" x="20" y="110" width="374" height="605"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <string key="text">Hadge will create a private repository named "health", or use an existing repository with this name, and export your existing activity, distances, and workouts into csv files.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -484,7 +491,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Q3h-0n-yQq">
-                                <rect key="frame" x="188.5" y="721" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="723" width="37" height="37"/>
                                 <color key="color" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             </activityIndicatorView>
                         </subviews>
@@ -492,7 +499,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                         <constraints>
                             <constraint firstItem="gbR-l8-if7" firstAttribute="trailing" secondItem="vhu-Sx-z37" secondAttribute="trailing" id="1Fo-gU-eDl"/>
                             <constraint firstItem="vhu-Sx-z37" firstAttribute="top" secondItem="vnU-9Q-wV7" secondAttribute="top" constant="50" id="P3b-no-BWi"/>
-                            <constraint firstItem="vnU-9Q-wV7" firstAttribute="bottom" secondItem="Q3h-0n-yQq" secondAttribute="bottom" constant="50" id="b1a-Jn-6MS"/>
+                            <constraint firstItem="vnU-9Q-wV7" firstAttribute="bottom" secondItem="Q3h-0n-yQq" secondAttribute="bottom" constant="48" id="b1a-Jn-6MS"/>
                             <constraint firstItem="vnU-9Q-wV7" firstAttribute="trailing" secondItem="vhu-Sx-z37" secondAttribute="trailing" constant="20" id="f8I-XD-7Ur"/>
                             <constraint firstItem="vhu-Sx-z37" firstAttribute="leading" secondItem="vnU-9Q-wV7" secondAttribute="leading" constant="20" id="fEP-Ie-qmv"/>
                             <constraint firstItem="Q3h-0n-yQq" firstAttribute="centerX" secondItem="uqp-QL-hOs" secondAttribute="centerX" id="hsf-Rj-0ci"/>

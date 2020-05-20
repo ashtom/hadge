@@ -2,10 +2,12 @@ import UIKit
 import KeychainAccess
 import OctoKit
 import SwiftyJSON
+import AuthenticationServices
 import os.log
 
 extension Notification.Name {
     static let didSignIn = Notification.Name("didSignIn")
+    static let signInFailed = Notification.Name("signInFailed")
     static let didSignOut = Notification.Name("didSignOut")
     static let didSetUpRepository = Notification.Name("didSetUpRepository")
 }
@@ -51,8 +53,24 @@ class GitHub {
         }
     }
 
-    func signIn() {
-        UIApplication.shared.open(configURL!, options: [:], completionHandler: nil)
+    func signIn(_ contextProvider: ASWebAuthenticationPresentationContextProviding?) {
+        let session = ASWebAuthenticationSession(url: configURL!, callbackURLScheme: "hadge://") { url, error in
+            if error != nil {
+                NotificationCenter.default.post(name: .signInFailed, object: nil)
+                return
+            }
+
+            GitHub.shared().process(url: url!) { username in
+                if username != nil {
+                    NotificationCenter.default.post(name: .didSignIn, object: nil)
+                } else {
+                    NotificationCenter.default.post(name: .signInFailed, object: nil)
+                }
+            }
+        }
+        session.prefersEphemeralWebBrowserSession = true
+        session.presentationContextProvider = contextProvider
+        session.start()
     }
 
     func signOut() {
@@ -61,14 +79,16 @@ class GitHub {
         self.prepare()
     }
 
-    func process(url: URL) {
+    func process(url: URL, completionHandler: @escaping (String?) -> Void) {
         oauth!.handleOpenURL(url: url) { config in
-            self.loadCurrentUser(config: config)
+            self.loadCurrentUser(config: config) { username in
+                completionHandler(username)
+            }
         }
     }
 
     func storeToken(token: String) {
-        self.loadCurrentUser(config: TokenConfiguration(token))
+        self.loadCurrentUser(config: TokenConfiguration(token)) { _ in }
     }
 
     func accessToken() -> String? {
@@ -83,7 +103,7 @@ class GitHub {
         self.keychain!["fullname"]
     }
 
-    func loadCurrentUser(config: TokenConfiguration) {
+    func loadCurrentUser(config: TokenConfiguration, completionHandler: @escaping (String?) -> Void) {
         _ = Octokit(config).me { response in
             switch response {
             case .success(let user):
@@ -95,9 +115,10 @@ class GitHub {
                 os_log("Token stored", type: .debug)
 
                 self.config = TokenConfiguration(self.keychain!["token"])
-                NotificationCenter.default.post(name: .didSignIn, object: nil)
+                completionHandler(user.login)
             case .failure(let error):
                 os_log("Error while loading user: %@", type: .debug, error.localizedDescription)
+                completionHandler(nil)
             }
         }
     }
