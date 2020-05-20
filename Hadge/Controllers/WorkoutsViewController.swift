@@ -224,11 +224,18 @@ class WorkoutsViewController: EntireViewController {
             self.data = []
             self.dataLoaded = true
 
-            guard let workouts = workouts, workouts.count > 0 else { self.stopRefreshing(visible); return }
+            guard let workouts = workouts, workouts.count > 0 else { self.reloadWithEmptyWorkout(); return }
 
             self.createDataFromWorkouts(workouts: workouts)
         }
         BackgroundTaskHelper.shared().handleForegroundFetch()
+    }
+
+    func reloadWithEmptyWorkout() {
+        DispatchQueue.main.async {
+            self.stopRefreshing(true)
+            self.tableView.reloadSections([ 0 ], with: .automatic)
+        }
     }
 
     func createDataFromWorkouts(workouts: [HKSample]) {
