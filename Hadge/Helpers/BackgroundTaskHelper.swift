@@ -102,7 +102,7 @@ class BackgroundTaskHelper {
         Health.shared().getActivityDataForDates(start: Health.shared().today, end: Health.shared().today) { summaries in
             guard let summaries = summaries, summaries.count > 0 else { completionHandler(); return }
 
-            let energy = Int(summaries.last?.activeEnergyBurned.doubleValue(for: .kilocalorie()) ?? 0)
+            //let energy = Int(summaries.last?.activeEnergyBurned.doubleValue(for: .kilocalorie()) ?? 0)
             if self.task != nil {
                 //self.sendNotification(energy)
                 completionHandler()
