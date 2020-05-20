@@ -108,7 +108,7 @@ class BackgroundTaskHelper {
                 completionHandler()
             } else {
                 DispatchQueue.main.async {
-                    UIApplication.shared.applicationIconBadgeNumber = energy
+                    //UIApplication.shared.applicationIconBadgeNumber = energy
                     completionHandler()
                 }
             }
