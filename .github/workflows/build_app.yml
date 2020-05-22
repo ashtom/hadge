@@ -1,0 +1,32 @@
+name: Build App
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v1
+      - name: Install SwiftLint
+        run: brew install swiftlint
+      - name: Install gpg
+        run: brew install gnupg
+      - name: Setup provisioning profile
+        env:
+          CERTIFICATE_GPG_KEY: ${{ secrets.CERTIFICATE_GPG_KEY }}
+        run: ./.github/scripts/decrypt_secrets.sh      
+      - name: Select Xcode 11.4
+        run: sudo xcode-select -switch /Applications/Xcode_11.4.app
+      - name: Build project
+        run: ./.github/scripts/build_app.sh
+      - name: Exporting .ipa
+        run: ./.github/scripts/export_ipa.sh
+      - name: Save .ipa as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: Hadge.ipa
+          path: ./build/Hadge.ipa
