@@ -19,6 +19,13 @@ jobs:
         env:
           CERTIFICATE_GPG_KEY: ${{ secrets.CERTIFICATE_GPG_KEY }}
         run: ./.github/scripts/decrypt_secrets.sh      
+      - name: Create secrets xcconfig
+        env:
+          OCTO_CLIENT_ID: ${{ secrets.OCTO_CLIENT_ID }}
+          OCTO_CLIENT_SECRET: ${{ secrets.OCTO_CLIENT_SECRET }}
+        run: |
+          echo "GITHUB_CLIENT_ID = \"${OCTO_CLIENT_ID}\"" >> Hadge/Secrets.xcconfig
+          echo "GITHUB_CLIENT_SECRET = \"${OCTO_CLIENT_SECRET}\"" >> Hadge/Secrets.xcconfig
       - name: Select Xcode 11.4
         run: sudo xcode-select -switch /Applications/Xcode_11.4.app
       - name: Build project
