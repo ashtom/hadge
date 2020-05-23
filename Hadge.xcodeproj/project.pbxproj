@@ -328,6 +328,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(SRCROOT)/Hadge/Generated/Secrets.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
