@@ -59,6 +59,36 @@ class WorkoutsViewController: EntireTableViewController {
         }
     }
 
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if data.count == 0 && filter.count > 0 {
+            tableView.setEmptyMessage("No workouts for the selected filter.")
+            return data.count
+        } else if data.count == 0 && dataLoaded {
+            tableView.setEmptyMessage("No workout data available. Check the permissions for Hadge in Health app if you recently worked out.")
+            return 0
+        } else {
+            tableView.restore()
+            return data.count
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = "WorkoutCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? WorkoutCell
+
+        if let workout = data[indexPath.row]["workout"] as? HKWorkout? {
+            cell?.titleLabel?.text = workout?.workoutActivityType.name
+            cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmoji(for: Health.shared().getBiologicalSex()!)
+            cell?.setStartDate(workout!.startDate)
+            cell?.setDistance(workout!.totalDistance)
+            cell?.setDuration(workout!.duration)
+            cell?.setEnergy(workout!.totalEnergyBurned)
+            cell?.sourceLabel?.text = workout!.sourceRevision.source.name
+        }
+
+        return cell!
+    }
+
     @objc func showFilter(sender: Any) {
         performSegue(withIdentifier: "FilterSegue", sender: self)
     }
@@ -259,36 +289,6 @@ class WorkoutsViewController: EntireTableViewController {
             self.tableView.reloadSections([ 0 ], with: .automatic)
             self.saveState()
         }
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if data.count == 0 && filter.count > 0 {
-            tableView.setEmptyMessage("No workouts for the selected filter.")
-            return data.count
-        } else if data.count == 0 && dataLoaded {
-            tableView.setEmptyMessage("No workout data available. Check the permissions for Hadge in Health app if you recently worked out.")
-            return 0
-        } else {
-            tableView.restore()
-            return data.count
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "WorkoutCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? WorkoutCell
-
-        if let workout = data[indexPath.row]["workout"] as? HKWorkout? {
-            cell?.titleLabel?.text = workout?.workoutActivityType.name
-            cell?.emojiLabel?.text = workout?.workoutActivityType.associatedEmoji(for: Health.shared().getBiologicalSex()!)
-            cell?.setStartDate(workout!.startDate)
-            cell?.setDistance(workout!.totalDistance)
-            cell?.setDuration(workout!.duration)
-            cell?.setEnergy(workout!.totalEnergyBurned)
-            cell?.sourceLabel?.text = workout!.sourceRevision.source.name
-        }
-
-        return cell!
     }
 }
 
