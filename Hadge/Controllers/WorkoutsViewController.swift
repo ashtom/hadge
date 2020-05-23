@@ -3,17 +3,17 @@ import HealthKit
 import SDWebImage
 import SwiftDate
 
-class WorkoutsViewController: EntireViewController {
+class WorkoutsViewController: EntireTableViewController {
     var data: [[String: Any]] = []
     var statusLabel: UILabel?
     var filter: [UInt] = []
     var filterButton: UIBarButtonItem?
     var dataLoaded: Bool = false
 
-    @IBOutlet weak var tableView: UITableView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.extendedLayoutIncludesOpaqueBars = true
 
         loadAvatar()
         setUpRefreshControl()
@@ -30,7 +30,7 @@ class WorkoutsViewController: EntireViewController {
 
         if !GitHub.shared().isSignedIn() || !UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
             self.navigationController?.performSegue(withIdentifier: "SetupSegue", sender: nil)
-        } else {
+        } else if !dataLoaded {
             GitHub.shared().refreshCurrentUser()
         }
     }
@@ -40,7 +40,7 @@ class WorkoutsViewController: EntireViewController {
 
         loadStatusView()
 
-        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) && !dataLoaded {
             loadData(false)
         }
     }
@@ -51,6 +51,11 @@ class WorkoutsViewController: EntireViewController {
             let filterViewController = filterNavigationViewController?.viewControllers.first as? FilterViewController
             filterViewController?.delegate = self
             filterViewController?.preChecked = filter
+        } else if segue.identifier == "DetailSegue" {
+            let workoutViewController = segue.destination as? WorkoutViewController
+            if let workout = data[tableView.indexPathForSelectedRow!.row]["workout"] as? HKWorkout? {
+                workoutViewController?.workout = workout
+            }
         }
     }
 
@@ -255,10 +260,8 @@ class WorkoutsViewController: EntireViewController {
             self.saveState()
         }
     }
-}
 
-extension WorkoutsViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if data.count == 0 && filter.count > 0 {
             tableView.setEmptyMessage("No workouts for the selected filter.")
             return data.count
@@ -271,7 +274,7 @@ extension WorkoutsViewController: UITableViewDataSource {
         }
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "WorkoutCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? WorkoutCell
 
@@ -287,9 +290,6 @@ extension WorkoutsViewController: UITableViewDataSource {
 
         return cell!
     }
-}
-
-extension WorkoutsViewController: UITableViewDelegate {
 }
 
 extension WorkoutsViewController: FilterDelegate {

@@ -96,7 +96,7 @@ class FilterViewController: EntireTableViewController {
             }
         }
 
-        if active.count == self.workoutTypes.count {
+        if active.count >= self.workoutTypes.count {
             active = []
         }
 
