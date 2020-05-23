@@ -34,13 +34,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-    <key>NSHealthShareUsageDescription</key>
-    <string>Hadge needs read-only access to your Health data to be able to export activity, distances, and workouts to your GitHub account. Only you will be able to access the data.</string>
-    <key>NSHealthUpdateUsageDescription</key>
-    <string>Hadge needs read-only access to your Health data to be able to export activity, distances, and workouts to your GitHub account. Hadge does not write or share any data.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Hadge needs read-only access to your Health data to be able to export activity, distances, and workouts to your GitHub account. Only you will be able to access the data.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Hadge needs read-only access to your Health data to be able to export activity, distances, and workouts to your GitHub account. Hadge does not write or share any data.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -71,8 +71,8 @@
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-        <string>armv7</string>
-        <string>healthkit</string>
+		<string>armv7</string>
+		<string>healthkit</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
