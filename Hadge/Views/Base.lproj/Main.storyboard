@@ -8,18 +8,20 @@
     </dependencies>
     <scenes>
         <!--Workout View Controller-->
-        <scene sceneID="0hT-ug-igO">
+        <scene sceneID="xHv-J6-sgv">
             <objects>
-                <viewController id="A1F-Y0-GSJ" customClass="WorkoutViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8f6-3a-10c">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="oTa-Cc-Vp7" customClass="WorkoutViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rZ5-kv-XoB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="qTd-VX-Zka"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="zNv-eg-lTV"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HEn-bn-CY2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <connections>
+                            <outlet property="dataSource" destination="oTa-Cc-Vp7" id="oB3-wO-uOg"/>
+                            <outlet property="delegate" destination="oTa-Cc-Vp7" id="L62-eZ-PhW"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="4No-iM-trJ"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yhl-a1-L4v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1958" y="136"/>
         </scene>
@@ -227,7 +229,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkoutCell" id="RVl-fc-vIy" customClass="WorkoutCell" customModule="Hadge" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkoutCell" id="RVl-fc-vIy" customClass="WorkoutCell" customModule="Hadge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RVl-fc-vIy" id="1ld-yI-hBl">
@@ -347,7 +349,7 @@
                                     <outlet property="energyLabel" destination="07E-0H-1k9" id="Mn0-VE-qBd"/>
                                     <outlet property="sourceLabel" destination="Orw-lP-uUc" id="Qb4-SY-CZL"/>
                                     <outlet property="titleLabel" destination="SVb-gR-FaF" id="71O-to-toj"/>
-                                    <segue destination="A1F-Y0-GSJ" kind="show" identifier="DetailSegue" id="F9x-Wt-pL2"/>
+                                    <segue destination="oTa-Cc-Vp7" kind="show" identifier="DetailSegue" id="HeU-eL-vVw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -18,6 +18,7 @@ class WorkoutsViewController: EntireTableViewController {
         loadAvatar()
         setUpRefreshControl()
         restoreState()
+        loadStatusView()
         addObservers()
     }
 
@@ -37,8 +38,6 @@ class WorkoutsViewController: EntireTableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        loadStatusView()
 
         if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) && !dataLoaded {
             loadData(false)
@@ -222,7 +221,7 @@ class WorkoutsViewController: EntireTableViewController {
         rightButtonItem.tintColor = UIColor.secondaryLabel
         let leftSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let rightSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        self.navigationController?.toolbar.setItems([filterButton!, leftSpaceItem, statusItem, rightSpaceItem, rightButtonItem], animated: false)
+        self.toolbarItems = [filterButton!, leftSpaceItem, statusItem, rightSpaceItem, rightButtonItem]
     }
 
     func setUpRefreshControl() {
