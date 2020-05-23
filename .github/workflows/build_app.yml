@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
+      - name: Bump bundle version
+        run: ./.github/scripts/bump-version
       - name: Install SwiftLint
         run: brew install swiftlint
       - name: Install gpg
@@ -39,3 +41,7 @@ jobs:
         with:
           name: Hadge.ipa
           path: ./build/Hadge.ipa
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
