@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v1
       - name: Bump bundle version
-        run: ./.github/scripts/bump-version.sh
+        run: ./.github/scripts/bump_version.sh
       - name: Install SwiftLint
         run: brew install swiftlint
       - name: Install gpg
