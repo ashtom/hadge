@@ -1,17 +1,53 @@
 import UIKit
 import HealthKit
 
+private enum WorkoutSectionType: Int {
+    case basic = 0
+    case distance
+    case source
+}
+
 class WorkoutViewController: EntireTableViewController {
     var workout: HKWorkout?
     var dateFormatter: DateFormatter?
     var timeFormatter: DateFormatter?
     var durationFormatter: DateComponentsFormatter?
 
+    fileprivate var sections: [WorkoutSectionType] = []
+    fileprivate var data: [WorkoutSectionType: [[String?]]] = [:]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = workout?.workoutActivityType.name
 
+        loadFormatters()
+        buildSections()
+    }
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let sectionType = sections[section]
+        return data[sectionType]?.count ?? 0
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = "DetailCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .value1, reuseIdentifier: identifier)
+        cell.selectionStyle = .none
+
+        let sectionType = sections[indexPath.section]
+        let row = data[sectionType]?[indexPath.row]
+        cell.textLabel?.text = row?[0]
+        cell.detailTextLabel?.text = row?[1]
+
+        return cell
+    }
+
+    func loadFormatters() {
         self.dateFormatter = DateFormatter()
         self.dateFormatter?.timeStyle = .none
         self.dateFormatter?.dateStyle = .long
@@ -26,46 +62,24 @@ class WorkoutViewController: EntireTableViewController {
         self.durationFormatter?.zeroFormattingBehavior = [ .pad ]
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
-    }
+    func buildSections() {
+        sections.append(.basic)
+        data[.basic] = []
+        data[.basic]?.append(["Date", dateFormatter?.string(from: workout!.startDate)])
+        data[.basic]?.append(["Start", timeFormatter?.string(from: workout!.startDate)])
+        data[.basic]?.append(["End", timeFormatter?.string(from: workout!.endDate)])
+        data[.basic]?.append(["Duration", durationFormatter?.string(from: workout!.duration)])
+        data[.basic]?.append(["Energy burned", String(format: "%.0fcal", workout!.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)])
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "DetailCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) ?? UITableViewCell.init(style: .value1, reuseIdentifier: identifier)
-        cell.selectionStyle = .none
+        sections.append(.distance)
+        data[.distance] = []
+        data[.distance]?.append(["Distance", String(format: "%.2fkm", (workout!.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0) / 1000)])
+        data[.distance]?.append(["Flights climbed", String(format: "%.0f", workout!.totalFlightsClimbed?.doubleValue(for: HKUnit.count()) ?? 0)])
+        data[.distance]?.append(["Swimming strokes", String(format: "%.0f", workout!.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0)])
 
-        switch indexPath.row {
-        case 0:
-            cell.textLabel?.text = "Date"
-            cell.detailTextLabel?.text = dateFormatter?.string(from: workout!.startDate)
-        case 1:
-            cell.textLabel?.text = "Start"
-            cell.detailTextLabel?.text = timeFormatter?.string(from: workout!.startDate)
-        case 2:
-            cell.textLabel?.text = "End"
-            cell.detailTextLabel?.text = timeFormatter?.string(from: workout!.endDate)
-        case 3:
-            cell.textLabel?.text = "Duration"
-            cell.detailTextLabel?.text = durationFormatter?.string(from: workout!.duration)
-        case 4:
-            cell.textLabel?.text = "Energy burned"
-            cell.detailTextLabel?.text = String(format: "%.0fcal", workout!.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)
-        case 5:
-            cell.textLabel?.text = "Distance"
-            cell.detailTextLabel?.text = String(format: "%.2fkm", (workout!.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0) / 1000)
-        case 6:
-            cell.textLabel?.text = "Flights climbed"
-            cell.detailTextLabel?.text = String(format: "%.0f", workout!.totalFlightsClimbed?.doubleValue(for: HKUnit.count()) ?? 0)
-        case 7:
-            cell.textLabel?.text = "Swimming strokes"
-            cell.detailTextLabel?.text = String(format: "%.0f", workout!.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0)
-        case 8:
-            cell.textLabel?.text = "Source"
-            cell.detailTextLabel?.text = workout!.sourceRevision.source.name
-        default:
-            break
-        }
-        return cell
+        sections.append(.source)
+        data[.source] = []
+        data[.source]?.append(["Source", workout!.sourceRevision.source.name])
+        data[.source]?.append(["Version", workout!.sourceRevision.version ?? "Unknown"])
     }
 }
