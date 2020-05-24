@@ -74,18 +74,23 @@ class FilterViewController: EntireTableViewController {
         guard let selectAllButton = headerView?.viewWithTag(1) as? UIButton else { return nil }
         self.selectAllButton = selectAllButton
         self.selectAllButton?.addTarget(self, action: #selector(selectAllValues(_:)), for: .touchUpInside)
+        setSelectAllButtonTitle()
         return headerView!
     }
 
     @objc func selectAllValues(_ sender: UIButton) {
         self.checked = [Bool](repeating: selectAllValue, count: self.workoutTypes.count + 1)
+        setSelectAllButtonTitle()
         selectAllValue = !selectAllValue
-        if selectAllValue {
-            selectAllButton?.setTitle("Deselect All", for: .normal)
-        } else {
-            selectAllButton?.setTitle("Select All", for: .normal)
-        }
         self.tableView.reloadSections([ 0 ], with: .none)
+    }
+
+    func setSelectAllButtonTitle() {
+        if selectAllValue {
+            selectAllButton?.setTitle("Select All", for: .normal)
+        } else {
+            selectAllButton?.setTitle("Deselect All", for: .normal)
+        }
     }
 
     @IBAction func dismiss(_ sender: Any) {
