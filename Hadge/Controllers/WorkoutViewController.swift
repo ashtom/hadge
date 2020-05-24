@@ -63,6 +63,14 @@ class WorkoutViewController: EntireTableViewController {
     }
 
     func buildSections() {
+        buildBasicSection()
+        if let distance = workout!.totalDistance?.doubleValue(for: HKUnit.meter()), distance > 0 {
+            buildDistanceSection(distance)
+        }
+        buildSourceSection()
+    }
+
+    func buildBasicSection() {
         sections.append(.basic)
         data[.basic] = []
         data[.basic]?.append(["Date", dateFormatter?.string(from: workout!.startDate)])
@@ -70,13 +78,33 @@ class WorkoutViewController: EntireTableViewController {
         data[.basic]?.append(["End", timeFormatter?.string(from: workout!.endDate)])
         data[.basic]?.append(["Duration", durationFormatter?.string(from: workout!.duration)])
         data[.basic]?.append(["Energy burned", String(format: "%.0fcal", workout!.totalEnergyBurned?.doubleValue(for: HKUnit.kilocalorie()) ?? 0)])
+    }
 
+    func buildDistanceSection(_ distance: Double) {
         sections.append(.distance)
         data[.distance] = []
-        data[.distance]?.append(["Distance", String(format: "%.2fkm", (workout!.totalDistance?.doubleValue(for: HKUnit.meter()) ?? 0) / 1000)])
+        data[.distance]?.append(["Distance", String(format: "%.2fkm", (distance / 1000))])
         data[.distance]?.append(["Flights climbed", String(format: "%.0f", workout!.totalFlightsClimbed?.doubleValue(for: HKUnit.count()) ?? 0)])
-        data[.distance]?.append(["Swimming strokes", String(format: "%.0f", workout!.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0)])
 
+        if workout!.duration > 0 {
+            let paceFormatter = DateComponentsFormatter()
+            paceFormatter.unitsStyle = .positional
+            paceFormatter.allowedUnits = [ .minute, .second ]
+            paceFormatter.zeroFormattingBehavior = [ .pad ]
+            data[.distance]?.append(["Speed", String(format: "%.1fkph", distance / workout!.duration * 3.6)])
+            data[.distance]?.append(["Pace", paceFormatter.string(from: workout!.duration / distance * 1000)! + "min/km"])
+        }
+
+        if let elevation = workout!.metadata?["HKElevationAscended"] as? HKQuantity {
+            data[.distance]?.append(["Elevation ascended", String(format: "%.0fm", elevation.doubleValue(for: HKUnit.meter()))])
+        }
+
+        if workout!.workoutActivityType == .swimming {
+            data[.distance]?.append(["Swimming strokes", String(format: "%.0f", workout!.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0)])
+        }
+    }
+
+    func buildSourceSection() {
         sections.append(.source)
         data[.source] = []
         data[.source]?.append(["Source", workout!.sourceRevision.source.name])
