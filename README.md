@@ -1,6 +1,6 @@
 # Hadge
 
-The source code of the app will be published after the beta test phase.
+The source code of the app will be published here soon. :)
 
 ## Privacy Policy
 
