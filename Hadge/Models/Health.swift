@@ -105,8 +105,11 @@ class Health {
         startComponents.calendar = calendar
         endComponents.calendar = calendar
 
+        var queryReturned = false
         let predicate = HKQuery.predicate(forActivitySummariesBetweenStart: startComponents, end: endComponents)
         let activityQuery = HKActivitySummaryQuery(predicate: predicate) { (_, summaries, _) in
+            queryReturned = true
+
             if let summaries = summaries, summaries.count > 0 {
                 completionHandler(summaries)
             } else {
@@ -114,6 +117,13 @@ class Health {
             }
         }
         healthStore?.execute(activityQuery)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+            if !queryReturned {
+                self.healthStore?.stop(activityQuery)
+                completionHandler([])
+            }
+        }
     }
 
     func generateContentForActivityData(summaries: [Any]?) -> String {
