@@ -84,7 +84,6 @@ class WorkoutViewController: EntireTableViewController {
         sections.append(.distance)
         data[.distance] = []
         data[.distance]?.append(["Distance", String(format: "%.2fkm", (distance / 1000))])
-        data[.distance]?.append(["Flights climbed", String(format: "%.0f", workout!.totalFlightsClimbed?.doubleValue(for: HKUnit.count()) ?? 0)])
 
         if workout!.duration > 0 {
             let paceFormatter = DateComponentsFormatter()
@@ -97,6 +96,10 @@ class WorkoutViewController: EntireTableViewController {
 
         if let elevation = workout!.metadata?["HKElevationAscended"] as? HKQuantity {
             data[.distance]?.append(["Elevation ascended", String(format: "%.0fm", elevation.doubleValue(for: HKUnit.meter()))])
+        }
+
+        if workout!.totalFlightsClimbed != nil {
+            data[.distance]?.append(["Flights climbed", String(format: "%.0f", workout!.totalFlightsClimbed?.doubleValue(for: HKUnit.count()) ?? 0)])
         }
 
         if workout!.workoutActivityType == .swimming {
