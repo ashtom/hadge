@@ -112,7 +112,9 @@ class WorkoutViewController: EntireTableViewController {
     }
 
     func buildHeartRateSection() {
-        sections.append(.heartRate)
+        if self.sections.firstIndex(of: .heartRate) == nil {
+            sections.append(.heartRate)
+        }
         data[.heartRate] = []
         data[.heartRate]?.append(["Average Heart Rate", heartRateToString(heartRates["average"])])
         data[.heartRate]?.append(["Minimum Heart Rate", heartRateToString(heartRates["minimum"])])
@@ -127,6 +129,7 @@ class WorkoutViewController: EntireTableViewController {
     }
 
     func loadExtraData() {
+        self.tableView.reloadData()
         Health.shared().getHeartRateForWorkout(workout!) { average, minimum, maximum in
             self.heartRates["average"] = average
             self.heartRates["minimum"] = minimum
