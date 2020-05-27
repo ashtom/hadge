@@ -46,6 +46,22 @@ class Health {
         }
     }
 
+    func getHeartRateForWorkout(_ workout: HKWorkout, completionHandler: @escaping (HKQuantity?, HKQuantity?, HKQuantity?) -> Void) {
+        let typeHeart = HKQuantityType.quantityType(forIdentifier: .heartRate)
+        let predicate: NSPredicate? = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: [HKQueryOptions.strictStartDate, HKQueryOptions.strictEndDate])
+        let squery = HKStatisticsQuery(quantityType: typeHeart!, quantitySamplePredicate: predicate, options: [.discreteAverage, .discreteMax, .discreteMin]) { (_, result, error) in
+            if error == nil {
+                let average: HKQuantity? = result?.averageQuantity()
+                let maximum: HKQuantity? = result?.maximumQuantity()
+                let minimum: HKQuantity? = result?.minimumQuantity()
+                completionHandler(average, minimum, maximum)
+            } else {
+                completionHandler(nil, nil, nil)
+            }
+        }
+        healthStore?.execute(squery)
+    }
+
     func getQuantityForDate(_ quantity: HKQuantityType, date: Date, completionHandler: @escaping (HKQuantity?) -> Void) {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: date)

@@ -4,6 +4,7 @@ import HealthKit
 private enum WorkoutSectionType: Int {
     case basic = 0
     case distance
+    case heartRate
     case source
 }
 
@@ -12,6 +13,7 @@ class WorkoutViewController: EntireTableViewController {
     var dateFormatter: DateFormatter?
     var timeFormatter: DateFormatter?
     var durationFormatter: DateComponentsFormatter?
+    var heartRates: [String: HKQuantity] = [:]
 
     fileprivate var sections: [WorkoutSectionType] = []
     fileprivate var data: [WorkoutSectionType: [[String?]]] = [:]
@@ -23,6 +25,7 @@ class WorkoutViewController: EntireTableViewController {
 
         loadFormatters()
         buildSections()
+        loadExtraData()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,6 +70,7 @@ class WorkoutViewController: EntireTableViewController {
         if let distance = workout!.totalDistance?.doubleValue(for: HKUnit.meter()), distance > 0 {
             buildDistanceSection(distance)
         }
+        buildHeartRateSection()
         buildSourceSection()
     }
 
@@ -107,10 +111,35 @@ class WorkoutViewController: EntireTableViewController {
         }
     }
 
+    func buildHeartRateSection() {
+        sections.append(.heartRate)
+        data[.heartRate] = []
+        data[.heartRate]?.append(["Average Heart Rate", heartRateToString(heartRates["average"])])
+        data[.heartRate]?.append(["Minimum Heart Rate", heartRateToString(heartRates["minimum"])])
+        data[.heartRate]?.append(["Maximum Heart Rate", heartRateToString(heartRates["maximum"])])
+    }
+
     func buildSourceSection() {
         sections.append(.source)
         data[.source] = []
         data[.source]?.append(["Source", workout!.sourceRevision.source.name])
         data[.source]?.append(["Version", workout!.sourceRevision.version ?? "Unknown"])
+    }
+
+    func loadExtraData() {
+        Health.shared().getHeartRateForWorkout(workout!) { average, minimum, maximum in
+            self.heartRates["average"] = average
+            self.heartRates["minimum"] = minimum
+            self.heartRates["maximum"] = maximum
+            self.buildHeartRateSection()
+            DispatchQueue.main.async {
+                self.tableView.reloadSections([ self.sections.firstIndex(of: .heartRate)! ], with: .none)
+            }
+        }
+    }
+
+    func heartRateToString(_ heartRate: HKQuantity?) -> String {
+        guard let heartRate = heartRate else { return "" }
+        return String.init(format: "%.0fbpm", heartRate.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())))
     }
 }
