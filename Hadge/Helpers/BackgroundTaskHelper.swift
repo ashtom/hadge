@@ -26,7 +26,7 @@ class BackgroundTaskHelper {
     func scheduleBackgroundFetchTask() {
         let request = BGProcessingTaskRequest(identifier: "io.entire.hadge.bg-fetch")
         request.requiresNetworkConnectivity = true
-        request.requiresExternalPower = true
+        request.requiresExternalPower = false
         request.earliestBeginDate = Date(timeIntervalSinceNow: 60)
         do {
             try BGTaskScheduler.shared.submit(request)
