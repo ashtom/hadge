@@ -30,7 +30,7 @@ class BackgroundTaskHelper {
         let request = BGProcessingTaskRequest(identifier: "io.entire.hadge.bg-fetch")
         request.requiresNetworkConnectivity = true
         request.requiresExternalPower = false
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 60)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 3600)
         do {
             try BGTaskScheduler.shared.submit(request)
             os_log("BG task scheduled.")
@@ -182,8 +182,8 @@ class BackgroundTaskHelper {
         notificationContent.body = "Steps walked: \(badge)"
         notificationContent.badge = NSNumber(value: badge)
 
-        let tigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
-        let request = UNNotificationRequest(identifier: "Hadge", content: notificationContent, trigger: tigger)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
+        let request = UNNotificationRequest(identifier: "Hadge", content: notificationContent, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { (error) in
             if let error = error {
