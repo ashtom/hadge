@@ -4,8 +4,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        if Constants.debug {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge], completionHandler: { _, _ in })
+        }
+
         BackgroundTaskHelper.shared().registerBackgroundTask()
-        //UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge], completionHandler: { _, _ in })
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+            BackgroundTaskHelper.shared().registerBackgroundDelivery()
+        }
+
         return true
     }
 

@@ -85,6 +85,7 @@ class SetupViewController: EntireViewController {
     func finishExport(completionHandler: @escaping () -> Void) {
         UserDefaults.standard.set(true, forKey: UserDefaultKeys.setupFinished)
         NotificationCenter.default.post(name: .didSetUpRepository, object: nil)
+        BackgroundTaskHelper.shared().registerBackgroundDelivery()
         UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier!)
 
         if delegate != nil {

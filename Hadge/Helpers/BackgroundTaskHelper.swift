@@ -6,7 +6,10 @@ import os.log
 class BackgroundTaskHelper {
     static let sharedInstance = BackgroundTaskHelper()
 
+    var backgroundTaskIdentifier: UIBackgroundTaskIdentifier?
     var updateActivityData: Bool = false
+    var stopped: Bool = false
+    var workoutQueryInitialized: Bool = false
     var task: BGProcessingTask?
 
     static func shared() -> BackgroundTaskHelper {
@@ -36,15 +39,73 @@ class BackgroundTaskHelper {
         }
     }
 
-    func handleBackgroundFetchTask(task: BGProcessingTask) {
-        os_log("BG task started")
+    func registerBackgroundDelivery() {
+        scheduleStepsQuery()
+        scheduleWorkoutQuery()
+    }
 
+    func scheduleStepsQuery() {
+        if Constants.debug {
+            let stepQuery = HKObserverQuery(sampleType: HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, predicate: nil, updateHandler: { _, completionHandler, error in
+                guard error == nil else { completionHandler(); return }
+                Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, date: Date.init()) { quantity in
+                    self.sendNotification(Int(quantity!.doubleValue(for: HKUnit.count())))
+                    completionHandler()
+                }
+            })
+            Health.shared().healthStore?.execute(stepQuery)
+            Health.shared().healthStore?.enableBackgroundDelivery(for: HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, frequency: .hourly, withCompletion: { succeeded, error in
+                if error == nil && succeeded {
+                    os_log("Background delivery enabled for steps")
+                } else {
+                    os_log("Failed to enable background delivery for steps")
+                }
+            })
+        }
+    }
+
+    func scheduleWorkoutQuery() {
+        let workoutQuery = HKObserverQuery(sampleType: HKObjectType.workoutType(), predicate: nil, updateHandler: { _, completionHandler, error in
+            defer {
+                completionHandler()
+            }
+
+            if !self.workoutQueryInitialized {
+                self.workoutQueryInitialized = true
+            } else if error == nil && self.backgroundTaskIdentifier == nil {
+                self.backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask(withName: "WorkoutExport") {
+                    self.stopped = true
+                    UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier!)
+                }
+
+                self.handleForegroundFetch()
+            }
+        })
+        Health.shared().healthStore?.execute(workoutQuery)
+        Health.shared().healthStore?.enableBackgroundDelivery(for: HKObjectType.workoutType(), frequency: .immediate, withCompletion: { succeeded, error in
+            if error == nil && succeeded {
+                os_log("Background delivery enabled for workouts")
+            } else {
+                os_log("Failed to enable background delivery for workouts")
+            }
+        })
+    }
+
+    func handleBackgroundFetchTask(task: BGProcessingTask) {
         self.task = task
-        (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport || self.finishBackgroundTask) { }
+        self.stopped = false
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+            (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport || self.finishBackgroundTask) { }
+        } else {
+            self.finishBackgroundTask { }
+        }
     }
 
     func handleForegroundFetch() {
-        (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport) { }
+        self.stopped = false
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+            (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport) { }
+        }
     }
 
     func collectWorkoutData(completionHandler: @escaping () -> Void) {
@@ -66,7 +127,7 @@ class BackgroundTaskHelper {
     }
 
     func collectActivityData(completionHandler: @escaping () -> Void) {
-        guard Health.shared().freshActivityAvailable() else { completionHandler(); return }
+        guard Health.shared().freshActivityAvailable() && !stopped else { completionHandler(); return }
 
         self.updateActivityData = true
         NotificationCenter.default.post(name: .collectingActivityData, object: nil)
@@ -82,7 +143,7 @@ class BackgroundTaskHelper {
     }
 
     func collectDistanceData(completionHandler: @escaping () -> Void) {
-        guard self.updateActivityData else { completionHandler(); return }
+        guard self.updateActivityData && !stopped else { completionHandler(); return }
 
         NotificationCenter.default.post(name: .collectingDistanceData, object: nil)
         Health.shared().getDistances { distances in
@@ -99,25 +160,12 @@ class BackgroundTaskHelper {
         self.updateActivityData = false
         NotificationCenter.default.post(name: .didFinishExport, object: nil)
 
-        Health.shared().getActivityDataForDates(start: Health.shared().today, end: Health.shared().today) { summaries in
-            guard let summaries = summaries, summaries.count > 0 else { completionHandler(); return }
-
-            if Constants.debug {
-                // When in debug mode, show backhround process via a local notification / app icon badge
-                let energy = Int(summaries.last?.activeEnergyBurned.doubleValue(for: .kilocalorie()) ?? 0)
-                if self.task != nil {
-                    self.sendNotification(energy)
-                    completionHandler()
-                } else {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.applicationIconBadgeNumber = energy
-                        completionHandler()
-                    }
-                }
-            } else {
-                completionHandler()
-            }
+        if backgroundTaskIdentifier != nil {
+            UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier!)
+            self.backgroundTaskIdentifier = nil
         }
+
+        completionHandler()
     }
 
     func finishBackgroundTask(completionHandler: @escaping () -> Void) {
@@ -125,15 +173,13 @@ class BackgroundTaskHelper {
         self.task = nil
 
         scheduleBackgroundFetchTask()
-
-        os_log("BG task completed")
         completionHandler()
     }
 
     func sendNotification(_ badge: Int) {
         let notificationContent = UNMutableNotificationContent()
         notificationContent.title = "Hadge"
-        notificationContent.body = "Total energy burned: \(badge)"
+        notificationContent.body = "Steps walked: \(badge)"
         notificationContent.badge = NSNumber(value: badge)
 
         let tigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
@@ -143,6 +189,10 @@ class BackgroundTaskHelper {
             if let error = error {
                 os_log("Notification Error: %@", error.localizedDescription)
             }
+        }
+
+        DispatchQueue.main.async {
+            UIApplication.shared.applicationIconBadgeNumber = badge
         }
     }
 }
