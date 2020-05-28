@@ -33,6 +33,7 @@ class SettingsAccountHelper {
         switch didSelectRow {
         case 1:
             _ = GitHub.shared().signOut()
+            Health.shared().healthStore?.disableAllBackgroundDelivery { _, _ in }
             UserDefaults.standard.set(false, forKey: UserDefaultKeys.setupFinished)
             UserDefaults.standard.synchronize()
             viewController.dismiss(animated: false) {
