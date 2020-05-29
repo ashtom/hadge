@@ -109,19 +109,3 @@ class FilterViewController: EntireTableViewController {
         self.navigationController!.dismiss(animated: true)
     }
 }
-
-extension HKWorkoutActivityType {
-    static var values: [Self] {
-        var values: [Self] = []
-        var index: UInt = 1
-        while let element = self.init(rawValue: index) {
-            if element.name == "Other" {
-                break
-            } else {
-                values.append(element)
-                index += 1
-            }
-        }
-        return values
-    }
-}

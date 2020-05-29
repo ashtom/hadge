@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4D280C152479930100D9162E /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D280C142479930100D9162E /* WorkoutViewController.swift */; };
 		4D3C7DFA2480C77E000AF3D6 /* SplitsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3C7DF92480C77E000AF3D6 /* SplitsDataSource.swift */; };
+		4D3C7DFC24814D8E000AF3D6 /* WorkoutActivityTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3C7DFB24814D8E000AF3D6 /* WorkoutActivityTypeExtension.swift */; };
 		4D3DFA34246F125800EDCBEC /* EntireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3DFA33246F125800EDCBEC /* EntireViewController.swift */; };
 		4D3DFA36246FA58C00EDCBEC /* SettingsAccountHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3DFA35246FA58C00EDCBEC /* SettingsAccountHelper.swift */; };
 		4D3DFA38246FA74D00EDCBEC /* SettingsAppearanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3DFA37246FA74D00EDCBEC /* SettingsAppearanceHelper.swift */; };
@@ -40,7 +41,6 @@
 		4DD70CC7245E5BC4007C8D58 /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = 4DD70CC6245E5BC4007C8D58 /* SwiftCSV */; };
 		4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CC8245E8414007C8D58 /* String+Date.swift */; };
 		4DD70CCB246066DC007C8D58 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */; };
-		4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */; };
 		4DEA77F02454842A00554793 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77EF2454842A00554793 /* LoginViewController.swift */; };
 		4DEA77F22454843400554793 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77F12454843400554793 /* GitHub.swift */; };
 		4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F4245484A800554793 /* SwiftyJSON */; };
@@ -55,6 +55,7 @@
 /* Begin PBXFileReference section */
 		4D280C142479930100D9162E /* WorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutViewController.swift; sourceTree = "<group>"; };
 		4D3C7DF92480C77E000AF3D6 /* SplitsDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitsDataSource.swift; sourceTree = "<group>"; };
+		4D3C7DFB24814D8E000AF3D6 /* WorkoutActivityTypeExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutActivityTypeExtension.swift; sourceTree = "<group>"; };
 		4D3DFA33246F125800EDCBEC /* EntireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntireViewController.swift; sourceTree = "<group>"; };
 		4D3DFA35246FA58C00EDCBEC /* SettingsAccountHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountHelper.swift; sourceTree = "<group>"; };
 		4D3DFA37246FA74D00EDCBEC /* SettingsAppearanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceHelper.swift; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		4DD70CC1245DE64B007C8D58 /* Health.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Health.swift; sourceTree = "<group>"; };
 		4DD70CC8245E8414007C8D58 /* String+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Date.swift"; sourceTree = "<group>"; };
 		4DD70CCA246066DC007C8D58 /* WorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCell.swift; sourceTree = "<group>"; };
-		4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HKWorkoutActivityType+Name.swift"; sourceTree = "<group>"; };
 		4DEA77EF2454842A00554793 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4DEA77F12454843400554793 /* GitHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHub.swift; sourceTree = "<group>"; };
 		4DF6859E2464CF1000D929EC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -163,13 +163,13 @@
 				4D3DFA512470BA2F00EDCBEC /* BackgroundTaskHelper.swift */,
 				4D3DFA532470C33C00EDCBEC /* Collector.swift */,
 				4DF6859E2464CF1000D929EC /* Constants.swift */,
-				4DD97E6A2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift */,
 				4D3DFA3B2470337200EDCBEC /* SettingsAboutHelper.swift */,
 				4D3DFA35246FA58C00EDCBEC /* SettingsAccountHelper.swift */,
 				4D3DFA37246FA74D00EDCBEC /* SettingsAppearanceHelper.swift */,
 				4D3DFA39246FA77800EDCBEC /* SettingsDebugHelper.swift */,
 				4D3DFA3D2470340A00EDCBEC /* SettingsSyncHelper.swift */,
 				4DD70CC8245E8414007C8D58 /* String+Date.swift */,
+				4D3C7DFB24814D8E000AF3D6 /* WorkoutActivityTypeExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -383,12 +383,12 @@
 				4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */,
 				4D3DFA542470C33C00EDCBEC /* Collector.swift in Sources */,
 				4D3DFA3A246FA77800EDCBEC /* SettingsDebugHelper.swift in Sources */,
+				4D3C7DFC24814D8E000AF3D6 /* WorkoutActivityTypeExtension.swift in Sources */,
 				4D6B4B62246D8B5800847D49 /* AccountCell.swift in Sources */,
 				4D3DFA3E2470340A00EDCBEC /* SettingsSyncHelper.swift in Sources */,
 				4DF685A42465AEDC00D929EC /* FilterHeaderView.swift in Sources */,
 				4DD70CC2245DE64B007C8D58 /* Health.swift in Sources */,
 				4D886C4A24724AC60088CF56 /* UITableView+EmptyMessage.swift in Sources */,
-				4DD97E6B2457E4C000A9DFEE /* HKWorkoutActivityType+Name.swift in Sources */,
 				4DAE94C2246B9C130036AC72 /* DistanceDataSource.swift in Sources */,
 				4DD70CC9245E8414007C8D58 /* String+Date.swift in Sources */,
 				4D886C46247191770088CF56 /* Secrets.generated.swift in Sources */,

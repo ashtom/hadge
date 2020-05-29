@@ -30,7 +30,7 @@ class BackgroundTaskHelper {
         let request = BGProcessingTaskRequest(identifier: "io.entire.hadge.bg-fetch")
         request.requiresNetworkConnectivity = true
         request.requiresExternalPower = false
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 60)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 3600)
         do {
             try BGTaskScheduler.shared.submit(request)
             os_log("BG task scheduled.")
@@ -49,7 +49,9 @@ class BackgroundTaskHelper {
             let stepQuery = HKObserverQuery(sampleType: HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, predicate: nil, updateHandler: { _, completionHandler, error in
                 guard error == nil else { completionHandler(); return }
                 Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, date: Date.init()) { quantity in
-                    self.sendNotification(Int(quantity!.doubleValue(for: HKUnit.count())))
+                    if quantity != nil {
+                        self.sendNotification(Int(quantity!.doubleValue(for: HKUnit.count())))
+                    }
                     completionHandler()
                 }
             })
@@ -178,12 +180,12 @@ class BackgroundTaskHelper {
 
     func sendNotification(_ badge: Int) {
         let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "Hadge"
-        notificationContent.body = "Steps walked: \(badge)"
+        //notificationContent.title = "Hadge"
+        //notificationContent.body = "Steps walked: \(badge)"
         notificationContent.badge = NSNumber(value: badge)
 
-        let tigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
-        let request = UNNotificationRequest(identifier: "Hadge", content: notificationContent, trigger: tigger)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
+        let request = UNNotificationRequest(identifier: "Hadge", content: notificationContent, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { (error) in
             if let error = error {

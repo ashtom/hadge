@@ -1,9 +1,23 @@
 import UIKit
 import HealthKit
 
-// Source: https://stackoverflow.com/a/61140433 and
-// https://github.com/georgegreenoflondon/HKWorkoutActivityType-Descriptions/blob/master/HKWorkoutActivityType%2BDescriptions.swift
 extension HKWorkoutActivityType {
+    static var values: [Self] {
+        var values: [Self] = []
+        var index: UInt = 1
+        while let element = self.init(rawValue: index) {
+            if element.name == "Other" {
+                break
+            } else {
+                values.append(element)
+                index += 1
+            }
+        }
+        return values
+    }
+
+    // Source: https://stackoverflow.com/a/61140433 and
+    // https://github.com/georgegreenoflondon/HKWorkoutActivityType-Descriptions/blob/master/HKWorkoutActivityType%2BDescriptions.swift
     var name: String {
         switch self {
         case .americanFootball:             return "American Football"
