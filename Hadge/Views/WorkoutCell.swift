@@ -46,7 +46,10 @@ class WorkoutCell: UITableViewCell {
     }
 
     func setEnergy(_ energy: HKQuantity?) {
-        let calories = energy!.doubleValue(for: HKUnit.kilocalorie())
-        energyLabel?.text = String(format: "%0.0fcal", calories)
+        if let calories = energy?.doubleValue(for: HKUnit.kilocalorie()) {
+            energyLabel?.text = String(format: "%0.0fcal", calories)
+        } else {
+            energyLabel?.text = String(format: "")
+        }
     }
 }
