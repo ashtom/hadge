@@ -5,6 +5,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         if Constants.debug {
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge], completionHandler: { _, _ in })
+        } else {
+            UIApplication.shared.applicationIconBadgeNumber = 0
         }
 
         BackgroundTaskHelper.shared().registerBackgroundTask()

@@ -1,7 +1,7 @@
 import Foundation
 
 class Constants {
-    static let debug = true
+    static let debug = false
 }
 
 class UserDefaultKeys {
