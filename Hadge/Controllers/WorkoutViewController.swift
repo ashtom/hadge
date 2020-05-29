@@ -23,6 +23,7 @@ class WorkoutViewController: EntireTableViewController {
 
         self.title = workout?.workoutActivityType.name
 
+        tableView.reloadData()
         loadFormatters()
         buildSections()
         loadExtraData()
