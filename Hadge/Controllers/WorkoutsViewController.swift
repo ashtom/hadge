@@ -14,6 +14,7 @@ class WorkoutsViewController: EntireTableViewController {
         super.viewDidLoad()
 
         self.extendedLayoutIncludesOpaqueBars = true
+        self.tableView.reloadData()
 
         loadAvatar()
         setUpRefreshControl()
@@ -59,10 +60,10 @@ class WorkoutsViewController: EntireTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if data.count == 0 && filter.count > 0 {
+        if dataLoaded && data.count == 0 && filter.count > 0 {
             tableView.setEmptyMessage("No workouts for the selected filter.")
             return data.count
-        } else if data.count == 0 && dataLoaded {
+        } else if dataLoaded && data.count == 0 {
             tableView.setEmptyMessage("No workout data available. Check the permissions for Hadge in Health app if you recently worked out.")
             return 0
         } else {
@@ -151,7 +152,7 @@ class WorkoutsViewController: EntireTableViewController {
 
     func startRefreshing(_ visible: Bool = true) {
         DispatchQueue.main.async {
-            if self.tableView.refreshControl != nil {
+            if self.tableView.refreshControl != nil && visible {
                 self.tableView.refreshControl?.beginRefreshing()
             }
 
@@ -301,6 +302,7 @@ extension WorkoutsViewController: FilterDelegate {
                 self.filterButton?.tintColor = UIColor.systemBlue
             }
             self.loadData(false)
+            self.saveState()
         }
     }
 }
