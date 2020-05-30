@@ -140,6 +140,7 @@ class WorkoutViewController: EntireTableViewController {
                 self.tableView.reloadSections([ self.sections.firstIndex(of: .heartRate)! ], with: .none)
             }
         }
+        Health.shared().splitsDataSource?.calculateSplits(workout: workout!)
     }
 
     func heartRateToString(_ heartRate: HKQuantity?) -> String {

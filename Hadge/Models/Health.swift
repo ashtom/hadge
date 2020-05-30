@@ -9,13 +9,15 @@ extension Notification.Name {
 class Health {
     static let sharedInstance = Health()
 
+    var healthStore: HKHealthStore?
+    var distanceDataSource: DistanceDataSource?
+    var splitsDataSource: SplitsDataSource?
+
     var year: Int
     var firstOfYear: Date?
     var lastOfYear: Date?
     var today: Date?
     var yesterday: Date?
-    var healthStore: HKHealthStore?
-    var distanceDataSource: DistanceDataSource?
     var stopExport: Bool = false
 
     static func shared() -> Health {
@@ -25,6 +27,7 @@ class Health {
     init() {
         self.healthStore = HKHealthStore()
         self.distanceDataSource = DistanceDataSource()
+        self.splitsDataSource = SplitsDataSource()
 
         let calendar = Calendar.current
         self.year = calendar.component(.year, from: Date())

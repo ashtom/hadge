@@ -13,6 +13,7 @@ class SplitsDataSource {
     }
 
     func calculateSplits(workout: HKWorkout) {
+        let pauses = getPauses(workout)
         let distanceType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
         let predicate = HKQuery.predicateForObjects(from: workout)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
@@ -25,13 +26,15 @@ class SplitsDataSource {
                 var splits: [[String]] = []
 
                 for (index, element) in distanceSamples.enumerated() {
-                    let duration = element.endDate.timeIntervalSince(element.startDate) + element.startDate.timeIntervalSince(lastEnd)
+                    let duration = self.getDurationAjustedForPauses(pauses, currentSample: element, lastDate: lastEnd)
                     let distance = element.quantity.doubleValue(for: HKUnit.meter())
                     let speed = distance / duration
 
-                    segmentDistance += distance
-                    totalDistance += distance
-                    segmentDuration += duration
+                    if duration > 0 {
+                        segmentDistance += distance
+                        totalDistance += distance
+                        segmentDuration += duration
+                    }
                     lastEnd = element.endDate
 
                     if segmentDistance > 1000 {
@@ -40,7 +43,7 @@ class SplitsDataSource {
 
                         let split = self.stringFromTimeInterval(TimeInterval.init(floatLiteral: segmentDuration - correction))
                         splits.append([String(format: "%.0f", totalDistance / 1000), split])
-                        os_log("Full km: %", split)
+                        os_log("Full km: %@", split)
 
                         firstStart = distanceSamples[index].endDate - correction
                         lastEnd = firstStart
@@ -59,5 +62,39 @@ class SplitsDataSource {
             }
         }
         Health.shared().healthStore?.execute(query)
+    }
+
+    func getPauses(_ workout: HKWorkout) -> [[Date?]] {
+        var pauses: [[Date?]] = []
+        var current: [Date?] = [nil, nil]
+        workout.workoutEvents?.forEach { event in
+            if event.type == .pause && current[0] == nil {
+                current[0] = event.dateInterval.start
+            } else if event.type == .resume && current[0] != nil {
+                current[1] = event.dateInterval.end
+                pauses.append(current)
+                current = [nil, nil]
+            }
+        }
+        return pauses
+    }
+
+    func getDurationAjustedForPauses(_ pauses: [[Date?]], currentSample: HKSample, lastDate: Date) -> TimeInterval {
+        var duration = currentSample.endDate.timeIntervalSince(lastDate)
+        pauses.forEach { pause in
+            let pauseStart = pause[0]!
+            let pauseEnd = pause[1]!
+            if lastDate < pauseStart && currentSample.endDate > pauseEnd {
+                duration -= pauseEnd.timeIntervalSince(pauseStart)
+            } else if lastDate > pauseStart && currentSample.endDate < pauseEnd {
+                duration = 0
+            } else if lastDate < pauseStart && currentSample.endDate > pauseStart && currentSample.endDate < pauseEnd {
+                duration -= currentSample.endDate.timeIntervalSince(pauseStart)
+            } else if lastDate > pauseStart && lastDate < pauseEnd && currentSample.endDate > pauseEnd {
+                duration -= pauseEnd.timeIntervalSince(lastDate)
+            }
+        }
+        duration = (duration < 0 ? 0 : duration)
+        return duration
     }
 }
