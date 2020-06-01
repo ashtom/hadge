@@ -15,6 +15,7 @@ class SplitsDataSource {
     func calculateSplits(workout: HKWorkout) {
         let pauses = getPauses(workout)
         let distanceType = HKObjectType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
+//        let predicate = HKQuery.predicateForSamples(withStart: workout.startDate, end: workout.endDate, options: [ .strictStartDate, .strictEndDate ])
         let predicate = HKQuery.predicateForObjects(from: workout)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
         let query = HKSampleQuery(sampleType: distanceType!, predicate: predicate, limit: 0, sortDescriptors: [sortDescriptor]) { (_, results, _) in
@@ -25,7 +26,7 @@ class SplitsDataSource {
                 var lastEnd = workout.startDate
                 var splits: [[String]] = []
 
-                for (index, element) in distanceSamples.enumerated() {
+                for (index, element) in distanceSamples.enumerated() { //where element.device?.model == "Watch" {
                     let duration = self.getDurationAjustedForPauses(pauses, currentSample: element, lastDate: lastEnd)
                     let distance = element.quantity.doubleValue(for: HKUnit.meter())
                     let speed = distance / duration
