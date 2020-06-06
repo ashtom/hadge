@@ -25,6 +25,7 @@
 		4D886C46247191770088CF56 /* Secrets.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C45247191770088CF56 /* Secrets.generated.swift */; };
 		4D886C4824724A660088CF56 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C4724724A660088CF56 /* PaddingLabel.swift */; };
 		4D886C4A24724AC60088CF56 /* UITableView+EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C4924724AC60088CF56 /* UITableView+EmptyMessage.swift */; };
+		4D88C8D92484B6380003E0C7 /* SampleDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D88C8D82484B6380003E0C7 /* SampleDataSource.swift */; };
 		4DAE94C0246B7B230036AC72 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 4DAE94BF246B7B230036AC72 /* SwiftDate */; };
 		4DAE94C2246B9C130036AC72 /* DistanceDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */; };
 		4DB3F6782453F7AC004C8BF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */; };
@@ -73,6 +74,7 @@
 		4D886C45247191770088CF56 /* Secrets.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.generated.swift; sourceTree = "<group>"; };
 		4D886C4724724A660088CF56 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		4D886C4924724AC60088CF56 /* UITableView+EmptyMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+EmptyMessage.swift"; sourceTree = "<group>"; };
+		4D88C8D82484B6380003E0C7 /* SampleDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleDataSource.swift; sourceTree = "<group>"; };
 		4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceDataSource.swift; sourceTree = "<group>"; };
 		4DB3F6742453F7AC004C8BF3 /* Hadge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hadge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DB3F6772453F7AC004C8BF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */,
 				4DEA77F12454843400554793 /* GitHub.swift */,
 				4DD70CC1245DE64B007C8D58 /* Health.swift */,
+				4D88C8D82484B6380003E0C7 /* SampleDataSource.swift */,
 				4D3C7DF92480C77E000AF3D6 /* SplitsDataSource.swift */,
 			);
 			path = Models;
@@ -394,6 +397,7 @@
 				4D886C46247191770088CF56 /* Secrets.generated.swift in Sources */,
 				4D3C7DFA2480C77E000AF3D6 /* SplitsDataSource.swift in Sources */,
 				4D3DFA522470BA2F00EDCBEC /* BackgroundTaskHelper.swift in Sources */,
+				4D88C8D92484B6380003E0C7 /* SampleDataSource.swift in Sources */,
 				4DB3F67A2453F7AC004C8BF3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

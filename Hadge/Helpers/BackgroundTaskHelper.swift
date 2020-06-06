@@ -48,7 +48,7 @@ class BackgroundTaskHelper {
         if Constants.debug {
             let stepQuery = HKObserverQuery(sampleType: HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, predicate: nil, updateHandler: { _, completionHandler, error in
                 guard error == nil else { completionHandler(); return }
-                Health.shared().getQuantityForDate(HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, date: Date.init()) { quantity in
+                Health.shared().getSumQuantityForDate(HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)!, date: Date.init()) { quantity in
                     if quantity != nil {
                         self.sendNotification(Int(quantity!.doubleValue(for: HKUnit.count())))
                     }

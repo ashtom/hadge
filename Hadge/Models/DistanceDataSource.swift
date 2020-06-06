@@ -14,7 +14,7 @@ class DistanceDataSource {
 
     func queryDistancesForType(_ quantity: HKQuantityType, start: Date, end: Date, completionHandler: @escaping ([String: HKQuantity]?) -> Void) {
         dispatchGroup.enter()
-        Health.shared().getQuantityForDates(quantity, start: start, end: end) { statistics in
+        Health.shared().getSumQuantityForDates(quantity, start: start, end: end) { statistics in
             completionHandler(statistics)
             self.dispatchGroup.leave()
         }

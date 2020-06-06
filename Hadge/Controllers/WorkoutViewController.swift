@@ -1,5 +1,6 @@
 import UIKit
 import HealthKit
+import os.log
 
 private enum WorkoutSectionType: Int {
     case basic = 0
@@ -140,7 +141,13 @@ class WorkoutViewController: EntireTableViewController {
                 self.tableView.reloadSections([ self.sections.firstIndex(of: .heartRate)! ], with: .none)
             }
         }
-        Health.shared().splitsDataSource?.calculateSplits(workout: workout!)
+
+        // Debug stuff
+        //Health.shared().splitsDataSource?.calculateSplits(workout: workout!)
+        Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
+            let contents = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
+            os_log("Samples: %@", contents!)
+        }
     }
 
     func heartRateToString(_ heartRate: HKQuantity?) -> String {

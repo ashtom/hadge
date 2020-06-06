@@ -11,6 +11,7 @@ class Health {
 
     var healthStore: HKHealthStore?
     var distanceDataSource: DistanceDataSource?
+    var sampleDataSource: SampleDataSource?
     var splitsDataSource: SplitsDataSource?
 
     var year: Int
@@ -27,6 +28,7 @@ class Health {
     init() {
         self.healthStore = HKHealthStore()
         self.distanceDataSource = DistanceDataSource()
+        self.sampleDataSource = SampleDataSource()
         self.splitsDataSource = SplitsDataSource()
 
         let calendar = Calendar.current
@@ -65,7 +67,7 @@ class Health {
         healthStore?.execute(squery)
     }
 
-    func getQuantityForDate(_ quantity: HKQuantityType, date: Date, completionHandler: @escaping (HKQuantity?) -> Void) {
+    func getSumQuantityForDate(_ quantity: HKQuantityType, date: Date, completionHandler: @escaping (HKQuantity?) -> Void) {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: date)
         let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: date)
@@ -82,7 +84,7 @@ class Health {
         healthStore?.execute(query)
     }
 
-    func getQuantityForDates(_ quantity: HKQuantityType, start: Date, end: Date, completionHandler: @escaping ([String: HKQuantity]?) -> Void) {
+    func getSumQuantityForDates(_ quantity: HKQuantityType, start: Date, end: Date, completionHandler: @escaping ([String: HKQuantity]?) -> Void) {
         let calendar = NSCalendar.current
         let interval = NSDateComponents()
         interval.day = 1
