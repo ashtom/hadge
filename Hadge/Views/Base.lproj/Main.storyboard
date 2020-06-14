@@ -10,7 +10,7 @@
         <!--Workout View Controller-->
         <scene sceneID="xHv-J6-sgv">
             <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="oTa-Cc-Vp7" customClass="WorkoutViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="oTa-Cc-Vp7" customClass="WorkoutViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="rZ5-kv-XoB">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -19,7 +19,17 @@
                             <outlet property="delegate" destination="oTa-Cc-Vp7" id="L62-eZ-PhW"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="DHu-lj-ab3"/>
+                        <barButtonItem title="Item" image="plus.app" catalog="system" id="02u-Cj-Fmh">
+                            <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="export:" destination="oTa-Cc-Vp7" id="JMz-fq-vOL"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="4No-iM-trJ"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhl-a1-L4v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -566,4 +576,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
             <point key="canvasLocation" x="1958" y="-698"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="plus.app" catalog="system" width="128" height="114"/>
+    </resources>
 </document>

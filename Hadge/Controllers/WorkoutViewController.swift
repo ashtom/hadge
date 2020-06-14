@@ -52,6 +52,17 @@ class WorkoutViewController: EntireTableViewController {
         return cell
     }
 
+    @IBAction func export(_ sender: Any) {
+        Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
+            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
+            let filename = "workouts/\(self.workout!.workoutActivityType.name.lowercased())/\(self.workout!.uuid)/distanceWalkingRunning.csv"
+            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                //os_log("Samples: %@", content!)
+                os_log("Export finished")
+            }
+        }
+    }
+
     func loadFormatters() {
         self.dateFormatter = DateFormatter()
         self.dateFormatter?.timeStyle = .none
@@ -142,12 +153,8 @@ class WorkoutViewController: EntireTableViewController {
             }
         }
 
-        // Debug stuff
+        // Split calculation (not finished yet)
         //Health.shared().splitsDataSource?.calculateSplits(workout: workout!)
-        Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
-            let contents = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
-            os_log("Samples: %@", contents!)
-        }
     }
 
     func heartRateToString(_ heartRate: HKQuantity?) -> String {

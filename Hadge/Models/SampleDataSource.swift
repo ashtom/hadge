@@ -24,7 +24,7 @@ class SampleDataSource {
             var components: [String] = []
             components.append(sample.startDate.toISO())
             components.append(sample.endDate.toISO())
-            components.append(String(sample.quantity.doubleValue(for: unit)))
+            components.append(String(format: "%.5f", sample.quantity.doubleValue(for: unit)))
 
             content.append(components.joined(separator: ","))
             content.append("\n")
