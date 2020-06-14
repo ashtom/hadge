@@ -30,6 +30,7 @@ class HealthRequestViewController: EntireViewController {
             HKObjectType.quantityType(forIdentifier: .stepCount)!,
             HKObjectType.quantityType(forIdentifier: .swimmingStrokeCount)!,
             HKObjectType.workoutType(),
+            HKSeriesType.workoutRoute(),
             HKQuantityType.characteristicType(forIdentifier: HKCharacteristicTypeIdentifier.biologicalSex)!
         ]
 

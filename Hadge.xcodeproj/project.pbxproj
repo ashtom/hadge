@@ -22,6 +22,7 @@
 		4D563CF024634D010034D2CF /* HealthRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */; };
 		4D563CF2246379230034D2CF /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D563CF1246379230034D2CF /* SetupViewController.swift */; };
 		4D6B4B62246D8B5800847D49 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6B4B61246D8B5800847D49 /* AccountCell.swift */; };
+		4D87959224966AE200D88300 /* LocationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D87959124966AE200D88300 /* LocationDataSource.swift */; };
 		4D886C46247191770088CF56 /* Secrets.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C45247191770088CF56 /* Secrets.generated.swift */; };
 		4D886C4824724A660088CF56 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C4724724A660088CF56 /* PaddingLabel.swift */; };
 		4D886C4A24724AC60088CF56 /* UITableView+EmptyMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D886C4924724AC60088CF56 /* UITableView+EmptyMessage.swift */; };
@@ -69,6 +70,7 @@
 		4D563CEF24634D010034D2CF /* HealthRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthRequestViewController.swift; sourceTree = "<group>"; };
 		4D563CF1246379230034D2CF /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		4D6B4B61246D8B5800847D49 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
+		4D87959124966AE200D88300 /* LocationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDataSource.swift; sourceTree = "<group>"; };
 		4D886C4024718AD30088CF56 /* Secrets.template.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.template.xcconfig; sourceTree = "<group>"; };
 		4D886C4124718B240088CF56 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		4D886C45247191770088CF56 /* Secrets.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.generated.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				4DAE94C1246B9C130036AC72 /* DistanceDataSource.swift */,
 				4DEA77F12454843400554793 /* GitHub.swift */,
 				4DD70CC1245DE64B007C8D58 /* Health.swift */,
+				4D87959124966AE200D88300 /* LocationDataSource.swift */,
 				4D88C8D82484B6380003E0C7 /* SampleDataSource.swift */,
 				4D3C7DF92480C77E000AF3D6 /* SplitsDataSource.swift */,
 			);
@@ -387,6 +390,7 @@
 				4D3DFA542470C33C00EDCBEC /* Collector.swift in Sources */,
 				4D3DFA3A246FA77800EDCBEC /* SettingsDebugHelper.swift in Sources */,
 				4D3C7E012481517F000AF3D6 /* WorkoutActivityTypeExtension.swift in Sources */,
+				4D87959224966AE200D88300 /* LocationDataSource.swift in Sources */,
 				4D6B4B62246D8B5800847D49 /* AccountCell.swift in Sources */,
 				4D3DFA3E2470340A00EDCBEC /* SettingsSyncHelper.swift in Sources */,
 				4DF685A42465AEDC00D929EC /* FilterHeaderView.swift in Sources */,

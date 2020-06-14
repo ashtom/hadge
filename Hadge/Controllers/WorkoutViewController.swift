@@ -60,7 +60,7 @@ class WorkoutViewController: EntireTableViewController {
     @IBAction func export(_ sender: Any) {
         if !exportSemaphore {
             exportSemaphore = true
-            (exportDistances || exportSteps || exportHeartRate || finishExport) {}
+            (exportDistances || exportSteps || exportHeartRate || exportLocations || finishExport) {}
         }
     }
 
@@ -89,6 +89,20 @@ class WorkoutViewController: EntireTableViewController {
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Heart Rate", unit: HKUnit.count().unitDivided(by: HKUnit.minute()), format: "%.0f")
             let filename = "\(self.remoteFilePath())/heartRate.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                completionHandler()
+            }
+        }
+    }
+
+    func exportLocations(completionHandler: @escaping () -> Void) {
+        Health.shared().locationDataSource?.getAllForWorkout(self.workout!) { locations in
+            if locations?.count ?? 0 > 0 {
+                let content = Health.shared().locationDataSource?.generateContent(locations)
+                let filename = "\(self.remoteFilePath())/route.csv"
+                GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                    completionHandler()
+                }
+            } else {
                 completionHandler()
             }
         }

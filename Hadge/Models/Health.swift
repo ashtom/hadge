@@ -11,6 +11,7 @@ class Health {
 
     var healthStore: HKHealthStore?
     var distanceDataSource: DistanceDataSource?
+    var locationDataSource: LocationDataSource?
     var sampleDataSource: SampleDataSource?
     var splitsDataSource: SplitsDataSource?
 
@@ -28,6 +29,7 @@ class Health {
     init() {
         self.healthStore = HKHealthStore()
         self.distanceDataSource = DistanceDataSource()
+        self.locationDataSource = LocationDataSource()
         self.sampleDataSource = SampleDataSource()
         self.splitsDataSource = SplitsDataSource()
 
