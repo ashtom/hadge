@@ -59,7 +59,7 @@ class WorkoutViewController: EntireTableViewController {
     @IBAction func export(_ sender: Any) {
         Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
-            let filename = "workouts/\(self.workout!.workoutActivityType.name.lowercased())/\(self.workout!.uuid)/distanceWalkingRunning.csv"
+            let filename = "workouts/\(self.workout!.workoutActivityType.name.lowercased())/\(self.workout!.uuid.uuidString.lowercased())/distanceWalkingRunning.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { sha in
                 if sha != nil && !sha!.isEmpty {
                     self.state["exported"] = true
@@ -75,7 +75,7 @@ class WorkoutViewController: EntireTableViewController {
     }
 
     func cacheKey() -> String {
-        let key = "workout-\(workout!.uuid)"
+        let key = "workout-\(workout!.uuid.uuidString.lowercased())"
         return key
     }
 

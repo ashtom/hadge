@@ -220,7 +220,7 @@ class Health {
             guard let workout = workout as? HKWorkout else { return }
 
             var components: [String] = []
-            components.append("\(workout.uuid)")
+            components.append("\(workout.uuid.uuidString.lowercased())")
             components.append(workout.startDate.toISO())
             components.append(workout.endDate.toISO())
             components.append("\(workout.workoutActivityType.rawValue)")
@@ -252,7 +252,7 @@ class Health {
         guard let workout = workouts.first as? HKWorkout else { return false }
 
         let lastWorkout = UserDefaults.standard.string(forKey: UserDefaultKeys.lastWorkout)
-        return lastWorkout == nil || lastWorkout != workout.uuid.uuidString
+        return lastWorkout == nil || lastWorkout != workout.uuid.uuidString.lowercased()
     }
 
     func freshActivityAvailable() -> Bool {
@@ -263,7 +263,7 @@ class Health {
     func markLastWorkout(workouts: [HKSample]) {
         guard let workout = workouts.first as? HKWorkout else { return }
 
-        UserDefaults.standard.set(workout.uuid.uuidString, forKey: UserDefaultKeys.lastWorkout)
+        UserDefaults.standard.set(workout.uuid.uuidString.lowercased(), forKey: UserDefaultKeys.lastWorkout)
         UserDefaults.standard.set(Date.init(), forKey: UserDefaultKeys.lastSyncDate)
     }
 
