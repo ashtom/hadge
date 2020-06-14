@@ -17,15 +17,15 @@ class SampleDataSource {
         Health.shared().healthStore?.execute(query)
     }
 
-    func generateContent(_ samples: [HKQuantitySample]?, quantityName: String, unit: HKUnit) -> String {
+    func generateContent(_ samples: [HKQuantitySample]?, quantityName: String, unit: HKUnit, format: String?) -> String {
         let header = "Start Date,End Date,\(quantityName),Source,Device\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         samples?.forEach { sample in
             var components: [String] = []
             components.append(sample.startDate.toISO())
             components.append(sample.endDate.toISO())
-            if unit == HKUnit.count() {
-                components.append(String(format: "%.0f", sample.quantity.doubleValue(for: unit)))
+            if format != nil {
+                components.append(String(format: format!, sample.quantity.doubleValue(for: unit)))
             } else {
                 components.append(String(format: "%.5f", sample.quantity.doubleValue(for: unit)))
             }

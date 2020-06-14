@@ -60,13 +60,13 @@ class WorkoutViewController: EntireTableViewController {
     @IBAction func export(_ sender: Any) {
         if !exportSemaphore {
             exportSemaphore = true
-            (exportDistances || exportSteps || finishExport) {}
+            (exportDistances || exportSteps || exportHeartRate || finishExport) {}
         }
     }
 
     func exportDistances(completionHandler: @escaping () -> Void) {
         Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
-            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
+            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter(), format: "%.5f")
             let filename = "\(self.remoteFilePath())/distanceWalkingRunning.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
                 completionHandler()
@@ -76,8 +76,18 @@ class WorkoutViewController: EntireTableViewController {
 
     func exportSteps(completionHandler: @escaping () -> Void) {
         Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .stepCount)!) { samples in
-            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Steps", unit: HKUnit.count())
+            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Steps", unit: HKUnit.count(), format: "%.0f")
             let filename = "\(self.remoteFilePath())/steps.csv"
+            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                completionHandler()
+            }
+        }
+    }
+
+    func exportHeartRate(completionHandler: @escaping () -> Void) {
+        Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .heartRate)!) { samples in
+            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Heart Rate", unit: HKUnit.count().unitDivided(by: HKUnit.minute()), format: "%.0f")
+            let filename = "\(self.remoteFilePath())/heartRate.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
                 completionHandler()
             }
