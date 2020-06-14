@@ -60,18 +60,32 @@ class WorkoutViewController: EntireTableViewController {
     @IBAction func export(_ sender: Any) {
         if !exportSemaphore {
             exportSemaphore = true
-            (exportDistances || finishExport) {}
+            (exportDistances || exportSteps || finishExport) {}
         }
     }
 
     func exportDistances(completionHandler: @escaping () -> Void) {
         Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
-            let filename = "workouts/\(self.workout!.workoutActivityType.name.lowercased())/\(self.workout!.uuid.uuidString.lowercased())/distanceWalkingRunning.csv"
+            let filename = "\(self.remoteFilePath())/distanceWalkingRunning.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
                 completionHandler()
             }
         }
+    }
+
+    func exportSteps(completionHandler: @escaping () -> Void) {
+        Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .stepCount)!) { samples in
+            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Steps", unit: HKUnit.count())
+            let filename = "\(self.remoteFilePath())/steps.csv"
+            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                completionHandler()
+            }
+        }
+    }
+
+    func remoteFilePath() -> String {
+        return "workouts/\(self.workout!.workoutActivityType.name.lowercased())/\(self.workout!.uuid.uuidString.lowercased())"
     }
 
     func finishExport(completionHandler: @escaping () -> Void) {

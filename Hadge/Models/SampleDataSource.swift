@@ -24,7 +24,11 @@ class SampleDataSource {
             var components: [String] = []
             components.append(sample.startDate.toISO())
             components.append(sample.endDate.toISO())
-            components.append(String(format: "%.5f", sample.quantity.doubleValue(for: unit)))
+            if unit == HKUnit.count() {
+                components.append(String(format: "%.0f", sample.quantity.doubleValue(for: unit)))
+            } else {
+                components.append(String(format: "%.5f", sample.quantity.doubleValue(for: unit)))
+            }
             components.append(sample.sourceRevision.source.name)
             components.append(sample.device?.name ?? "")
 
