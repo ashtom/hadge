@@ -18,6 +18,7 @@ class WorkoutViewController: EntireTableViewController {
     var durationFormatter: DateComponentsFormatter?
     var heartRates: [String: HKQuantity] = [:]
     var state: [String: Any] = [:]
+    var exportSemaphore = false
 
     fileprivate var sections: [WorkoutSectionType] = []
     fileprivate var data: [WorkoutSectionType: [[String?]]] = [:]
@@ -57,21 +58,30 @@ class WorkoutViewController: EntireTableViewController {
     }
 
     @IBAction func export(_ sender: Any) {
+        if !exportSemaphore {
+            exportSemaphore = true
+            (exportDistances || finishExport) {}
+        }
+    }
+
+    func exportDistances(completionHandler: @escaping () -> Void) {
         Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
             let filename = "workouts/\(self.workout!.workoutActivityType.name.lowercased())/\(self.workout!.uuid.uuidString.lowercased())/distanceWalkingRunning.csv"
-            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { sha in
-                if sha != nil && !sha!.isEmpty {
-                    self.state["exported"] = true
-                    self.saveState()
-                    self.updateButtonState()
-                    os_log("Export finished")
-                    //os_log("Samples: %@", content!)
-                } else {
-                    os_log("Export failed")
-                }
+            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                completionHandler()
             }
         }
+    }
+
+    func finishExport(completionHandler: @escaping () -> Void) {
+        state["exported"] = true
+        saveState()
+        updateButtonState()
+        os_log("Export finished")
+
+        exportSemaphore = false
+        completionHandler()
     }
 
     func cacheKey() -> String {
