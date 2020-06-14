@@ -18,13 +18,15 @@ class SampleDataSource {
     }
 
     func generateContent(_ samples: [HKQuantitySample]?, quantityName: String, unit: HKUnit) -> String {
-        let header = "Start Date,End Date,\(quantityName)\n"
+        let header = "Start Date,End Date,\(quantityName),Source,Device\n"
         let content: NSMutableString = NSMutableString.init(string: header)
         samples?.forEach { sample in
             var components: [String] = []
             components.append(sample.startDate.toISO())
             components.append(sample.endDate.toISO())
             components.append(String(format: "%.5f", sample.quantity.doubleValue(for: unit)))
+            components.append(sample.sourceRevision.source.name)
+            components.append(sample.device?.name ?? "")
 
             content.append(components.joined(separator: ","))
             content.append("\n")
