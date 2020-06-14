@@ -30,6 +30,9 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="4No-iM-trJ"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="exportButton" destination="02u-Cj-Fmh" id="Y0O-xw-ADY"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhl-a1-L4v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

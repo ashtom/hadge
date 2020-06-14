@@ -10,11 +10,14 @@ private enum WorkoutSectionType: Int {
 }
 
 class WorkoutViewController: EntireTableViewController {
+    @IBOutlet weak var exportButton: UIBarButtonItem!
+
     var workout: HKWorkout?
     var dateFormatter: DateFormatter?
     var timeFormatter: DateFormatter?
     var durationFormatter: DateComponentsFormatter?
     var heartRates: [String: HKQuantity] = [:]
+    var state: [String: Any] = [:]
 
     fileprivate var sections: [WorkoutSectionType] = []
     fileprivate var data: [WorkoutSectionType: [[String?]]] = [:]
@@ -23,8 +26,9 @@ class WorkoutViewController: EntireTableViewController {
         super.viewDidLoad()
 
         self.title = workout?.workoutActivityType.name
-
         tableView.reloadData()
+
+        restoreState()
         loadFormatters()
         buildSections()
         loadExtraData()
@@ -56,11 +60,36 @@ class WorkoutViewController: EntireTableViewController {
         Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter())
             let filename = "workouts/\(self.workout!.workoutActivityType.name.lowercased())/\(self.workout!.uuid)/distanceWalkingRunning.csv"
-            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
-                //os_log("Samples: %@", content!)
-                os_log("Export finished")
+            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { sha in
+                if sha != nil && !sha!.isEmpty {
+                    self.state["exported"] = true
+                    self.saveState()
+                    self.updateButtonState()
+                    os_log("Export finished")
+                    //os_log("Samples: %@", content!)
+                } else {
+                    os_log("Export failed")
+                }
             }
         }
+    }
+
+    func cacheKey() -> String {
+        let key = "workout-\(workout!.uuid)"
+        return key
+    }
+
+    func restoreState() {
+        let cache = NSUbiquitousKeyValueStore()
+        self.state = cache.dictionary(forKey: cacheKey()) ?? [:]
+        updateButtonState()
+    }
+
+    func saveState() {
+        // TODO: NSUbiquitousKeyValueStore is limited to 1000 keys / 1MB, so this won't scale forever
+        let cache = NSUbiquitousKeyValueStore()
+        cache.set(self.state, forKey: cacheKey())
+        cache.synchronize()
     }
 
     func loadFormatters() {
@@ -160,5 +189,15 @@ class WorkoutViewController: EntireTableViewController {
     func heartRateToString(_ heartRate: HKQuantity?) -> String {
         guard let heartRate = heartRate else { return "" }
         return String.init(format: "%.0fbpm", heartRate.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())))
+    }
+
+    func updateButtonState() {
+        DispatchQueue.main.async {
+            if let exported = self.state["exported"] as? Bool, exported == true {
+                self.exportButton.image = UIImage(systemName: "plus.app.fill")
+            } else {
+                self.exportButton.image = UIImage(systemName: "plus.app")
+            }
+        }
     }
 }
