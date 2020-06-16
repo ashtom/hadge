@@ -10,8 +10,6 @@ private enum WorkoutSectionType: Int {
 }
 
 class WorkoutViewController: EntireTableViewController {
-    @IBOutlet weak var exportButton: UIBarButtonItem!
-
     var workout: HKWorkout?
     var dateFormatter: DateFormatter?
     var timeFormatter: DateFormatter?
@@ -19,6 +17,8 @@ class WorkoutViewController: EntireTableViewController {
     var heartRates: [String: HKQuantity] = [:]
     var state: [String: Any] = [:]
     var exportSemaphore = false
+    var exportButton: UIBarButtonItem!
+    var statusLabel: UILabel?
 
     fileprivate var sections: [WorkoutSectionType] = []
     fileprivate var data: [WorkoutSectionType: [[String?]]] = [:]
@@ -32,6 +32,7 @@ class WorkoutViewController: EntireTableViewController {
         restoreState()
         loadFormatters()
         buildSections()
+        loadStatusView()
         loadExtraData()
     }
 
@@ -57,9 +58,10 @@ class WorkoutViewController: EntireTableViewController {
         return cell
     }
 
-    @IBAction func export(_ sender: Any) {
+    @objc func export(sender: Any) {
         if !exportSemaphore {
             exportSemaphore = true
+            updateStatus(string: "Processing workout details...")
             (exportDistances || exportSteps || exportHeartRate || exportLocations || finishExport) {}
         }
     }
@@ -69,6 +71,7 @@ class WorkoutViewController: EntireTableViewController {
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter(), format: "%.5f")
             let filename = "\(self.remoteFilePath())/distanceWalkingRunning.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                self.updateStatus(string: "Distances saved...")
                 completionHandler()
             }
         }
@@ -79,6 +82,7 @@ class WorkoutViewController: EntireTableViewController {
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Steps", unit: HKUnit.count(), format: "%.0f")
             let filename = "\(self.remoteFilePath())/steps.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                self.updateStatus(string: "Steps saved...")
                 completionHandler()
             }
         }
@@ -89,6 +93,7 @@ class WorkoutViewController: EntireTableViewController {
             let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Heart Rate", unit: HKUnit.count().unitDivided(by: HKUnit.minute()), format: "%.0f")
             let filename = "\(self.remoteFilePath())/heartRate.csv"
             GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                self.updateStatus(string: "Heart rates saved...")
                 completionHandler()
             }
         }
@@ -100,6 +105,7 @@ class WorkoutViewController: EntireTableViewController {
                 let content = Health.shared().locationDataSource?.generateContent(locations)
                 let filename = "\(self.remoteFilePath())/route.csv"
                 GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                    self.updateStatus(string: "Route saved...")
                     completionHandler()
                 }
             } else {
@@ -116,7 +122,8 @@ class WorkoutViewController: EntireTableViewController {
         state["exported"] = true
         saveState()
         updateButtonState()
-        os_log("Export finished")
+        updateStatus(string: "Export finished.")
+        clearStatusAfterDelay()
 
         exportSemaphore = false
         completionHandler()
@@ -131,6 +138,7 @@ class WorkoutViewController: EntireTableViewController {
         let cache = NSUbiquitousKeyValueStore()
         self.state = cache.dictionary(forKey: cacheKey()) ?? [:]
         updateButtonState()
+        updateStatus(string: "")
     }
 
     func saveState() {
@@ -237,6 +245,39 @@ class WorkoutViewController: EntireTableViewController {
     func heartRateToString(_ heartRate: HKQuantity?) -> String {
         guard let heartRate = heartRate else { return "" }
         return String.init(format: "%.0fbpm", heartRate.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())))
+    }
+
+    func loadStatusView() {
+        statusLabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: 200, height: 34))
+        statusLabel?.text = ""
+        statusLabel?.textAlignment = NSTextAlignment.center
+        statusLabel?.textColor = UIColor.secondaryLabel
+        statusLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+        statusLabel?.lineBreakMode = .byWordWrapping
+        statusLabel?.numberOfLines = 2
+
+        let statusItem = UIBarButtonItem(customView: statusLabel!)
+        exportButton = UIBarButtonItem(image: UIImage(systemName: "plus.app"), style: .plain, target: self, action: #selector(export(sender:)))
+        exportButton?.tintColor = UIColor.secondaryLabel
+        let leftSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let rightSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        self.toolbarItems = [leftSpaceItem, statusItem, rightSpaceItem, exportButton]
+
+        updateButtonState()
+    }
+
+    func updateStatus(string: String) {
+        DispatchQueue.main.async {
+            self.statusLabel?.text = string
+        }
+    }
+
+    func clearStatusAfterDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+            if !self.exportSemaphore {
+                self.updateStatus(string: "")
+            }
+        }
     }
 
     func updateButtonState() {

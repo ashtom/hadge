@@ -21,18 +21,9 @@
                     </tableView>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="DHu-lj-ab3"/>
-                        <barButtonItem title="Item" image="plus.app" catalog="system" id="02u-Cj-Fmh">
-                            <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <action selector="export:" destination="oTa-Cc-Vp7" id="JMz-fq-vOL"/>
-                            </connections>
-                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="4No-iM-trJ"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="exportButton" destination="02u-Cj-Fmh" id="Y0O-xw-ADY"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yhl-a1-L4v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -579,7 +570,4 @@ Hadge does not collect any data for any other purposes, and does not send any da
             <point key="canvasLocation" x="1958" y="-698"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="plus.app" catalog="system" width="128" height="114"/>
-    </resources>
 </document>
