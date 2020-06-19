@@ -264,6 +264,13 @@ class WorkoutViewController: EntireTableViewController {
         self.toolbarItems = [leftSpaceItem, statusItem, rightSpaceItem, exportButton]
 
         updateButtonState()
+
+        if let exported = self.state["exported"] as? Bool, exported == true {
+        } else {
+            updateStatus(string: "Tap the ﹢ button to export this workout's samples to your repo.")
+            clearStatusAfterDelay()
+        }
+
     }
 
     func updateStatus(string: String) {
