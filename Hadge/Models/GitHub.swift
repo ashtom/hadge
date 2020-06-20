@@ -170,7 +170,8 @@ class GitHub {
     }
 
     func getFile(path: String, completionHandler: @escaping (String) -> Void) {
-        let url = URL(string: "https://api.github.com/repos/\(username()!)/\(GitHub.defaultRepository)/contents/\(path)")!
+        let escapedPath = path.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        let url = URL(string: "https://api.github.com/repos/\(username()!)/\(GitHub.defaultRepository)/contents/\(escapedPath)")!
         let request = self.createRequest(url: url, httpMethod: "GET")
 
         self.handleRequest(request, completionHandler: { json, _, _ in
@@ -185,7 +186,8 @@ class GitHub {
 
     func updateFile(path: String, content: String, message: String, completionHandler: @escaping (String?) -> Void) {
         getFile(path: path) { sha in
-            let url = URL(string: "https://api.github.com/repos/\(self.username()!)/\(GitHub.defaultRepository)/contents/\(path)")!
+            let escapedPath = path.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+            let url = URL(string: "https://api.github.com/repos/\(self.username()!)/\(GitHub.defaultRepository)/contents/\(escapedPath)")!
             var request = self.createRequest(url: url, httpMethod: "PUT")
             let parameters: [String: Any] = [
                 "message": message,
