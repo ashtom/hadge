@@ -67,12 +67,23 @@ class WorkoutViewController: EntireTableViewController {
     }
 
     func exportDistances(completionHandler: @escaping () -> Void) {
-        Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
-            let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter(), format: "%.5f")
-            let filename = "\(self.remoteFilePath())/distanceWalkingRunning.csv"
-            GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
-                self.updateStatus(string: "Distances saved...")
-                completionHandler()
+        if workout?.workoutActivityType == .cycling {
+            Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceCycling)!) { samples in
+                let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Cycling", unit: HKUnit.meter(), format: "%.5f")
+                let filename = "\(self.remoteFilePath())/distanceCycling.csv"
+                GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                    self.updateStatus(string: "Distances saved...")
+                    completionHandler()
+                }
+            }
+        } else {
+            Health.shared().sampleDataSource?.getAllForWorkout(self.workout!, quantityType: HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!) { samples in
+                let content = Health.shared().sampleDataSource?.generateContent(samples, quantityName: "Distance Walking/Running", unit: HKUnit.meter(), format: "%.5f")
+                let filename = "\(self.remoteFilePath())/distanceWalkingRunning.csv"
+                GitHub.shared().updateFile(path: filename, content: content!, message: "Export workout") { _ in
+                    self.updateStatus(string: "Distances saved...")
+                    completionHandler()
+                }
             }
         }
     }
