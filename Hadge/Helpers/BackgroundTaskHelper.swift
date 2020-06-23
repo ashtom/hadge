@@ -96,7 +96,7 @@ class BackgroundTaskHelper {
     func handleBackgroundFetchTask(task: BGProcessingTask) {
         self.task = task
         self.stopped = false
-        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) && UIApplication.shared.isProtectedDataAvailable {
             (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport || self.finishBackgroundTask) { }
         } else {
             self.finishBackgroundTask { }
