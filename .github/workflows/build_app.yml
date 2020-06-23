@@ -12,7 +12,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v1
         with:
-          persist-credentials: false
           fetch-depth: 0
       - name: Bump bundle version
         run: ./.github/scripts/bump_version.sh
