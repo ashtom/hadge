@@ -12,11 +12,11 @@
       },
       {
         "package": "OctoKit",
-        "repositoryURL": "https://github.com/nerdishbynature/octokit.swift",
+        "repositoryURL": "https://github.com/ashtom/octokit.swift.git",
         "state": {
-          "branch": null,
-          "revision": "c391cfba4d33f3f4c7d7d8fa6708970f7d30af82",
-          "version": "0.10.1"
+          "branch": "feature/labels",
+          "revision": "7edad12a2dde9dc3cf5ada02606a41de97d4423c",
+          "version": null
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/nerdishbynature/RequestKit.git",
         "state": {
           "branch": null,
-          "revision": "fd5e9e99aada7432170366c9e95967011ce13bad",
-          "version": "2.4.0"
+          "revision": "defcc7cb005995f261b47e357874a539f3b5c679",
+          "version": "2.3.0"
         }
       },
       {

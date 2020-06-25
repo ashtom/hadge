@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D178D3C24A5632900CE2CEA /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4D178D3B24A5632900CE2CEA /* OctoKit */; };
 		4D280C152479930100D9162E /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D280C142479930100D9162E /* WorkoutViewController.swift */; };
 		4D3C7DFA2480C77E000AF3D6 /* SplitsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3C7DF92480C77E000AF3D6 /* SplitsDataSource.swift */; };
 		4D3C7E012481517F000AF3D6 /* WorkoutActivityTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3C7E002481517F000AF3D6 /* WorkoutActivityTypeExtension.swift */; };
@@ -47,7 +48,6 @@
 		4DEA77F22454843400554793 /* GitHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEA77F12454843400554793 /* GitHub.swift */; };
 		4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F4245484A800554793 /* SwiftyJSON */; };
 		4DEA77F8245484B500554793 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77F7245484B500554793 /* KeychainAccess */; };
-		4DEA77FB245484FF00554793 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4DEA77FA245484FF00554793 /* OctoKit */; };
 		4DF6859F2464CF1000D929EC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6859E2464CF1000D929EC /* Constants.swift */; };
 		4DF685A12464D0EE00D929EC /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF685A02464D0EE00D929EC /* FilterViewController.swift */; };
 		4DF685A42465AEDC00D929EC /* FilterHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DF685A32465AEDC00D929EC /* FilterHeaderView.swift */; };
@@ -106,9 +106,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DEA77FB245484FF00554793 /* OctoKit in Frameworks */,
 				4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */,
 				4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */,
+				4D178D3C24A5632900CE2CEA /* OctoKit in Frameworks */,
 				4DD70CC7245E5BC4007C8D58 /* SwiftCSV in Frameworks */,
 				4DAE94C0246B7B230036AC72 /* SwiftDate in Frameworks */,
 				4DEA77F8245484B500554793 /* KeychainAccess in Frameworks */,
@@ -262,10 +262,10 @@
 			packageProductDependencies = (
 				4DEA77F4245484A800554793 /* SwiftyJSON */,
 				4DEA77F7245484B500554793 /* KeychainAccess */,
-				4DEA77FA245484FF00554793 /* OctoKit */,
 				4DD70CBD245DBD98007C8D58 /* SDWebImage */,
 				4DD70CC6245E5BC4007C8D58 /* SwiftCSV */,
 				4DAE94BF246B7B230036AC72 /* SwiftDate */,
+				4D178D3B24A5632900CE2CEA /* OctoKit */,
 			);
 			productName = Hadge;
 			productReference = 4DB3F6742453F7AC004C8BF3 /* Hadge.app */;
@@ -298,10 +298,10 @@
 			packageReferences = (
 				4DEA77F3245484A800554793 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				4DEA77F6245484B500554793 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				4DEA77F9245484FF00554793 /* XCRemoteSwiftPackageReference "octokit" */,
 				4DD70CBC245DBD98007C8D58 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				4DD70CC5245E5BC4007C8D58 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 				4DAE94BE246B7B230036AC72 /* XCRemoteSwiftPackageReference "SwiftDate" */,
+				4D178D3A24A5632900CE2CEA /* XCRemoteSwiftPackageReference "octokit.swift" */,
 			);
 			productRefGroup = 4DB3F6752453F7AC004C8BF3 /* Products */;
 			projectDirPath = "";
@@ -608,6 +608,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4D178D3A24A5632900CE2CEA /* XCRemoteSwiftPackageReference "octokit.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashtom/octokit.swift.git";
+			requirement = {
+				branch = feature/labels;
+				kind = branch;
+			};
+		};
 		4DAE94BE246B7B230036AC72 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/malcommac/SwiftDate.git";
@@ -648,17 +656,14 @@
 				minimumVersion = 4.1.0;
 			};
 		};
-		4DEA77F9245484FF00554793 /* XCRemoteSwiftPackageReference "octokit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.10.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		4D178D3B24A5632900CE2CEA /* OctoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4D178D3A24A5632900CE2CEA /* XCRemoteSwiftPackageReference "octokit.swift" */;
+			productName = OctoKit;
+		};
 		4DAE94BF246B7B230036AC72 /* SwiftDate */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 4DAE94BE246B7B230036AC72 /* XCRemoteSwiftPackageReference "SwiftDate" */;
@@ -683,11 +688,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4DEA77F6245484B500554793 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
-		};
-		4DEA77FA245484FF00554793 /* OctoKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4DEA77F9245484FF00554793 /* XCRemoteSwiftPackageReference "octokit" */;
-			productName = OctoKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
