@@ -32,8 +32,8 @@ jobs:
         run: |
           echo "GITHUB_CLIENT_ID = \"${OCTO_CLIENT_ID}\"" >> Hadge/Secrets.xcconfig
           echo "GITHUB_CLIENT_SECRET = \"${OCTO_CLIENT_SECRET}\"" >> Hadge/Secrets.xcconfig
-      - name: Select Xcode 11.4
-        run: sudo xcode-select -switch /Applications/Xcode_11.4.app
+      - name: Select Xcode 11.5
+        run: sudo xcode-select -switch /Applications/Xcode_11.5.app
       - name: Build project
         run: ./.github/scripts/build_app.sh
       - name: Exporting .ipa
