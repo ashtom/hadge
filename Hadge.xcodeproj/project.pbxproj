@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D178D3C24A5632900CE2CEA /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4D178D3B24A5632900CE2CEA /* OctoKit */; };
 		4D280C152479930100D9162E /* WorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D280C142479930100D9162E /* WorkoutViewController.swift */; };
+		4D35BD0B24A63D6C00008A29 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 4D35BD0A24A63D6C00008A29 /* OctoKit */; };
 		4D3C7DFA2480C77E000AF3D6 /* SplitsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3C7DF92480C77E000AF3D6 /* SplitsDataSource.swift */; };
 		4D3C7E012481517F000AF3D6 /* WorkoutActivityTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3C7E002481517F000AF3D6 /* WorkoutActivityTypeExtension.swift */; };
 		4D3DFA34246F125800EDCBEC /* EntireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D3DFA33246F125800EDCBEC /* EntireViewController.swift */; };
@@ -108,7 +108,7 @@
 			files = (
 				4DEA77F5245484A800554793 /* SwiftyJSON in Frameworks */,
 				4DB3F68E2453F7CF004C8BF3 /* HealthKit.framework in Frameworks */,
-				4D178D3C24A5632900CE2CEA /* OctoKit in Frameworks */,
+				4D35BD0B24A63D6C00008A29 /* OctoKit in Frameworks */,
 				4DD70CC7245E5BC4007C8D58 /* SwiftCSV in Frameworks */,
 				4DAE94C0246B7B230036AC72 /* SwiftDate in Frameworks */,
 				4DEA77F8245484B500554793 /* KeychainAccess in Frameworks */,
@@ -265,7 +265,7 @@
 				4DD70CBD245DBD98007C8D58 /* SDWebImage */,
 				4DD70CC6245E5BC4007C8D58 /* SwiftCSV */,
 				4DAE94BF246B7B230036AC72 /* SwiftDate */,
-				4D178D3B24A5632900CE2CEA /* OctoKit */,
+				4D35BD0A24A63D6C00008A29 /* OctoKit */,
 			);
 			productName = Hadge;
 			productReference = 4DB3F6742453F7AC004C8BF3 /* Hadge.app */;
@@ -301,7 +301,7 @@
 				4DD70CBC245DBD98007C8D58 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				4DD70CC5245E5BC4007C8D58 /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 				4DAE94BE246B7B230036AC72 /* XCRemoteSwiftPackageReference "SwiftDate" */,
-				4D178D3A24A5632900CE2CEA /* XCRemoteSwiftPackageReference "octokit.swift" */,
+				4D35BD0924A63D6C00008A29 /* XCRemoteSwiftPackageReference "octokit.swift" */,
 			);
 			productRefGroup = 4DB3F6752453F7AC004C8BF3 /* Products */;
 			projectDirPath = "";
@@ -608,7 +608,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4D178D3A24A5632900CE2CEA /* XCRemoteSwiftPackageReference "octokit.swift" */ = {
+		4D35BD0924A63D6C00008A29 /* XCRemoteSwiftPackageReference "octokit.swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashtom/octokit.swift.git";
 			requirement = {
@@ -659,9 +659,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		4D178D3B24A5632900CE2CEA /* OctoKit */ = {
+		4D35BD0A24A63D6C00008A29 /* OctoKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4D178D3A24A5632900CE2CEA /* XCRemoteSwiftPackageReference "octokit.swift" */;
+			package = 4D35BD0924A63D6C00008A29 /* XCRemoteSwiftPackageReference "octokit.swift" */;
 			productName = OctoKit;
 		};
 		4DAE94BF246B7B230036AC72 /* SwiftDate */ = {
