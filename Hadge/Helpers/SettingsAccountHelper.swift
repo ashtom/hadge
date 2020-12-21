@@ -32,7 +32,7 @@ class SettingsAccountHelper {
     func tableView(_ tableView: UITableView, didSelectRow: Int, viewController: SettingsViewController) {
         switch didSelectRow {
         case 1:
-            _ = GitHub.shared().signOut()
+            GitHub.shared().signOut()
             Health.shared().healthStore?.disableAllBackgroundDelivery { _, _ in }
             UserDefaults.standard.set(false, forKey: UserDefaultKeys.setupFinished)
             UserDefaults.standard.synchronize()
