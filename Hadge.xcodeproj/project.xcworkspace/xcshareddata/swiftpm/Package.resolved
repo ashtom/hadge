@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
         "state": {
           "branch": null,
-          "revision": "b920ad7df3c73189dcdd4aa05c540849b2010dbf",
-          "version": "4.1.0"
+          "revision": "654d52d30f3dd4592e944c3e0bccb53178c992f6",
+          "version": "4.2.1"
         }
       },
       {
@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/ashtom/octokit.swift.git",
         "state": {
           "branch": "feature/labels",
-          "revision": "7edad12a2dde9dc3cf5ada02606a41de97d4423c",
+          "revision": "a08f8175dce086f5cac3e1361fea51f13fd1e6d4",
           "version": null
         }
       },
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/nerdishbynature/RequestKit.git",
         "state": {
           "branch": null,
-          "revision": "defcc7cb005995f261b47e357874a539f3b5c679",
-          "version": "2.3.0"
+          "revision": "fd5e9e99aada7432170366c9e95967011ce13bad",
+          "version": "2.4.0"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
         "state": {
           "branch": null,
-          "revision": "39370d1af85734dffe0e3f89b389976da461be3f",
-          "version": "5.7.3"
+          "revision": "e857b78ca4c8afe616b794aeb090d40f4e348072",
+          "version": "5.10.0"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/swiftcsv/SwiftCSV",
         "state": {
           "branch": null,
-          "revision": "8ae14758a2019fd55dc6f9b6ecbbe246bcef179f",
-          "version": "0.5.6"
+          "revision": "ad2042d0ba2ea260246b0e1b1d5710cbc53e2836",
+          "version": "0.6.0"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/malcommac/SwiftDate.git",
         "state": {
           "branch": null,
-          "revision": "700dde1b3417fd4a7fd2bec9f5bc8ab2de1b96b4",
-          "version": "6.1.0"
+          "revision": "6190d0cefff3013e77ed567e6b074f324e5c5bf5",
+          "version": "6.3.1"
         }
       },
       {
