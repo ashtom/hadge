@@ -7,12 +7,14 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macos-11
     steps:
       - name: Checkout repository
         uses: actions/checkout@v1
         with:
           fetch-depth: 0
+      - name: Set Xcode version
+        uses: ./.github/actions/set-xcode-version
       - name: Bump bundle version
         run: ./.github/scripts/bump_version.sh
       - name: Install SwiftLint
