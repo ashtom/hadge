@@ -116,7 +116,7 @@ class Health {
     }
 
     func getActivityData(completionHandler: @escaping ([HKActivitySummary]?) -> Void) {
-        getActivityDataForDates(start: firstOfYear, end: yesterday, completionHandler: completionHandler)
+        getActivityDataForDates(start: firstOfYear, end: today, completionHandler: completionHandler)
     }
 
     func getActivityDataForDates(start: Date?, end: Date?, completionHandler: @escaping ([HKActivitySummary]?) -> Void) {
