@@ -1,7 +1,7 @@
 import UIKit
 import HealthKit
 
-protocol FilterDelegate: class {
+protocol FilterDelegate: AnyObject {
     func onFilterSelected(workoutTypes: [UInt])
 }
 
