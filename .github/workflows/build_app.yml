@@ -17,8 +17,6 @@ jobs:
         uses: ./.github/actions/set-xcode-version
       - name: Bump bundle version
         run: ./.github/scripts/bump_version.sh
-      - name: Install SwiftLint
-        run: brew install swiftlint
       - name: Install gpg
         run: brew install gnupg
       - name: Install sourcery
