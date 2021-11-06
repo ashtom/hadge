@@ -1,6 +1,6 @@
-# Hadge
+# Hadge - Health.app Data Git Exporter (for iOS)
 
-The source code of the app will be published here soon. :)
+This app serves one simple purpose: Exporting workout data from the Health.app on iOS to a git repo on GitHub. At the first launch of the app, you can connect your GitHub account, then the app checks whether a repo with the name `health` exists and, if not, it automatically creates it as a private repo. The initial export dumps all workouts, distances, and daily activity data (the rings on Apple Watch) to .csv files. The app also registers a background tasks that gets activated whenever you finish a new workout. 
 
 ## Privacy Policy
 
@@ -16,7 +16,7 @@ We don’t collect personal information from anyone, including children under th
 
 Hadge is published under the MIT License.
 
-Copyright (c) 2020 Thomas Dohmke
+Copyright (c) 2020-2021 Thomas Dohmke
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
