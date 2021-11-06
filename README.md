@@ -11,6 +11,27 @@ At the first launch of the app, you can connect your GitHub account, then the ap
 
 You can join the TestFlight Beta [here](https://testflight.apple.com/join/rFLkfNSu). Note that you need to open the link on your iPhone, otherwise TestFlight will show `This beta isn't accepting any new testers right now.` 🙄
 
+## GitHub Actions Workflow
+
+Once you have set up the app (and done some workouts), you can use an Actions workflow to generate workout stats on your GitHub profile. Here's the one from [mine](https://github.com/ashtom):
+
+<img width="445" alt="CleanShot 2021-11-06 at 16 01 29@2x" src="https://user-images.githubusercontent.com/70720/140626256-b84c9945-898e-4570-bbdb-deab1ec3ef18.png">
+
+Steps:
+
+1. Create the file `.github/scripts/hadge.rb` with this [Ruby script](https://gist.github.com/ashtom/1cd9602b122082827b38eb79d605ca1a).
+2. Adjust the `DISPLAYED_ACTIVITIES` near the top of the script to match your top workouts. More than 5 won't fit into a pinned gist.
+3. Create the file `.github/workflows/hadge.yml` with this [workflow](https://gist.github.com/ashtom/0ca3193ce0ac76f9c6bf0b3aa9cad124).
+4. Enable Actions on your repo.
+5. Create a new public GitHub Gist [here](https://gist.github.com/).
+6. Create a personal access token with the gist scope [here](https://github.com/settings/tokens/new). Copy it.
+7. Go yo your repo settings, tab `Secrets`.
+8. Create a secret `GH_TOKEN` with the personal access token copied in step 6.
+9. Create a secret `GIST_ID` with the ID of the gist from step 5. The ID is the last part of the gist's URL.
+10. Trigger an Actions run, either by finished a workout 🙃 or by tapping on a workout in the app, then on the ⊕ icon in the bottom-right corner.
+
+Find other awesome pinned gists in matchai's [awesome-pinned-gists repo](https://github.com/matchai/awesome-pinned-gists).
+
 ## Privacy Policy
 
 This Privacy Policy describes how your personal information is handled in Hadge for iOS.
