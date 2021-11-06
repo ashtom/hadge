@@ -7,6 +7,10 @@ This app serves one simple purpose: Exporting workout data from the Health.app o
 
 At the first launch of the app, you can connect your GitHub account, then the app checks whether a repo with the name `health` exists and, if not, it automatically creates it as a private repo. The initial export dumps all workouts, distances, and daily activity data (the rings on Apple Watch) to .csv files, one per year. The app also registers a background task that gets activated whenever you finish a new workout and then updates the .csv files. 
 
+## TestFlight Beta
+
+You can join the TestFlight Beta [here](https://testflight.apple.com/join/rFLkfNSu). Note that you need to open the link on your iPhone, otherwise TestFlight will show `This beta isn't accepting any new testers right now.` 🙄
+
 ## Privacy Policy
 
 This Privacy Policy describes how your personal information is handled in Hadge for iOS.
