@@ -1,6 +1,6 @@
 # Hadge - Health.app Data Git Exporter (for iOS)
 
-[![Build App](https://github.com/entirehq/hadge/actions/workflows/build_app.yml/badge.svg)](https://github.com/entirehq/hadge/actions/workflows/build_app.yml)
+[![Build App](https://github.com/ashtom/hadge/actions/workflows/build_app.yml/badge.svg)](https://github.com/ashtom/hadge/actions/workflows/build_app.yml)
 [![TestFlight](https://shields.io/static/v1?label=TestFlight&message=Join%20Beta&color=blue)](https://testflight.apple.com/join/rFLkfNSu)
 
 This app serves one simple purpose: Exporting workout data from the Health.app on iOS to a git repo on GitHub. 
