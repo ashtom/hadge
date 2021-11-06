@@ -1,6 +1,6 @@
 #  Your Health Data
 
-This repo is automatically updated by Hadge. If you want to modify the files, create a new branch first. Files in the master branch will be automatically overwritten.
+This repo is automatically updated by Hadge. If you want to modify the files, create a new branch first. Files in the main branch will be automatically overwritten.
 
 ## File Formats
 
