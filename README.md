@@ -2,7 +2,9 @@
 
 [![Build App](https://github.com/entirehq/hadge/actions/workflows/build_app.yml/badge.svg)](https://github.com/entirehq/hadge/actions/workflows/build_app.yml)
 
-This app serves one simple purpose: Exporting workout data from the Health.app on iOS to a git repo on GitHub. At the first launch of the app, you can connect your GitHub account, then the app checks whether a repo with the name `health` exists and, if not, it automatically creates it as a private repo. The initial export dumps all workouts, distances, and daily activity data (the rings on Apple Watch) to .csv files. The app also registers a background tasks that gets activated whenever you finish a new workout. 
+This app serves one simple purpose: Exporting workout data from the Health.app on iOS to a git repo on GitHub. 
+
+At the first launch of the app, you can connect your GitHub account, then the app checks whether a repo with the name `health` exists and, if not, it automatically creates it as a private repo. The initial export dumps all workouts, distances, and daily activity data (the rings on Apple Watch) to .csv files, one per year. The app also registers a background task that gets activated whenever you finish a new workout and then updates the .csv files. 
 
 ## Privacy Policy
 
