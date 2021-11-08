@@ -93,10 +93,14 @@ class BackgroundTaskHelper {
         })
     }
 
+    func isSignedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) && GitHub.shared().isSignedIn()
+    }
+
     func handleBackgroundFetchTask(task: BGProcessingTask) {
         self.task = task
         self.stopped = false
-        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) && UIApplication.shared.isProtectedDataAvailable {
+        if isSignedIn() && UIApplication.shared.isProtectedDataAvailable {
             (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport || self.finishBackgroundTask) { }
         } else {
             self.finishBackgroundTask { }
@@ -105,7 +109,7 @@ class BackgroundTaskHelper {
 
     func handleForegroundFetch() {
         self.stopped = false
-        if UserDefaults.standard.bool(forKey: UserDefaultKeys.setupFinished) {
+        if isSignedIn() {
             (self.collectWorkoutData || self.collectActivityData || self.collectDistanceData || self.finishExport) { }
         }
     }
