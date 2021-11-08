@@ -54,7 +54,7 @@ class GitHub {
     }
 
     func signIn(_ contextProvider: ASWebAuthenticationPresentationContextProviding?) {
-        let session = ASWebAuthenticationSession(url: configURL!, callbackURLScheme: "hadge://") { url, error in
+        let session = ASWebAuthenticationSession(url: configURL!, callbackURLScheme: "hadge") { url, error in
             if error != nil {
                 NotificationCenter.default.post(name: .signInFailed, object: nil)
                 return
