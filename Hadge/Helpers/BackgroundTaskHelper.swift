@@ -184,8 +184,8 @@ class BackgroundTaskHelper {
 
     func sendNotification(_ badge: Int) {
         let notificationContent = UNMutableNotificationContent()
-        //notificationContent.title = "Hadge"
-        //notificationContent.body = "Steps walked: \(badge)"
+        // notificationContent.title = "Hadge"
+        // notificationContent.body = "Steps walked: \(badge)"
         notificationContent.badge = NSNumber(value: badge)
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
