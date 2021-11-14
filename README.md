@@ -32,6 +32,62 @@ Steps:
 
 Find other awesome pinned gists in matchai's [awesome-pinned-gists repo](https://github.com/matchai/awesome-pinned-gists).
 
+#### Building
+
+Hadge relies on [swiftlint](https://realm.github.io/SwiftLint/) and 
+[sourcery](https://github.com/krzysztofzablocki/Sourcery). They can be installed 
+via [homebrew](https://brew.sh) via the provided `Brewfile` by running `brew bundle`
+or manually.
+
+Hadge requires a GitHub OAuth application. You will need to create an [OAuth App](https://docs.github.com/en/developers/apps/building-oauth-apps) 
+to test and build a version of the application. Once you have your App, you will need to create a `Secrets.xcconfig`
+file  locally at the appropriate path that contains the Client ID and Client Secret.
+
+You can locally override the Xcode settings for code signing
+by creating a `DeveloperSettings.xcconfig` file locally at the appropriate path.
+
+This allows for a pristine project with theis own OAuth App and code signing set up with the appropriate
+developer ID and certificates, and for a developer to be able to have local settings
+without needing to check in anything into source control.
+
+You can do this in one of two ways: using the included `setup.sh` script or the files manually.
+
+##### Using `setup.sh`
+
+- Open Terminal and `cd` into the project directory. 
+- Run this command to ensure you have execution rights for the script: `chmod +x setup.sh`
+- Execute the script with the following command: `./setup.sh` and complete the answers.
+
+##### Manually 
+
+Create a plain text file at the root of the project directory named `DeveloperSettings.xcconfig` and
+give it the contents:
+
+```
+CODE_SIGN_IDENTITY = Apple Development
+DEVELOPMENT_TEAM = <Your Team ID>
+CODE_SIGN_STYLE = Automatic
+ORGANIZATION_IDENTIFIER = <Your Domain Name Reversed>
+```
+
+Set `DEVELOPMENT_TEAM` to your Apple supplied development team.  You can use Keychain
+Access to [find your development team ID](/Technotes/FindingYourDevelopmentTeamID.md).
+Set `ORGANIZATION_IDENTIFIER` to a reversed domain name that you control or have made up.
+
+Create a plain text file at the root of the project directory named `Hadge/Secrets.xcconfig` and
+give it the contents:
+
+```
+GITHUB_CLIENT_ID = "<Your GitHub App Client ID>"
+GITHUB_CLIENT_SECRET = "<Your GitHub App Client Secrent>"
+```
+
+Set `GITHUB_CLIENT_ID` to your GitHub App Client ID and `GITHUB_CLIENT_SECRET` to your 
+GitHub App Client Secret.
+
+Now you should be able to build without code signing errors and without modifying
+the project
+
 ## Privacy Policy
 
 This Privacy Policy describes how your personal information is handled in Hadge for iOS.
