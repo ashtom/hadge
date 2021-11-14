@@ -95,7 +95,7 @@ class Health {
         let anchorDate = calendar.date(from: anchorComponents)
 
         let query = HKStatisticsCollectionQuery(quantityType: quantity, quantitySamplePredicate: nil, options: .cumulativeSum, anchorDate: anchorDate!, intervalComponents: interval as DateComponents)
-        query.initialResultsHandler = {query, results, error in
+        query.initialResultsHandler = {_, results, _ in
             guard let results = results else {
                 completionHandler(nil)
                 return

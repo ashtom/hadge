@@ -250,7 +250,7 @@ class WorkoutViewController: EntireTableViewController {
         }
 
         // Split calculation (not finished yet)
-        //Health.shared().splitsDataSource?.calculateSplits(workout: workout!)
+        // Health.shared().splitsDataSource?.calculateSplits(workout: workout!)
     }
 
     func heartRateToString(_ heartRate: HKQuantity?) -> String {
