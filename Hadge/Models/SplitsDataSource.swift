@@ -26,7 +26,7 @@ class SplitsDataSource {
                 var lastEnd = workout.startDate
                 var splits: [[String]] = []
 
-                for (index, element) in distanceSamples.enumerated() { //where element.device?.model == "Watch" {
+                for (index, element) in distanceSamples.enumerated() { // where element.device?.model == "Watch" {
                     let duration = self.getDurationAjustedForPauses(pauses, currentSample: element, lastDate: lastEnd)
                     let distance = element.quantity.doubleValue(for: HKUnit.meter())
                     let speed = distance / duration

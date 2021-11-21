@@ -1,0 +1,11 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Secrets.xcconfig"
+
+DEVELOPMENT_TEAM = Q25LVLEHFB
+CODE_SIGN_IDENTITY = Apple Development
+CODE_SIGN_STYLE = Automatic
+ORGANIZATION_IDENTIFIER = io.entire
+
+#include? "../DeveloperSettings.xcconfig"

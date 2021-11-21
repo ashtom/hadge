@@ -5,7 +5,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Uncomment if we need the scene
-        //guard let windowScene = (scene as? UIWindowScene) else { return }
+        // guard let windowScene = (scene as? UIWindowScene) else { return }
 
         // Prepare GitHub Auth
         GitHub.shared().prepare()
