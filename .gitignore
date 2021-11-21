@@ -29,6 +29,9 @@ DerivedData/
 ## Sample Data
 .assets/*.csv
 
+# Jetbrains
+.idea/
+
 ## Secrets
 Generated
 Secrets.xcconfig

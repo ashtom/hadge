@@ -27,7 +27,6 @@ class WorkoutViewController: EntireTableViewController {
         super.viewDidLoad()
 
         self.title = workout?.workoutActivityType.name
-        tableView.reloadData()
 
         restoreState()
         loadFormatters()
@@ -238,13 +237,12 @@ class WorkoutViewController: EntireTableViewController {
     }
 
     func loadExtraData() {
-        self.tableView.reloadData()
         Health.shared().getHeartRateForWorkout(workout!) { average, minimum, maximum in
-            self.heartRates["average"] = average
-            self.heartRates["minimum"] = minimum
-            self.heartRates["maximum"] = maximum
-            self.buildHeartRateSection()
             DispatchQueue.main.async {
+                self.heartRates["average"] = average
+                self.heartRates["minimum"] = minimum
+                self.heartRates["maximum"] = maximum
+                self.buildHeartRateSection()
                 self.tableView.reloadSections([ self.sections.firstIndex(of: .heartRate)! ], with: .none)
             }
         }
