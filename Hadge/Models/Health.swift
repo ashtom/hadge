@@ -35,12 +35,12 @@ class Health {
 
         let calendar = Calendar.current
         self.year = calendar.component(.year, from: Date())
-        self.firstOfYear = Calendar.current.date(from: DateComponents(year: year, month: 1, day: 1))
+        self.firstOfYear = calendar.date(from: DateComponents(year: year, month: 1, day: 1))
         self.today = calendar.startOfDay(for: Date.init())
-        self.yesterday = Calendar.current.date(byAdding: .day, value: -1, to: self.today!)
+        self.yesterday = calendar.date(byAdding: .day, value: -1, to: self.today!)
 
-        let firstOfNextYear = Calendar.current.date(from: DateComponents(year: year + 1, month: 1, day: 1))
-        self.lastOfYear = Calendar.current.date(byAdding: .day, value: -1, to: firstOfNextYear!)
+        let firstOfNextYear = calendar.date(from: DateComponents(year: year + 1, month: 1, day: 1))
+        self.lastOfYear = calendar.date(byAdding: .day, value: -1, to: firstOfNextYear!)
     }
 
     func getBiologicalSex() -> HKBiologicalSexObject? {
