@@ -60,7 +60,11 @@ class BackgroundTaskHelper {
                 if error == nil && succeeded {
                     os_log("Background delivery enabled for steps")
                 } else {
-                    os_log("Failed to enable background delivery for steps")
+                    if let msg = error?.localizedDescription {
+                        os_log("Failed to enable background delivery for steps %@", msg)
+                    } else {
+                        os_log("Failed to enable background delivery for steps")
+                    }
                 }
             })
         }
@@ -88,7 +92,11 @@ class BackgroundTaskHelper {
             if error == nil && succeeded {
                 os_log("Background delivery enabled for workouts")
             } else {
-                os_log("Failed to enable background delivery for workouts")
+                if let msg = error?.localizedDescription {
+                    os_log("Failed to enable background delivery for workouts %@", msg)
+                } else {
+                    os_log("Failed to enable background delivery for workouts")
+                }
             }
         })
     }
@@ -184,8 +192,8 @@ class BackgroundTaskHelper {
 
     func sendNotification(_ badge: Int) {
         let notificationContent = UNMutableNotificationContent()
-        //notificationContent.title = "Hadge"
-        //notificationContent.body = "Steps walked: \(badge)"
+        // notificationContent.title = "Hadge"
+        // notificationContent.body = "Steps walked: \(badge)"
         notificationContent.badge = NSNumber(value: badge)
 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10.0, repeats: false)
