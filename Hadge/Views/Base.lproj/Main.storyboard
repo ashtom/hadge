@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dUI-fG-aZt">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dUI-fG-aZt">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,12 +36,12 @@
             <objects>
                 <tableViewController title="Settings Controller" id="Zm0-Rr-KoY" userLabel="Settings View Controller" customClass="SettingsViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="zbh-fS-iU2">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountCell" id="p39-gG-OJR" customClass="AccountCell" customModule="Hadge" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="49.5" width="414" height="64.5"/>
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="64.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p39-gG-OJR" id="pqJ-IP-9my">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="64.5"/>
@@ -59,7 +59,7 @@
                                             <rect key="frame" x="62" y="11" width="332" height="42.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJW-Rc-HZh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="37" height="21"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="43.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="Ry6-Sz-Yfu"/>
                                                     </constraints>
@@ -68,7 +68,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qV0-sm-szY">
-                                                    <rect key="frame" x="0.0" y="21" width="31" height="21.5"/>
+                                                    <rect key="frame" x="0.0" y="21" width="37.5" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="S0V-DA-mLS"/>
                                                     </constraints>
@@ -164,7 +164,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mi-Cp-UPS">
-                                <rect key="frame" x="122.5" y="835" width="169" height="27"/>
+                                <rect key="frame" x="105" y="832" width="204" height="30"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <state key="normal" title="Use a Personal Access Token ">
                                     <color key="titleColor" systemColor="placeholderTextColor"/>
@@ -174,7 +174,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Connect" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sR4-mB-Di6">
-                                <rect key="frame" x="20" y="94" width="374" height="52"/>
+                                <rect key="frame" x="20" y="98" width="374" height="52"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="kEp-me-Fqq"/>
@@ -184,7 +184,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xF5-te-3Pk">
-                                <rect key="frame" x="20" y="154" width="374" height="576"/>
+                                <rect key="frame" x="20" y="158" width="374" height="572"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Please sign in with GitHub through the button below. The authentication flow will redirect you to Safari. Once you finished signing in, Safari will ask you to open Hadge again.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -195,10 +195,6 @@
                                 <rect key="frame" x="188.5" y="777" width="37" height="37"/>
                                 <color key="color" systemColor="labelColor"/>
                             </activityIndicatorView>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="F4S-fb-dKS">
-                                <rect key="frame" x="188" y="433" width="118" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="oCj-n4-pLU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -240,10 +236,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="gray" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="WorkoutCell" id="RVl-fc-vIy" customClass="WorkoutCell" customModule="Hadge" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="75"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="RVl-fc-vIy" id="1ld-yI-hBl">
-                                    <rect key="frame" x="0.0" y="0.0" width="385.5" height="75"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383.5" height="84"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8gA-h1-WJt">
@@ -264,13 +260,13 @@
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Running" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVb-gR-FaF">
-                                            <rect key="frame" x="62" y="13.5" width="315.5" height="17"/>
+                                            <rect key="frame" x="62" y="12" width="313.5" height="20.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1km" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svM-LS-7K2">
-                                            <rect key="frame" x="297.5" y="15.5" width="80" height="14.5"/>
+                                            <rect key="frame" x="295.5" y="13.5" width="80" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="AJa-4K-cMa"/>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="Kys-85-bcI"/>
@@ -279,18 +275,18 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="51" translatesAutoresizingMaskIntoConstraints="NO" id="Gv3-yx-e9v">
-                                            <rect key="frame" x="62" y="30.5" width="315.5" height="29.5"/>
+                                            <rect key="frame" x="62" y="32.5" width="313.5" height="36.5"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pdm-tn-4pw">
-                                                    <rect key="frame" x="0.0" y="0.0" width="164.5" height="29"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="162.5" height="34"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bI-Ff-Mac">
-                                                            <rect key="frame" x="0.0" y="0.0" width="164.5" height="14.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="162.5" height="18"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apple Watch" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Orw-lP-uUc">
-                                                            <rect key="frame" x="0.0" y="14.5" width="164.5" height="14.5"/>
+                                                            <rect key="frame" x="0.0" y="18" width="162.5" height="16"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="gxi-dq-5Me"/>
                                                             </constraints>
@@ -306,10 +302,10 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZUE-5g-qDM">
-                                                    <rect key="frame" x="215.5" y="0.0" width="100" height="29"/>
+                                                    <rect key="frame" x="213.5" y="0.0" width="100" height="36"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="01:00:00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kdM-FE-Ebf">
-                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="14.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="100" id="Uxv-fM-liF"/>
                                                             </constraints>
@@ -318,7 +314,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1234cal" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07E-0H-1k9">
-                                                            <rect key="frame" x="0.0" y="14.5" width="100" height="14.5"/>
+                                                            <rect key="frame" x="0.0" y="18" width="100" height="18"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="UhS-ld-1Lc"/>
                                                             </constraints>
@@ -384,7 +380,7 @@
                 <navigationController title="Workouts Navigation Controller" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="dUI-fG-aZt" customClass="EntireNavigationController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Q3L-8w-pCl">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <rect key="frame" x="0.0" y="48" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -432,7 +428,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Welcome" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s4N-Rb-sFR">
-                                <rect key="frame" x="20" y="94" width="374" height="52"/>
+                                <rect key="frame" x="20" y="98" width="374" height="52"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="4sk-I8-VTI"/>
@@ -442,7 +438,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mew-qn-w4j">
-                                <rect key="frame" x="20" y="154" width="374" height="576"/>
+                                <rect key="frame" x="20" y="158" width="374" height="572"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Hadge exports your workout data to a private GitHub repository in your personal GitHub account. To do this, the app needs access to your Health data. Please provide this access through the button below. You can choose to disable this at any time in the Health app.
 
@@ -481,11 +477,11 @@ Hadge does not collect any data for any other purposes, and does not send any da
             <objects>
                 <viewController storyboardIdentifier="SetupViewController" id="2Hv-ma-IeC" customClass="SetupViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uqp-QL-hOs">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Initial export" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhu-Sx-z37">
-                                <rect key="frame" x="20" y="94" width="374" height="52"/>
+                                <rect key="frame" x="20" y="98" width="374" height="52"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="52" id="cul-Rl-DZO"/>
@@ -495,7 +491,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbR-l8-if7">
-                                <rect key="frame" x="20" y="154" width="374" height="595"/>
+                                <rect key="frame" x="20" y="158" width="374" height="587"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <string key="text">Hadge will create a private repository named "health", or use an existing repository with this name, and export your existing activity, distances, and workouts into csv files.</string>
                                 <color key="textColor" systemColor="labelColor"/>
@@ -503,7 +499,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Q3h-0n-yQq">
-                                <rect key="frame" x="188.5" y="757" width="37" height="37"/>
+                                <rect key="frame" x="188.5" y="753" width="37" height="37"/>
                                 <color key="color" systemColor="labelColor"/>
                             </activityIndicatorView>
                         </subviews>
@@ -554,7 +550,7 @@ Hadge does not collect any data for any other purposes, and does not send any da
             <objects>
                 <tableViewController title="Settings Controller" id="FLT-Sh-1zf" userLabel="Filter Controller" customClass="FilterViewController" customModule="Hadge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="DEU-pU-wCO">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
                         <connections>
@@ -578,13 +574,13 @@ Hadge does not collect any data for any other purposes, and does not send any da
     </scenes>
     <resources>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="placeholderTextColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
