@@ -17,5 +17,5 @@ runs:
       shell: bash
     - name: Output Xcode path
       id: xcode-path
-      run: echo "::set-output name=xcode-path::$(echo ${{ env.XCODE_PATH }})"
+      run: echo "name=xcode-path::$(echo ${{ env.XCODE_PATH }})" >> $GITHUB_OUTPUT
       shell: bash
