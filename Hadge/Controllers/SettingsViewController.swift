@@ -37,10 +37,6 @@ class SettingsViewController: EntireTableViewController {
     var aboutHelper = SettingsAboutHelper()
     var syncHelper = SettingsSyncHelper()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

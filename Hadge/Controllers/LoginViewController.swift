@@ -37,12 +37,12 @@ class LoginViewController: EntireViewController {
 
     @IBAction func enterToken(_ sender: Any) {
         let alertController = UIAlertController(title: "Use a Personal Access Token", message: "This option is only available for debugging purposes and will be removed from the release build.", preferredStyle: .alert)
-        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { _ -> Void in
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { _ in
             let textField = alertController.textFields![0] as UITextField
             GitHub.shared().storeToken(token: textField.text!)
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { _ -> Void in })
-        alertController.addTextField { (textField: UITextField!) -> Void in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { _ in })
+        alertController.addTextField { (textField: UITextField!) in
             textField.isSecureTextEntry = true
             textField.placeholder = "Paste your Token here"
         }
